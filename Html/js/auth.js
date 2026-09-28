@@ -59,6 +59,10 @@
       }
     },
 
+    // Chi de an/hien giao dien; quyen that do backend kiem tra
+    isStaff: () => ["STAFF", "MANAGER", "ADMIN"].includes(Auth.user()?.role),
+    isManager: () => ["MANAGER", "ADMIN"].includes(Auth.user()?.role),
+
     token: () => store().getItem(KEYS.token),
     refreshToken: () => store().getItem(KEYS.refresh),
     user: () => safeParse(store().getItem(KEYS.user)),
@@ -165,10 +169,14 @@
       document.querySelectorAll('[data-auth="user"]').forEach((el) => {
         el.classList.toggle("hidden", !loggedIn);
       });
+      document.querySelectorAll('[data-auth="staff"]').forEach((el) => {
+        el.classList.toggle("hidden", !(loggedIn && Auth.isStaff()));
+      });
       document.querySelectorAll("[data-auth-name]").forEach((el) => {
         el.textContent = user?.fullName || user?.email || "";
       });
-      document.querySelectorAll("[data-auth-logout]").forEach((el) => {
+      document.querySelectorAll("[data-auth-logout]:not([data-bound])").forEach((el) => {
+        el.dataset.bound = "1"; // renderHeader co the goi lai nhieu lan -> khong gan trung
         el.addEventListener("click", (e) => {
           e.preventDefault();
           Auth.logout();

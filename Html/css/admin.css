@@ -1,0 +1,118 @@
+/* Trang quan tri - drawer, toast, tab */
+
+.tab-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1rem;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+}
+.tab-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+.tab-link.is-active {
+  background: #48cae4;
+  color: #03045e;
+}
+
+/* Drawer truot tu phai vao */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: rgba(3, 4, 94, 0.35);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 71;
+  width: min(560px, 100vw);
+  background: #fff;
+  box-shadow: -20px 0 60px -20px rgba(3, 4, 94, 0.35);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s 0.4s;
+}
+body.drawer-open .drawer-backdrop {
+  opacity: 1;
+  pointer-events: auto;
+}
+body.drawer-open .drawer {
+  transform: none;
+  visibility: visible;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+body.drawer-open {
+  overflow: hidden;
+}
+
+/* Toast goc duoi */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  z-index: 90;
+  transform: translate(-50%, calc(100% + 3rem));
+  visibility: hidden;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+  background: #03045e;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: 0 20px 40px -10px rgba(3, 4, 94, 0.45);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), visibility 0s 0.35s;
+  max-width: calc(100vw - 2rem);
+}
+.toast.is-visible {
+  transform: translate(-50%, 0);
+  visibility: visible;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.toast.is-error {
+  background: #e11d48;
+}
+
+.row-link {
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.row-link:hover {
+  background: #ebf8fc;
+}
+
+/* Hang moi xuat hien lan luot */
+.row-in {
+  animation: row-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes row-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer,
+  .drawer-backdrop,
+  .toast {
+    transition: none;
+  }
+  .row-in {
+    animation: none;
+  }
+}

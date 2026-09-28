@@ -69,11 +69,11 @@ Mục tiêu: kéo xuống tới đâu, nội dung "diễn" tới đó — mượ
 
 ## Phase 4 — Đăng ký tư vấn (Lead)
 
-- [ ] 4.1 Migration `V2__consultations.sql` (status NEW/CONTACTED/QUOTED/WON/LOST, assigned_staff_id)
-- [ ] 4.2 `POST /api/consultations` public + chống spam
-- [ ] 4.3 API staff: list/filter/phân công/đổi trạng thái
-- [ ] 4.4 Gắn form tư vấn trên landing (animation gửi thành công)
-- [ ] 4.5 Test + `TC_consultation.md`
+- [x] 4.1 Migration `V3__consultations.sql` (V2 đã dùng cho status) (status NEW/CONTACTED/QUOTED/WON/LOST, assigned_staff_id)
+- [x] 4.2 `POST /api/consultations` public + chống spam (honeypot + 5 lần/10 phút/IP)
+- [x] 4.3 API staff: list/filter/phân công/đổi trạng thái
+- [x] 4.4 Gắn form tư vấn trên landing (animation gửi thành công)
+- [x] 4.5 Test + `TC_consultation.md`, `TC_staff_leads.md`
 - **Mốc đánh giá #4**
 
 ## Phase 5 — Theo dõi dự án (Customer Portal)
@@ -172,3 +172,11 @@ code → test tự động → test tay trên UI → `docs/testcases/TC_<tên>.m
 - **Nợ kỹ thuật**: GSAP/Lenis đang load từ CDN (khi hardening có thể tự host). Chưa đo Lighthouse (Phase 8.4).
 - **Fix sau review của chủ dự án**: chuyển trang bị chớp vài lần (màn che JS: trang mới vẽ trắng trước khi script gắn màn che + Tailwind CDN sinh CSS lúc chạy). Đổi sang View Transitions API (trình duyệt giữ ảnh trang cũ tới khi trang mới sẵn sàng) + build Tailwind tĩnh (`npm run build:css`). Xoá `js/page-transition.js`, `js/tailwind-config.js`.
 - **Tiếp theo**: Phase 4 — Đăng ký tư vấn (Lead).
+
+### Mốc #4 — Phase 4 (2026-09-28) ✅
+- **Kết quả**: 91/91 test tự động (thêm 28 test lead). Test UI: khách vãng lai gửi form, khách đăng nhập gửi form (tự điền), hồ sơ hiện yêu cầu, admin lọc/tìm/mở drawer/phân công/đổi trạng thái, khách bị chặn khỏi trang quản trị. 2 file testcase (18 + 19 case).
+- **Đã làm**: bảng `consultation_requests` (V3), API public + `/mine`, API staff (lọc, tìm, phân trang, luồng trạng thái, phân quyền STAFF/MANAGER), tạo ADMIN đầu tiên từ env (kéo từ 9.5 lên), `admin.html` dạng console có tab (các phase sau thêm tab), `js/labels.js`, form tư vấn 2 cột trên trang chủ.
+- **Bug bắt được**: email có khoảng trắng bị `@Email` chặn (record không có setter → compact constructor); tên admin mặc định bị lỗi font vì `.properties` đọc ISO-8859-1 (đưa mặc định vào code Java); toast rỗng lấp ló ở đáy; nút logout bị gắn listener trùng khi `renderHeader()` gọi lại.
+- **Quyết định bảo mật**: `/mine` chỉ lấy theo `customer_id`, **không** ghép theo email (email chưa xác thực → người khác đăng ký bằng email của nạn nhân sẽ xem được lead).
+- **Nợ kỹ thuật**: rate limit lưu RAM (1 instance); sau proxy cần `server.forward-headers-strategy` để lấy IP thật (Phase 9).
+- **Tiếp theo**: Phase 5 — Theo dõi dự án.

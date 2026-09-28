@@ -120,6 +120,13 @@
             href="register.html"
             >Tạo tài khoản</a
           ><a
+            data-auth="staff"
+            class="hidden inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-white bg-dark-navy hover:bg-primary transition-colors px-2.5 py-1.5 rounded-lg"
+            href="admin.html"
+            title="Trang quản trị"
+            ><span class="material-symbols-outlined text-lg">dashboard</span
+            ><span class="hidden sm:inline">Quản trị</span></a
+          ><a
             data-auth="user"
             class="hidden inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-dark-navy hover:text-primary transition-colors px-2 py-1.5 rounded-md max-w-[160px]"
             href="profile.html"
@@ -1113,40 +1120,140 @@
         </div>
       </div>
     </section>
-    <!-- 7. FINAL CTA SECTION -->
+    <!-- 7. FORM NHAN TU VAN (gui len /api/consultations) -->
     <section
-      class="bg-gradient-to-b from-white via-surface to-surface-alt/60 py-20 md:py-28 text-center border-b border-border/80"
+      class="bg-gradient-to-b from-white via-surface to-surface-alt/60 py-20 md:py-28 border-b border-border/80"
       id="contact"
     >
-      <div
-        data-stagger="fade-up"
-        class="max-w-4xl mx-auto px-6 md:px-12 space-y-6"
-      >
-        <span
-          class="inline-block px-3.5 py-1 rounded-full bg-secondary/30 text-dark-navy text-xs font-semibold"
-        >
-          Khởi đầu sự phát triển số
-        </span>
-        <h2
-          class="font-headline text-3xl sm:text-4xl lg:text-5xl font-bold text-dark-navy tracking-tight"
-        >
-          Bạn đã có ý tưởng website?
-        </h2>
-        <p
-          class="font-body text-base sm:text-lg text-text-muted max-w-xl mx-auto"
-        >
-          Hãy để SeaSoft biến ý tưởng thành website thực tế. Đội ngũ chuyên viên
-          sẽ tư vấn lộ trình và báo giá chi tiết trong vòng 24 giờ.
-        </p>
-        <div class="pt-4">
-          <a
-            data-magnetic="0.4"
-            class="inline-flex items-center justify-center px-8 py-4 text-base sm:text-lg font-semibold text-white bg-primary hover:bg-[#34b6d0] active:scale-95 transition-[background-color,box-shadow] duration-150 rounded-lg shadow-lg hover:shadow-cyanGlow"
-            href="#contact"
+      <div class="max-w-6xl mx-auto px-6 md:px-12 grid lg:grid-cols-12 gap-12 items-start">
+        <!-- Cot trai: loi moi + thong tin -->
+        <div data-stagger="fade-right" class="lg:col-span-5 space-y-6 lg:sticky lg:top-28">
+          <span
+            class="inline-block px-3.5 py-1 rounded-full bg-secondary/30 text-dark-navy text-xs font-semibold"
           >
-            Nhận tư vấn miễn phí
-            <span class="material-symbols-outlined ml-2 text-xl">send</span>
-          </a>
+            Khởi đầu sự phát triển số
+          </span>
+          <h2
+            class="font-headline text-3xl sm:text-4xl lg:text-5xl font-bold text-dark-navy tracking-tight"
+          >
+            Bạn đã có ý tưởng website?
+          </h2>
+          <p class="font-body text-base sm:text-lg text-text-muted">
+            Để lại thông tin, chuyên viên SeaSoft sẽ tư vấn lộ trình và báo giá
+            chi tiết trong vòng 24 giờ làm việc — hoàn toàn miễn phí.
+          </p>
+          <ul class="space-y-3 text-sm text-text-secondary">
+            <li class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-primary/15 text-primary flex items-center justify-center">
+                <span class="material-symbols-outlined text-lg">schedule</span>
+              </span>
+              Phản hồi trong 24 giờ làm việc
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-primary/15 text-primary flex items-center justify-center">
+                <span class="material-symbols-outlined text-lg">request_quote</span>
+              </span>
+              Báo giá minh bạch, không phát sinh
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-primary/15 text-primary flex items-center justify-center">
+                <span class="material-symbols-outlined text-lg">call</span>
+              </span>
+              Hotline: <b class="text-dark-navy">(+84) 28 8888 6688</b>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Cot phai: form -->
+        <div data-reveal="fade-left" class="lg:col-span-7">
+          <div class="relative bg-white rounded-2xl shadow-cardHover border border-border/70 p-6 sm:p-8">
+            <form id="consult-form" novalidate class="grid sm:grid-cols-2 gap-4">
+              <div class="space-y-1.5">
+                <label for="cf-name" class="block text-sm font-semibold text-dark-navy">Họ tên *</label>
+                <input id="cf-name" name="fullName" type="text" maxlength="150" autocomplete="name" placeholder="Nguyễn Văn A"
+                  class="w-full bg-white border border-border rounded-xl py-3 px-4 text-sm text-dark-navy placeholder:text-gray-400 focus:border-primary focus:ring-primary/20 focus:ring-4" />
+                <p data-error-for="fullName" class="hidden text-xs text-red-500"></p>
+              </div>
+              <div class="space-y-1.5">
+                <label for="cf-phone" class="block text-sm font-semibold text-dark-navy">Số điện thoại *</label>
+                <input id="cf-phone" name="phone" type="tel" maxlength="20" autocomplete="tel" placeholder="0901 234 567"
+                  class="w-full bg-white border border-border rounded-xl py-3 px-4 text-sm text-dark-navy placeholder:text-gray-400 focus:border-primary focus:ring-primary/20 focus:ring-4" />
+                <p data-error-for="phone" class="hidden text-xs text-red-500"></p>
+              </div>
+              <div class="space-y-1.5">
+                <label for="cf-email" class="block text-sm font-semibold text-dark-navy">Email *</label>
+                <input id="cf-email" name="email" type="email" maxlength="150" autocomplete="email" placeholder="ban@congty.vn"
+                  class="w-full bg-white border border-border rounded-xl py-3 px-4 text-sm text-dark-navy placeholder:text-gray-400 focus:border-primary focus:ring-primary/20 focus:ring-4" />
+                <p data-error-for="email" class="hidden text-xs text-red-500"></p>
+              </div>
+              <div class="space-y-1.5">
+                <label for="cf-company" class="block text-sm font-semibold text-dark-navy">Công ty</label>
+                <input id="cf-company" name="companyName" type="text" maxlength="200" autocomplete="organization" placeholder="Tên doanh nghiệp"
+                  class="w-full bg-white border border-border rounded-xl py-3 px-4 text-sm text-dark-navy placeholder:text-gray-400 focus:border-primary focus:ring-primary/20 focus:ring-4" />
+                <p data-error-for="companyName" class="hidden text-xs text-red-500"></p>
+              </div>
+              <div class="space-y-1.5">
+                <label for="cf-service" class="block text-sm font-semibold text-dark-navy">Dịch vụ quan tâm *</label>
+                <select id="cf-service" name="serviceType"
+                  class="w-full bg-white border border-border rounded-xl py-3 px-4 text-sm text-dark-navy focus:border-primary focus:ring-primary/20 focus:ring-4">
+                  <option value="">— Chọn dịch vụ —</option>
+                  <option value="CORPORATE_WEBSITE">Website doanh nghiệp</option>
+                  <option value="LANDING_PAGE">Landing Page</option>
+                  <option value="ECOMMERCE">Website bán hàng</option>
+                  <option value="CUSTOM">Website theo yêu cầu</option>
+                  <option value="MAINTENANCE">Bảo trì &amp; nâng cấp</option>
+                  <option value="OTHER">Khác</option>
+                </select>
+                <p data-error-for="serviceType" class="hidden text-xs text-red-500"></p>
+              </div>
+              <div class="space-y-1.5">
+                <label for="cf-budget" class="block text-sm font-semibold text-dark-navy">Ngân sách dự kiến</label>
+                <select id="cf-budget" name="budgetRange"
+                  class="w-full bg-white border border-border rounded-xl py-3 px-4 text-sm text-dark-navy focus:border-primary focus:ring-primary/20 focus:ring-4">
+                  <option value="UNDECIDED">Chưa xác định</option>
+                  <option value="UNDER_20M">Dưới 20 triệu</option>
+                  <option value="FROM_20M_TO_50M">20 – 50 triệu</option>
+                  <option value="FROM_50M_TO_100M">50 – 100 triệu</option>
+                  <option value="OVER_100M">Trên 100 triệu</option>
+                </select>
+              </div>
+              <div class="space-y-1.5 sm:col-span-2">
+                <label for="cf-message" class="block text-sm font-semibold text-dark-navy">Mô tả nhu cầu</label>
+                <textarea id="cf-message" name="message" rows="4" maxlength="2000" placeholder="Ví dụ: website giới thiệu công ty 5 trang, có blog, song ngữ Việt – Anh…"
+                  class="w-full bg-white border border-border rounded-xl py-3 px-4 text-sm text-dark-navy placeholder:text-gray-400 focus:border-primary focus:ring-primary/20 focus:ring-4 resize-y"></textarea>
+                <p data-error-for="message" class="hidden text-xs text-red-500"></p>
+              </div>
+              <!-- Honeypot chong bot: nguoi that khong thay, khong dien -->
+              <div class="absolute -left-[9999px] w-px h-px overflow-hidden" aria-hidden="true">
+                <label for="cf-website">Website</label>
+                <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+              </div>
+              <div class="sm:col-span-2 space-y-3 pt-1">
+                <button id="cf-submit" type="submit" data-magnetic="0.25"
+                  class="w-full inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-white bg-primary hover:bg-[#34b6d0] disabled:opacity-70 disabled:cursor-wait transition-[background-color,box-shadow] duration-150 rounded-xl shadow-lg hover:shadow-cyanGlow">
+                  <span id="cf-submit-text">Nhận tư vấn miễn phí</span>
+                  <span class="material-symbols-outlined text-xl">send</span>
+                </button>
+                <p id="cf-error" class="hidden rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-600"></p>
+                <p class="text-xs text-text-muted text-center">
+                  Thông tin của bạn chỉ dùng để SeaSoft liên hệ tư vấn.
+                </p>
+              </div>
+            </form>
+
+            <!-- Trang thai gui thanh cong -->
+            <div id="cf-success" class="hidden py-10 text-center space-y-4" role="status" aria-live="polite">
+              <svg class="cf-check mx-auto" width="84" height="84" viewBox="0 0 84 84" aria-hidden="true">
+                <circle cx="42" cy="42" r="38" fill="none" stroke="#48CAE4" stroke-width="5" />
+                <path d="M26 43 l11 11 l21 -23" fill="none" stroke="#03045E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <h3 class="font-headline text-2xl font-bold text-dark-navy">Gửi thành công!</h3>
+              <p id="cf-success-text" class="text-text-muted max-w-sm mx-auto"></p>
+              <button id="cf-again" type="button" class="text-sm font-semibold text-primary hover:text-dark-navy">
+                Gửi yêu cầu khác
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1340,6 +1447,8 @@
       </div>
     </footer>
     <script src="js/auth.js"></script>
+    <script src="js/labels.js"></script>
+    <script src="js/consultation-form.js"></script>
     <!-- Hieu ung cuon: GSAP + ScrollTrigger + Lenis (smooth scroll) -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>

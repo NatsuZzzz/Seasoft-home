@@ -13,6 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
@@ -78,6 +79,30 @@ public abstract class ApiTestBase {
         return register("Test User", email, null, PASSWORD)
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
+    }
+
+    // Tao user moi voi role cho truoc (STAFF/MANAGER/ADMIN/CUSTOMER), tra ve "Bearer <token>"
+    protected String userWithRole(String role, String email) throws Exception {
+        registerOk(email);
+        sql("update users set role_id = (select id from roles where code = ?) where email = ?", role, email);
+        return bearer(login(email, PASSWORD).andExpect(status().isOk()).andReturn().getResponse().getContentAsString());
+    }
+
+    protected String userId(String email) {
+        return queryOne("select id::text from users where email = ?", String.class, email);
+    }
+
+    // Gia lap request den tu IP khac (rate limit tinh theo IP)
+    protected static RequestPostProcessor fromIp(String ip) {
+        return req -> {
+            req.setRemoteAddr(ip);
+            return req;
+        };
+    }
+
+    protected static String randomIp() {
+        java.util.concurrent.ThreadLocalRandom r = java.util.concurrent.ThreadLocalRandom.current();
+        return "10." + r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(1, 255);
     }
 
     protected static String json(String body, String path) {
