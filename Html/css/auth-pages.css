@@ -74,6 +74,101 @@
   background-size: 28px 28px;
 }
 
+/* ---------- Tien do du an ---------- */
+.progress-track {
+  height: 8px;
+  border-radius: 9999px;
+  background: #ebf8fc;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #48cae4, #03045e);
+  transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Vong tron % (SVG), JS dat --p = 0..100 */
+.progress-ring circle.value {
+  stroke-dasharray: 327;
+  stroke-dashoffset: 327;
+  transition: stroke-dashoffset 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+/* Timeline moc tien do */
+.timeline {
+  position: relative;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 15px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: #e2e8f0;
+}
+.timeline-item {
+  position: relative;
+  padding-left: 48px;
+}
+.timeline-dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 2px solid #e2e8f0;
+  color: #9ca3af;
+}
+.timeline-item.is-done .timeline-dot {
+  background: #48cae4;
+  border-color: #48cae4;
+  color: #03045e;
+}
+.timeline-item.is-doing .timeline-dot {
+  border-color: #48cae4;
+  color: #48cae4;
+  box-shadow: 0 0 0 6px rgba(72, 202, 228, 0.18);
+  animation: pulse-ring 1.8s ease-out infinite;
+}
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(72, 202, 228, 0.45);
+  }
+  100% {
+    box-shadow: 0 0 0 12px rgba(72, 202, 228, 0);
+  }
+}
+
+/* Cac the xuat hien lan luot */
+.stagger-in > * {
+  animation: fadeSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.stagger-in > *:nth-child(2) { animation-delay: 0.08s; }
+.stagger-in > *:nth-child(3) { animation-delay: 0.16s; }
+.stagger-in > *:nth-child(4) { animation-delay: 0.24s; }
+.stagger-in > *:nth-child(n + 5) { animation-delay: 0.32s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-fill,
+  .progress-ring circle.value {
+    transition: none;
+  }
+  .timeline-item.is-doing .timeline-dot,
+  .stagger-in > * {
+    animation: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .blob-float,
   .blob-float-2,

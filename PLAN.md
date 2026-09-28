@@ -78,10 +78,10 @@ Mục tiêu: kéo xuống tới đâu, nội dung "diễn" tới đó — mượ
 
 ## Phase 5 — Theo dõi dự án (Customer Portal)
 
-- [ ] 5.1 Migration `V3__projects.sql`: projects, project_milestones, project_updates
-- [ ] 5.2 API staff tạo/cập nhật, customer chỉ xem dự án của mình (test IDOR)
-- [ ] 5.3 `dashboard.html`: danh sách dự án, progress bar animate, timeline
-- [ ] 5.4 Test + `TC_project.md`
+- [x] 5.1 Migration `V4__projects.sql`: projects, project_milestones, project_updates
+- [x] 5.2 API staff tạo/cập nhật, customer chỉ xem dự án của mình (test IDOR)
+- [x] 5.3 `dashboard.html` + `project.html`: danh sách dự án, progress bar animate, timeline
+- [x] 5.4 Test + `TC_project_staff.md`, `TC_project_customer.md`
 - **Mốc đánh giá #5**
 
 ## Phase 6 — Admin / Manager Panel
@@ -180,3 +180,10 @@ code → test tự động → test tay trên UI → `docs/testcases/TC_<tên>.m
 - **Quyết định bảo mật**: `/mine` chỉ lấy theo `customer_id`, **không** ghép theo email (email chưa xác thực → người khác đăng ký bằng email của nạn nhân sẽ xem được lead).
 - **Nợ kỹ thuật**: rate limit lưu RAM (1 instance); sau proxy cần `server.forward-headers-strategy` để lấy IP thật (Phase 9).
 - **Tiếp theo**: Phase 5 — Theo dõi dự án.
+
+### Mốc #5 — Phase 5 (2026-09-28) ✅
+- **Kết quả**: 115/115 test tự động (thêm 24 test dự án), pass ngay lần đầu. Test UI end-to-end: lead WON → tạo dự án (mã SS-2026-0001, 5 giai đoạn) → cập nhật giai đoạn (40%, tự chuyển "Đang thực hiện") → đăng cập nhật công khai/nội bộ → khách xem dashboard + chi tiết (vòng tròn %, timeline) → khách bình luận → IDOR bị chặn (404). 4 mail thông báo đúng người. 2 file testcase (17 + 14 case).
+- **Đã làm**: V4 (projects, project_milestones, project_updates, sequence mã dự án), API staff + API khách, tab "Dự án" trong admin (tạo từ lead / theo email khách, drawer chi tiết), `dashboard.html`, `project.html`, `js/portal.js`, nút "Tạo dự án từ lead này" trong tab Leads, link "Dự án của tôi" ở header.
+- **Thiết kế bảo mật**: khách truy cập dự án qua `findByIdAndCustomerId` → dự án người khác trả 404 chứ không phải 403.
+- **Dữ liệu demo** (DB dev): khách `demo.khach@seasoft.test` + dự án SS-2026-0001 để chủ dự án xem thử.
+- **Tiếp theo**: Phase 6 — Admin/Manager panel (người dùng + thống kê).

@@ -33,6 +33,18 @@
       WON: [],
       LOST: ["CONTACTED"],
     },
+    projectStatus: {
+      PLANNING: "Lên kế hoạch",
+      IN_PROGRESS: "Đang thực hiện",
+      ON_HOLD: "Tạm dừng",
+      COMPLETED: "Hoàn thành",
+      CANCELLED: "Đã huỷ",
+    },
+    milestoneStatus: {
+      TODO: "Chưa bắt đầu",
+      IN_PROGRESS: "Đang làm",
+      DONE: "Hoàn thành",
+    },
     role: {
       CUSTOMER: "Khách hàng",
       STAFF: "Nhân viên",
@@ -46,6 +58,13 @@
       QUOTED: "bg-violet-50 text-violet-700 ring-violet-200",
       WON: "bg-emerald-50 text-emerald-700 ring-emerald-200",
       LOST: "bg-rose-50 text-rose-700 ring-rose-200",
+      PLANNING: "bg-sky-50 text-sky-700 ring-sky-200",
+      IN_PROGRESS: "bg-amber-50 text-amber-700 ring-amber-200",
+      ON_HOLD: "bg-gray-100 text-gray-600 ring-gray-200",
+      COMPLETED: "bg-emerald-50 text-emerald-700 ring-emerald-200",
+      CANCELLED: "bg-rose-50 text-rose-700 ring-rose-200",
+      TODO: "bg-gray-50 text-gray-600 ring-gray-200",
+      DONE: "bg-emerald-50 text-emerald-700 ring-emerald-200",
     },
   };
 

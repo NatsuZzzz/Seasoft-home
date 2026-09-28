@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Chi tiết dự án — SeaSoft</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/tailwind.css" />
+    <link rel="stylesheet" href="css/auth-pages.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <script src="js/auth.js"></script>
+    <script>Auth.requireAuth();</script>
+  </head>
+
+  <body class="min-h-screen bg-surface font-body antialiased overflow-x-hidden text-dark-navy">
+    <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+      <div class="blob-float absolute -top-32 -left-32 w-[520px] h-[520px] rounded-full bg-secondary/20 blur-3xl"></div>
+      <div class="absolute inset-0 dot-grid opacity-60"></div>
+    </div>
+
+    <div id="site-header"></div>
+
+    <main class="px-4 py-8">
+      <div class="max-w-screen-lg mx-auto space-y-6">
+        <a href="dashboard.html" class="inline-flex items-center gap-1 text-sm font-semibold text-text-muted hover:text-primary">
+          <span class="material-symbols-outlined text-base">arrow_back</span> Dự án của tôi
+        </a>
+
+        <p id="error" class="hidden text-sm text-red-600 bg-red-50 rounded-xl p-4"></p>
+
+        <div id="content" class="hidden space-y-6">
+          <!-- Tong quan -->
+          <section class="glass-card rounded-2xl border border-border/70 shadow-cardHover p-6 sm:p-8 grid gap-6 md:grid-cols-[1fr_auto] items-center fade-slide-up">
+            <div class="space-y-3">
+              <p id="p-meta" class="text-xs font-semibold text-text-muted"></p>
+              <h1 id="p-name" class="text-2xl sm:text-3xl font-bold"></h1>
+              <div id="p-status"></div>
+              <p id="p-desc" class="text-sm text-text-muted whitespace-pre-wrap"></p>
+              <dl class="flex flex-wrap gap-x-8 gap-y-2 text-sm pt-2">
+                <div><dt class="text-xs text-text-muted">Phụ trách</dt><dd id="p-manager" class="font-semibold"></dd></div>
+                <div><dt class="text-xs text-text-muted">Bắt đầu</dt><dd id="p-start" class="font-semibold"></dd></div>
+                <div><dt class="text-xs text-text-muted">Dự kiến bàn giao</dt><dd id="p-due" class="font-semibold"></dd></div>
+              </dl>
+            </div>
+            <!-- Vong tron tien do -->
+            <div class="relative w-36 h-36 mx-auto">
+              <svg class="progress-ring w-full h-full" viewBox="0 0 120 120" aria-hidden="true">
+                <circle cx="60" cy="60" r="52" fill="none" stroke="#EBF8FC" stroke-width="12" />
+                <circle class="value" id="ring" cx="60" cy="60" r="52" fill="none" stroke="url(#ringGrad)" stroke-width="12" stroke-linecap="round" />
+                <defs>
+                  <linearGradient id="ringGrad" x1="0" x2="1" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#48CAE4" /><stop offset="100%" stop-color="#03045E" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div class="absolute inset-0 flex flex-col items-center justify-center">
+                <span id="p-progress" class="text-3xl font-bold tabular-nums">0%</span>
+                <span class="text-xs text-text-muted">hoàn thành</span>
+              </div>
+            </div>
+          </section>
+
+          <div class="grid gap-6 lg:grid-cols-5">
+            <!-- Moc tien do -->
+            <section class="lg:col-span-3 glass-card rounded-2xl border border-border/70 shadow-card p-6 sm:p-8 fade-slide-up fade-slide-up-d1">
+              <h2 class="font-bold text-lg mb-6 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">timeline</span> Các giai đoạn
+              </h2>
+              <ol id="milestones" class="timeline space-y-6 stagger-in"></ol>
+            </section>
+
+            <!-- Trao doi -->
+            <section class="lg:col-span-2 glass-card rounded-2xl border border-border/70 shadow-card p-6 sm:p-8 fade-slide-up fade-slide-up-d2 flex flex-col gap-4">
+              <h2 class="font-bold text-lg flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">forum</span> Cập nhật & trao đổi
+              </h2>
+              <form id="comment-form" class="space-y-2">
+                <label for="comment" class="sr-only">Nội dung trao đổi</label>
+                <textarea id="comment" rows="3" maxlength="2000" placeholder="Gửi câu hỏi hoặc góp ý cho đội ngũ SeaSoft…"
+                  class="form-input-sea w-full bg-white border border-border rounded-xl py-3 px-4 text-sm focus:ring-0"></textarea>
+                <div class="flex items-center justify-between gap-2">
+                  <span id="comment-msg" class="text-xs"></span>
+                  <button id="comment-btn" class="btn-submit bg-primary text-white text-sm font-semibold rounded-xl px-5 py-2.5">Gửi</button>
+                </div>
+              </form>
+              <ul id="updates" class="space-y-4"></ul>
+              <p id="updates-empty" class="hidden text-sm text-text-muted">Chưa có cập nhật nào.</p>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="js/labels.js"></script>
+    <script src="js/portal.js"></script>
+    <script>
+      document.getElementById("site-header").innerHTML = Portal.header();
+      const L = Labels;
+      const id = new URLSearchParams(location.search).get("id");
+      const $ = (s) => document.getElementById(s);
+
+      function renderUpdates(updates) {
+        $("updates-empty").classList.toggle("hidden", updates.length > 0);
+        $("updates").innerHTML = updates
+          .map((u) => {
+            const isCustomer = u.authorRole === "CUSTOMER";
+            return `<li class="rounded-xl p-4 ${isCustomer ? "bg-surface-alt ml-6" : "bg-white border border-border"}">
+              <p class="text-xs text-text-muted mb-1"><b class="text-dark-navy">${L.esc(isCustomer ? "Bạn" : u.authorName)}</b>
+                ${isCustomer ? "" : "· SeaSoft"} · ${L.date(u.createdAt)}</p>
+              <p class="text-sm whitespace-pre-wrap">${L.esc(u.content)}</p></li>`;
+          })
+          .join("");
+      }
+
+      function render(d) {
+        const p = d.summary;
+        document.title = p.name + " — SeaSoft";
+        $("p-meta").textContent = p.code + " · " + L.service[p.serviceType];
+        $("p-name").textContent = p.name;
+        $("p-status").innerHTML = L.statusBadge(p.status, L.projectStatus);
+        $("p-desc").textContent = d.description || "";
+        $("p-manager").textContent = p.managerName || "—";
+        $("p-start").textContent = p.startDate ? L.date(p.startDate, false) : "—";
+        $("p-due").textContent = p.dueDate ? L.date(p.dueDate, false) : "—";
+
+        // Vong tron: chu vi 2*pi*52 ~ 327
+        const ring = $("ring");
+        ring.getBoundingClientRect();
+        setTimeout(() => (ring.style.strokeDashoffset = 327 - (327 * p.progress) / 100), 50);
+        // So chay tu 0 -> progress
+        const start = performance.now();
+        const tick = (now) => {
+          const t = Math.min(1, (now - start) / 1200);
+          $("p-progress").textContent = Math.round(p.progress * (1 - Math.pow(1 - t, 3))) + "%";
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+        setTimeout(() => ($("p-progress").textContent = p.progress + "%"), 1300);
+
+        $("milestones").innerHTML = d.milestones
+          .map((m) => {
+            const cls = m.status === "DONE" ? "is-done" : m.status === "IN_PROGRESS" ? "is-doing" : "";
+            const icon = m.status === "DONE" ? "check" : m.status === "IN_PROGRESS" ? "autorenew" : "radio_button_unchecked";
+            return `<li class="timeline-item ${cls}">
+              <span class="timeline-dot"><span class="material-symbols-outlined text-lg">${icon}</span></span>
+              <div class="flex flex-wrap items-center gap-2"><h3 class="font-semibold">${L.esc(m.title)}</h3>
+                ${L.statusBadge(m.status, L.milestoneStatus)}</div>
+              ${m.description ? `<p class="text-sm text-text-muted mt-1">${L.esc(m.description)}</p>` : ""}
+              <p class="text-xs text-text-muted mt-1">${
+                m.completedAt ? "Hoàn thành " + L.date(m.completedAt) : m.dueDate ? "Hạn " + L.date(m.dueDate, false) : ""
+              }</p></li>`;
+          })
+          .join("");
+        renderUpdates(d.updates);
+        $("content").classList.remove("hidden");
+      }
+
+      function showError(msg) {
+        $("error").textContent = msg;
+        $("error").classList.remove("hidden");
+      }
+
+      if (!id) showError("Thiếu mã dự án.");
+      else Auth.api("/api/projects/" + encodeURIComponent(id)).then(render).catch((e) => showError(e.message));
+
+      $("comment-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const content = $("comment").value.trim();
+        const msg = $("comment-msg");
+        if (!content) return;
+        $("comment-btn").disabled = true;
+        try {
+          await Auth.api(`/api/projects/${encodeURIComponent(id)}/comments`, { method: "POST", body: { content } });
+          $("comment").value = "";
+          msg.textContent = "Đã gửi ✓";
+          msg.className = "text-xs text-green-600";
+          const d = await Auth.api("/api/projects/" + encodeURIComponent(id));
+          renderUpdates(d.updates);
+        } catch (err) {
+          msg.textContent = err.message;
+          msg.className = "text-xs text-red-600";
+        } finally {
+          $("comment-btn").disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>

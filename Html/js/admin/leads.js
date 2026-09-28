@@ -115,6 +115,10 @@
           <textarea id="d-note" rows="4" maxlength="5000" class="w-full border border-border rounded-xl py-2.5 px-3 text-sm" ${mineOrManager ? "" : "disabled"}>${esc(c.internalNote || "")}</textarea>
         </div>
         ${mineOrManager ? "" : '<p class="text-xs text-amber-600">Bạn cần nhận lead này trước khi cập nhật.</p>'}
+        ${c.status === "WON" && mineOrManager
+          ? `<button id="d-project" class="w-full inline-flex items-center justify-center gap-2 border-2 border-primary text-dark-navy rounded-xl py-2.5 text-sm font-semibold hover:bg-surface-alt">
+              <span class="material-symbols-outlined text-lg">rocket_launch</span> Tạo dự án từ lead này</button>`
+          : ""}
         <p id="d-error" class="hidden text-sm text-red-600 bg-red-50 rounded-xl p-3"></p>
         <button id="d-save" class="w-full bg-primary text-white rounded-xl py-3 font-semibold hover:bg-[#34b6d0] disabled:opacity-50" ${mineOrManager ? "" : "disabled"}>Lưu thay đổi</button>
       </div>`);
@@ -124,6 +128,11 @@
       p.textContent = msg;
       p.classList.remove("hidden");
     };
+
+    body.querySelector("#d-project")?.addEventListener("click", () => {
+      location.hash = "projects";
+      window.AdminProjects?.openCreate(c.id);
+    });
 
     body.querySelector("#d-claim")?.addEventListener("click", async () => {
       try {

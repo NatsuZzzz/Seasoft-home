@@ -106,6 +106,57 @@
             </div>
           </div>
         </section>
+        <!-- ================= TAB: DU AN ================= -->
+        <section data-tab="projects" class="hidden space-y-6">
+          <header class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h1 class="text-2xl sm:text-3xl font-bold">Dự án</h1>
+              <p class="text-sm text-text-muted mt-1"><span id="prj-total">0</span> dự án phù hợp bộ lọc</p>
+            </div>
+            <button id="prj-new" class="inline-flex items-center gap-1.5 text-sm font-semibold bg-primary text-white rounded-lg px-4 py-2.5 hover:bg-[#34b6d0]">
+              <span class="material-symbols-outlined text-lg">add</span> Tạo dự án
+            </button>
+          </header>
+
+          <div class="bg-white rounded-2xl border border-border shadow-card p-4 flex flex-wrap gap-3 items-center">
+            <div class="relative flex-1 min-w-[200px]">
+              <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-lg">search</span>
+              <input id="prj-q" type="search" placeholder="Tìm mã, tên dự án, khách hàng…"
+                class="w-full border border-border rounded-xl py-2.5 pl-10 pr-3 text-sm focus:border-primary focus:ring-primary/20 focus:ring-4" />
+            </div>
+            <select id="prj-status" class="border border-border rounded-xl py-2.5 px-3 text-sm focus:border-primary focus:ring-primary/20 focus:ring-4">
+              <option value="">Mọi trạng thái</option>
+            </select>
+            <select id="prj-scope" class="border border-border rounded-xl py-2.5 px-3 text-sm focus:border-primary focus:ring-primary/20 focus:ring-4">
+              <option value="all">Tất cả</option>
+              <option value="mine">Tôi phụ trách</option>
+            </select>
+          </div>
+
+          <div class="bg-white rounded-2xl border border-border shadow-card overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead class="bg-surface-alt/60 text-left text-xs uppercase tracking-wide text-text-muted">
+                  <tr>
+                    <th class="px-4 py-3 font-semibold">Dự án</th>
+                    <th class="px-4 py-3 font-semibold hidden md:table-cell">Khách hàng</th>
+                    <th class="px-4 py-3 font-semibold">Trạng thái</th>
+                    <th class="px-4 py-3 font-semibold w-40">Tiến độ</th>
+                    <th class="px-4 py-3 font-semibold hidden lg:table-cell">Phụ trách</th>
+                    <th class="px-4 py-3 font-semibold hidden lg:table-cell">Hạn</th>
+                  </tr>
+                </thead>
+                <tbody id="prj-rows" class="divide-y divide-border"></tbody>
+              </table>
+            </div>
+            <div id="prj-empty" class="hidden p-10 text-center text-text-muted text-sm">Chưa có dự án nào.</div>
+            <div class="flex items-center justify-between px-4 py-3 border-t border-border text-sm">
+              <button id="prj-prev" class="px-3 py-1.5 rounded-lg border border-border disabled:opacity-40 hover:border-primary">← Trước</button>
+              <span id="prj-page" class="text-text-muted"></span>
+              <button id="prj-next" class="px-3 py-1.5 rounded-lg border border-border disabled:opacity-40 hover:border-primary">Sau →</button>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
 
@@ -126,7 +177,9 @@
 
     <script src="js/labels.js"></script>
     <script src="js/admin/core.js"></script>
+    <script src="js/portal.js"></script>
     <script src="js/admin/leads.js"></script>
+    <script src="js/admin/projects.js"></script>
     <script>AdminApp.start();</script>
   </body>
 </html>
