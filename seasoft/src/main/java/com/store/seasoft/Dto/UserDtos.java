@@ -30,8 +30,9 @@ public final class UserDtos {
     }
 
     public record ChangePasswordRequest(
-            @NotBlank(message = "Nhập mật khẩu hiện tại") String currentPassword,
+            @NotBlank(message = "Nhập mật khẩu hiện tại")
+            @Size(max = 100, message = "Mật khẩu tối đa 100 ký tự") String currentPassword,
             @NotBlank(message = "Mật khẩu mới không được để trống")
-            @Size(min = 6, max = 100, message = "Mật khẩu từ 6 đến 100 ký tự") String newPassword) {
+            @Size(min = 8, max = 100, message = "Mật khẩu từ 8 đến 100 ký tự") String newPassword) {
     }
 }

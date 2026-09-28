@@ -22,6 +22,6 @@ public final class AuthRequests {
     public record ResetPasswordRequest(
             @NotBlank(message = "Thiếu token") String token,
             @NotBlank(message = "Mật khẩu không được để trống")
-            @Size(min = 6, max = 100, message = "Mật khẩu từ 6 đến 100 ký tự") String newPassword) {
+            @Size(min = 8, max = 100, message = "Mật khẩu từ 8 đến 100 ký tự") String newPassword) {
     }
 }

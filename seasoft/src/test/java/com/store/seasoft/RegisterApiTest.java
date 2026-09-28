@@ -73,7 +73,7 @@ class RegisterApiTest extends ApiTestBase {
     void TC_R08_shortPassword_returnsFieldError() throws Exception {
         register("Test", uniqueEmail(), null, "12345")
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errors.password").value(startsWith("Mật khẩu từ 6")));
+                .andExpect(jsonPath("$.errors.password").value(startsWith("Mật khẩu từ 8")));
     }
 
     @Test

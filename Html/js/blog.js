@@ -16,7 +16,7 @@
           <nav class="flex items-center gap-1 sm:gap-3 text-sm font-semibold">
             <a href="Page.html" class="px-3 py-2 rounded-lg hover:bg-surface-alt hidden sm:inline-flex">Trang chủ</a>
             <a href="blog.html" class="px-3 py-2 rounded-lg hover:bg-surface-alt">Blog</a>
-            <a href="Page.html#contact" class="px-4 py-2 rounded-lg bg-primary text-white hover:bg-[#34b6d0]">Nhận tư vấn</a>
+            <a href="Page.html#contact" class="px-4 py-2 rounded-lg bg-primary text-dark-navy hover:bg-[#34b6d0]">Nhận tư vấn</a>
           </nav>
         </div></header>`;
     },

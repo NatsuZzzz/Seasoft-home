@@ -39,18 +39,6 @@
         }
       }
     </script>
-    <!-- Inter Google Font -->
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
-      rel="stylesheet"
-    />
-    <!-- Material Symbols Outlined -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-      rel="stylesheet"
-    />
     <!-- Hieu ung cuon: an noi dung cho animate, tu go sau 4s neu JS/CDN loi -->
     <script>
       (function () {
@@ -62,11 +50,10 @@
         }, 4000);
       })();
     </script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.css"
-    />
     <!-- Tailwind CSS CDN -->
+    <link rel="preload" href="fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/material-symbols.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="css/fonts.css" />
     <link rel="stylesheet" href="css/tailwind.css" />
     <link rel="stylesheet" href="css/animations.css" />
     <style>
@@ -87,6 +74,7 @@
   <body
     class="bg-white text-text font-body antialiased selection:bg-secondary/30 selection:text-dark-navy"
   >
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-dark-navy focus:text-white focus:px-4 focus:py-2 focus:rounded-lg">Bỏ qua tới nội dung chính</a>
     <!-- 1. HEADER (TopAppBar Anchor Component) -->
     <header
       class="site-header sticky top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-border/80 shadow-sm transition-all duration-300"
@@ -100,7 +88,7 @@
           href="#"
         >
           <span
-            class="p-1.5 rounded-lg bg-surface-alt text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-200"
+            class="p-1.5 rounded-lg bg-surface-alt text-primary group-hover:bg-primary group-hover:text-dark-navy transition-colors duration-200"
           >
             <span class="material-symbols-outlined align-middle text-28"
               >waves</span
@@ -146,7 +134,7 @@
         <!-- Trailing Action CTA & Mobile Trigger -->
         <div class="flex items-center gap-1.5">
           <a
-            class="hidden lg:inline-flex items-center justify-center font-label text-sm font-semibold bg-primary text-white hover:bg-[#34b6d0] active:scale-95 transition-all duration-150 rounded-lg px-5 py-2.5 shadow-sm"
+            class="hidden lg:inline-flex items-center justify-center font-label text-sm font-semibold bg-primary text-dark-navy hover:bg-[#34b6d0] active:scale-95 transition-all duration-150 rounded-lg px-5 py-2.5 shadow-sm"
             href="#contact"
             >Nhận tư vấn miễn phí</a
           ><a
@@ -156,7 +144,7 @@
             >Đăng nhập</a
           ><a
             data-auth="guest"
-            class="inline-flex items-center justify-center text-xs sm:text-sm font-semibold bg-primary text-white hover:bg-[#34b6d0] active:scale-95 transition-all duration-150 rounded-lg px-2.5 sm:px-3.5 py-1.5 sm:py-2 shadow-sm"
+            class="inline-flex items-center justify-center text-xs sm:text-sm font-semibold bg-primary text-dark-navy hover:bg-[#34b6d0] active:scale-95 transition-all duration-150 rounded-lg px-2.5 sm:px-3.5 py-1.5 sm:py-2 shadow-sm"
             href="register.html"
             >Tạo tài khoản</a
           ><a
@@ -239,7 +227,7 @@
               href="login.html"
               >Đăng nhập</a
             ><a
-              class="text-center py-2 text-sm font-semibold text-white bg-primary hover:bg-[#34b6d0] rounded-lg transition-colors"
+              class="text-center py-2 text-sm font-semibold text-dark-navy bg-primary hover:bg-[#34b6d0] rounded-lg transition-colors"
               href="register.html"
               >Tạo tài khoản</a
             >
@@ -260,13 +248,14 @@
             >
           </div>
           <a
-            class="w-full inline-flex items-center justify-center font-label text-sm font-semibold bg-primary text-white rounded-lg py-2.5"
+            class="w-full inline-flex items-center justify-center font-label text-sm font-semibold bg-primary text-dark-navy rounded-lg py-2.5"
             href="#contact"
             >Nhận tư vấn miễn phí</a
           >
         </div>
       </div>
     </header>
+    <main id="main">
     <!-- 2. HERO SECTION -->
     <section class="relative bg-white pt-10 pb-20 md:py-24 overflow-hidden">
       <!-- Subtle Secondary Blob Background -->
@@ -281,8 +270,7 @@
           <div class="lg:col-span-7 space-y-6 text-left">
             <!-- Small Badge Tag -->
             <div
-              data-reveal="fade-down"
-              class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-alt border border-secondary/40 text-xs font-semibold text-dark-navy"
+              class="hero-in inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-alt border border-secondary/40 text-xs font-semibold text-dark-navy"
             >
               <span
                 class="w-2 h-2 rounded-full bg-primary animate-pulse"
@@ -290,30 +278,25 @@
               Thiết kế website chuyên nghiệp
             </div>
             <!-- Headline -->
-            <h1
-              data-split
-              class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-dark-navy leading-[1.15]"
-            >
-              Website chuyên nghiệp cho thương hiệu doanh nghiệp
+            <h1 class="hero-title font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-dark-navy leading-[1.15]">
+              <span class="split-word"><span style="--i: 0">Website</span></span> <span class="split-word"><span style="--i: 1">chuyên</span></span> <span class="split-word"><span style="--i: 2">nghiệp</span></span> <span class="split-word"><span style="--i: 3">cho</span></span> <span class="split-word"><span style="--i: 4">thương</span></span> <span class="split-word"><span style="--i: 5">hiệu</span></span> <span class="split-word"><span style="--i: 6">doanh</span></span> <span class="split-word"><span style="--i: 7">nghiệp</span></span>
             </h1>
             <!-- Subheadline -->
             <p
-              data-reveal="blur"
-              data-reveal-delay="0.5"
-              class="font-body text-lg text-text-muted max-w-2xl leading-relaxed"
+              style="--d: 0.45s"
+              class="hero-in-soft font-body text-lg text-text-muted max-w-2xl leading-relaxed"
             >
               SeaSoft thiết kế website theo yêu cầu, tối ưu cho thương hiệu,
               trải nghiệm người dùng và mục tiêu kinh doanh.
             </p>
             <!-- Dual CTA Buttons -->
             <div
-              data-stagger="fade-up"
-              data-reveal-delay="0.7"
-              class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2"
+              style="--d: 0.6s"
+              class="hero-in-stagger flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2"
             >
               <a
                 data-magnetic
-                class="inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold text-white bg-primary hover:bg-[#34b6d0] active:scale-95 rounded-lg shadow-sm transition-colors duration-150"
+                class="inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold text-dark-navy bg-primary hover:bg-[#34b6d0] active:scale-95 rounded-lg shadow-sm transition-colors duration-150"
                 href="#contact"
               >
                 Bắt đầu dự án
@@ -331,9 +314,8 @@
             </div>
             <!-- 3 Stats Inline -->
             <div
-              data-stagger="fade-up"
-              data-reveal-delay="0.9"
-              class="grid grid-cols-3 gap-4 pt-8 border-t border-border"
+              style="--d: 0.8s"
+              class="hero-in-stagger grid grid-cols-3 gap-4 pt-8 border-t border-border"
             >
               <div>
                 <p
@@ -381,9 +363,8 @@
           </div>
           <!-- Right Hero Mockups (Browser + Mobile) -->
           <div
-            data-reveal="fade-left"
-            data-reveal-delay="0.3"
-            class="lg:col-span-5 relative flex justify-center items-center"
+            style="--d: 0.3s"
+            class="hero-in hero-in-left lg:col-span-5 relative flex justify-center items-center"
           >
             <!-- Main Browser Mockup -->
             <div
@@ -725,9 +706,9 @@
               >
                 <span class="material-symbols-outlined text-xl">forum</span>
               </div>
-              <h4 class="step-body font-headline text-base font-bold text-dark-navy mb-1">
+              <h3 class="step-body font-headline text-base font-bold text-dark-navy mb-1">
                 Tư vấn
-              </h4>
+              </h3>
               <p class="step-body text-xs text-text-muted leading-relaxed px-2">
                 Khảo sát yêu cầu bài toán kinh doanh và định hướng chiến lược
                 kiến trúc web.
@@ -745,9 +726,9 @@
               >
                 <span class="material-symbols-outlined text-xl">draw</span>
               </div>
-              <h4 class="step-body font-headline text-base font-bold text-dark-navy mb-1">
+              <h3 class="step-body font-headline text-base font-bold text-dark-navy mb-1">
                 UI/UX Design
-              </h4>
+              </h3>
               <p class="step-body text-xs text-text-muted leading-relaxed px-2">
                 Phác thảo Wireframe và hoàn thiện giao diện mẫu thử tương tác
                 trực quan.
@@ -765,9 +746,9 @@
               >
                 <span class="material-symbols-outlined text-xl">code</span>
               </div>
-              <h4 class="step-body font-headline text-base font-bold text-dark-navy mb-1">
+              <h3 class="step-body font-headline text-base font-bold text-dark-navy mb-1">
                 Development
-              </h4>
+              </h3>
               <p class="step-body text-xs text-text-muted leading-relaxed px-2">
                 Lập trình Front-end &amp; Back-end với mã nguồn sạch, tối ưu bảo
                 mật và SEO.
@@ -787,9 +768,9 @@
                   >fact_check</span
                 >
               </div>
-              <h4 class="step-body font-headline text-base font-bold text-dark-navy mb-1">
+              <h3 class="step-body font-headline text-base font-bold text-dark-navy mb-1">
                 Testing
-              </h4>
+              </h3>
               <p class="step-body text-xs text-text-muted leading-relaxed px-2">
                 Kiểm thử đa thiết bị, tối ưu tốc độ và rà soát các tiêu chuẩn
                 bảo mật.
@@ -809,9 +790,9 @@
                   >rocket_launch</span
                 >
               </div>
-              <h4 class="step-body font-headline text-base font-bold text-dark-navy mb-1">
+              <h3 class="step-body font-headline text-base font-bold text-dark-navy mb-1">
                 Launch
-              </h4>
+              </h3>
               <p class="step-body text-xs text-text-muted leading-relaxed px-2">
                 Bàn giao hướng dẫn sử dụng, triển khai tên miền và bảo hành kỹ
                 thuật lâu dài.
@@ -1041,9 +1022,9 @@
                   <span class="material-symbols-outlined text-base">check</span>
                 </div>
                 <div>
-                  <h4 class="font-headline font-semibold text-white text-base">
+                  <h3 class="font-headline font-semibold text-white text-base">
                     Thiết kế theo yêu cầu
-                  </h4>
+                  </h3>
                   <p class="text-sm text-gray-400">
                     Giao diện độc bản, may đo theo đúng bộ nhận diện và văn hoá
                     doanh nghiệp của bạn.
@@ -1058,9 +1039,9 @@
                   <span class="material-symbols-outlined text-base">check</span>
                 </div>
                 <div>
-                  <h4 class="font-headline font-semibold text-white text-base">
+                  <h3 class="font-headline font-semibold text-white text-base">
                     Responsive trên mọi thiết bị
-                  </h4>
+                  </h3>
                   <p class="text-sm text-gray-400">
                     Hiển thị sắc nét, mượt mà từ máy tính để bàn, iPad đến mọi
                     dòng điện thoại di động.
@@ -1075,9 +1056,9 @@
                   <span class="material-symbols-outlined text-base">check</span>
                 </div>
                 <div>
-                  <h4 class="font-headline font-semibold text-white text-base">
+                  <h3 class="font-headline font-semibold text-white text-base">
                     Chuẩn UX/UI hiện đại
-                  </h4>
+                  </h3>
                   <p class="text-sm text-gray-400">
                     Bố cục logic, dẫn dắt hành vi người dùng và tăng tỷ lệ điền
                     form đăng ký tư vấn.
@@ -1092,9 +1073,9 @@
                   <span class="material-symbols-outlined text-base">check</span>
                 </div>
                 <div>
-                  <h4 class="font-headline font-semibold text-white text-base">
+                  <h3 class="font-headline font-semibold text-white text-base">
                     Tối ưu tốc độ tải trang
-                  </h4>
+                  </h3>
                   <p class="text-sm text-gray-400">
                     Điểm Google PageSpeed tối ưu &gt;90 điểm, giúp website leo
                     top SEO thuận lợi.
@@ -1109,9 +1090,9 @@
                   <span class="material-symbols-outlined text-base">check</span>
                 </div>
                 <div>
-                  <h4 class="font-headline font-semibold text-white text-base">
+                  <h3 class="font-headline font-semibold text-white text-base">
                     Hỗ trợ sau bàn giao
-                  </h4>
+                  </h3>
                   <p class="text-sm text-gray-400">
                     Đội ngũ kỹ sư hỗ trợ 24/7, sao lưu dữ liệu tự động định kỳ
                     và bảo hành trọn đời.
@@ -1291,7 +1272,7 @@
               </div>
               <div class="sm:col-span-2 space-y-3 pt-1">
                 <button id="cf-submit" type="submit" data-magnetic="0.25"
-                  class="w-full inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-white bg-primary hover:bg-[#34b6d0] disabled:opacity-70 disabled:cursor-wait transition-[background-color,box-shadow] duration-150 rounded-xl shadow-lg hover:shadow-cyanGlow">
+                  class="w-full inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-dark-navy bg-primary hover:bg-[#34b6d0] disabled:opacity-70 disabled:cursor-wait transition-[background-color,box-shadow] duration-150 rounded-xl shadow-lg hover:shadow-cyanGlow">
                   <span id="cf-submit-text">Nhận tư vấn miễn phí</span>
                   <span class="material-symbols-outlined text-xl">send</span>
                 </button>
@@ -1318,6 +1299,7 @@
         </div>
       </div>
     </section>
+    </main>
     <!-- 8. FOOTER (Anchor Component) -->
     <!-- Song chuyen tu CTA sang footer navy -->
     <div class="wave-divider bg-surface-alt/60" aria-hidden="true">
@@ -1358,19 +1340,19 @@
           </p>
           <div class="flex items-center gap-3 pt-2 text-gray-400">
             <a
-              class="w-8 h-8 rounded-full bg-white/5 hover:bg-primary hover:text-white flex items-center justify-center transition-colors"
+              class="w-8 h-8 rounded-full bg-white/5 hover:bg-primary hover:text-dark-navy flex items-center justify-center transition-colors"
               href="#"
             >
               <span class="material-symbols-outlined text-lg">public</span>
             </a>
             <a
-              class="w-8 h-8 rounded-full bg-white/5 hover:bg-primary hover:text-white flex items-center justify-center transition-colors"
+              class="w-8 h-8 rounded-full bg-white/5 hover:bg-primary hover:text-dark-navy flex items-center justify-center transition-colors"
               href="#"
             >
               <span class="material-symbols-outlined text-lg">mail</span>
             </a>
             <a
-              class="w-8 h-8 rounded-full bg-white/5 hover:bg-primary hover:text-white flex items-center justify-center transition-colors"
+              class="w-8 h-8 rounded-full bg-white/5 hover:bg-primary hover:text-dark-navy flex items-center justify-center transition-colors"
               href="#"
             >
               <span class="material-symbols-outlined text-lg">share</span>
@@ -1379,11 +1361,11 @@
         </div>
         <!-- Col 2: Dịch vụ -->
         <div class="space-y-3">
-          <h4
+          <h3
             class="font-headline text-base font-semibold text-white tracking-wide"
           >
             Dịch vụ
-          </h4>
+          </h3>
           <ul class="font-body text-sm space-y-2 text-gray-300">
             <li class="">
               <a class="hover:text-secondary transition-colors" href="#services"
@@ -1414,11 +1396,11 @@
         </div>
         <!-- Col 3: Công ty -->
         <div class="space-y-3">
-          <h4
+          <h3
             class="font-headline text-base font-semibold text-white tracking-wide"
           >
             Công ty
-          </h4>
+          </h3>
           <ul class="font-body text-sm space-y-2 text-gray-300">
             <li class="">
               <a class="hover:text-secondary transition-colors" href="#why-us"
@@ -1456,11 +1438,11 @@
         </div>
         <!-- Col 4: Thông tin liên hệ -->
         <div class="space-y-3">
-          <h4
+          <h3
             class="font-headline text-base font-semibold text-white tracking-wide"
           >
             Thông tin liên hệ
-          </h4>
+          </h3>
           <ul class="font-body text-sm space-y-3 text-gray-300">
             <li class="flex items-start gap-2.5">
               <span
@@ -1495,7 +1477,7 @@
       <!-- Bottom copyright bar -->
       <div class="border-t border-white/10 py-6 px-6 md:px-12">
         <div
-          class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400"
+          class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-muted"
         >
           <p class="">© 2024 SeaSoft Web Agency. Bảo lưu mọi quyền.</p>
           <div class="flex items-center gap-6">
@@ -1517,9 +1499,9 @@
     <script src="js/consultation-form.js"></script>
     <script src="js/home-content.js"></script>
     <!-- Hieu ung cuon: GSAP + ScrollTrigger + Lenis (smooth scroll) -->
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+    <script src="vendor/gsap.min.js"></script>
+    <script src="vendor/ScrollTrigger.min.js"></script>
+    <script src="vendor/lenis.min.js"></script>
     <script src="js/animations.js"></script>
     <!-- Micro Interaction Script for Mobile Navigation -->
     <script>

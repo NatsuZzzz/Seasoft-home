@@ -75,7 +75,7 @@
         ${staffFields()}
         <p class="col-span-2 text-xs text-text-muted">Hệ thống gửi email mời đặt mật khẩu (link có hạn 48 giờ). Bạn không cần đặt mật khẩu cho nhân viên.</p>
         <p id="n-error" class="col-span-2 hidden text-sm text-red-600 bg-red-50 rounded-xl p-3"></p>
-        <button class="col-span-2 bg-primary text-white rounded-xl py-3 font-semibold hover:bg-[#34b6d0] disabled:opacity-50">Tạo tài khoản & gửi lời mời</button>
+        <button class="col-span-2 bg-primary text-dark-navy rounded-xl py-3 font-semibold hover:bg-[#34b6d0] disabled:opacity-50">Tạo tài khoản & gửi lời mời</button>
       </form>`);
     b.querySelector("#n-form").addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -150,7 +150,7 @@
               <input id="u-phone" maxlength="20" value="${esc(u.phone || "")}" class="${input}"></div>
             ${isStaff ? staffFields(u.staffProfile || {}) : ""}
             <p id="u-error" class="col-span-2 hidden text-sm text-red-600 bg-red-50 rounded-xl p-3"></p>
-            <button class="col-span-2 bg-primary text-white rounded-xl py-2.5 font-semibold hover:bg-[#34b6d0]">Lưu thông tin</button>
+            <button class="col-span-2 bg-primary text-dark-navy rounded-xl py-2.5 font-semibold hover:bg-[#34b6d0]">Lưu thông tin</button>
           </form>` : ""}
       </div>`);
 

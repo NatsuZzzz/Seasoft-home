@@ -6,10 +6,9 @@
     <meta name="robots" content="noindex" />
     <title>Chi tiết dự án — SeaSoft</title>
     <link rel="icon" type="image/png" href="img/favicon.png" />
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link rel="preload" href="fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/material-symbols.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="css/fonts.css" />
     <link rel="stylesheet" href="css/tailwind.css" />
     <link rel="stylesheet" href="css/auth-pages.css" />
     <link rel="stylesheet" href="css/animations.css" />
@@ -85,7 +84,7 @@
                   class="form-input-sea w-full bg-white border border-border rounded-xl py-3 px-4 text-sm focus:ring-0"></textarea>
                 <div class="flex items-center justify-between gap-2">
                   <span id="comment-msg" class="text-xs"></span>
-                  <button id="comment-btn" class="btn-submit bg-primary text-white text-sm font-semibold rounded-xl px-5 py-2.5">Gửi</button>
+                  <button id="comment-btn" class="btn-submit bg-primary text-dark-navy text-sm font-semibold rounded-xl px-5 py-2.5">Gửi</button>
                 </div>
               </form>
               <ul id="updates" class="space-y-4"></ul>
@@ -145,6 +144,7 @@
         $("milestones").innerHTML = d.milestones
           .map((m) => {
             const cls = m.status === "DONE" ? "is-done" : m.status === "IN_PROGRESS" ? "is-doing" : "";
+            /* icons: check, autorenew, radio_button_unchecked */
             const icon = m.status === "DONE" ? "check" : m.status === "IN_PROGRESS" ? "autorenew" : "radio_button_unchecked";
             return `<li class="timeline-item ${cls}">
               <span class="timeline-dot"><span class="material-symbols-outlined text-lg">${icon}</span></span>

@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,21 @@ public class JwtService {
 
     @Value("${jwt.expiration}")
     private long jwtExpirationMs;
+
+    // Secret yeu (< 256 bit) hoac sai base64 -> tu choi khoi dong thay vi loi luc dang nhap
+    @PostConstruct
+    void validateSecret() {
+        byte[] key;
+        try {
+            key = Decoders.BASE64.decode(secretKey);
+        } catch (RuntimeException e) {
+            throw new IllegalStateException("JWT_SECRET phải là chuỗi base64 hợp lệ", e);
+        }
+        if (key.length < 32) {
+            throw new IllegalStateException("JWT_SECRET quá ngắn (" + key.length
+                    + " byte), cần tối thiểu 32 byte. Tạo mới: openssl rand -base64 32");
+        }
+    }
 
     public String generateToken(UserDetails userDetails) {
         return Jwts.builder()

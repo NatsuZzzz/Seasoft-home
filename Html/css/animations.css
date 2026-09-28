@@ -6,6 +6,34 @@
  * -> khong co JS / CDN loi / reduced-motion thi trang van hien day du.
  */
 
+/* ---------- Lenis (smooth scroll) - chep tu vendor/lenis.css de bot 1 request ---------- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch],
+.lenis [data-lenis-prevent-vertical],
+.lenis [data-lenis-prevent-horizontal] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+.lenis.lenis-autoToggle {
+  transition-property: overflow;
+  transition-duration: 1ms;
+  transition-behavior: allow-discrete;
+}
+
 /* ---------- Trang thai ban dau truoc khi reveal ---------- */
 .js-anim [data-reveal],
 .js-anim [data-stagger] > *,
@@ -25,6 +53,62 @@
 [data-split] .split-word > span {
   display: inline-block;
   will-change: transform;
+}
+
+/* ---------- Headline hero: tach chu san trong HTML, animate bang CSS ----------
+ * Khong cho JS/GSAP -> chu hien ngay khi CSS tai xong (LCP nhanh). */
+.hero-title .split-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.hero-title .split-word > span {
+  display: inline-block;
+  animation: word-up 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(0.1s + var(--i, 0) * 0.06s);
+}
+@keyframes word-up {
+  from {
+    opacity: 0;
+    transform: translateY(110%) rotate(4deg);
+  }
+}
+
+/* Cac phan tu con lai cua hero cung dung CSS (hien ngay, khong doi JS). --d = do tre */
+.hero-in,
+.hero-in-stagger > * {
+  /* backwards: chi giu trang thai dau luc cho delay, chay xong tra transform cho GSAP (nut hut chuot) */
+  animation: hero-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: var(--d, 0s);
+}
+.hero-in-left {
+  animation-name: hero-in-left;
+}
+.hero-in-stagger > *:nth-child(2) { animation-delay: calc(var(--d, 0s) + 0.1s); }
+.hero-in-stagger > *:nth-child(3) { animation-delay: calc(var(--d, 0s) + 0.2s); }
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+@keyframes hero-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(48px);
+  }
+}
+
+/* Doan mo ta hero (phan tu LCP): chi truot, khong mo dan -> hien ngay tu khung dau */
+.hero-in-soft {
+  animation: hero-in-soft 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.3s backwards;
+}
+@keyframes hero-in-soft {
+  from {
+    transform: translateY(16px);
+  }
 }
 
 /* ---------- Thanh tien trinh doc trang ---------- */
@@ -230,6 +314,10 @@
   .marquee-track {
     animation: none !important;
   }
+  .hero-title .split-word > span,
+  .hero-in,
+  .hero-in-soft,
+  .hero-in-stagger > *,
   .shake,
   .pop-in {
     animation: none;

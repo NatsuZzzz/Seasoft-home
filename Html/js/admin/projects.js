@@ -91,7 +91,7 @@
           <textarea id="c-desc" rows="3" maxlength="5000" class="${input}"></textarea></div>
         <p class="text-xs text-text-muted">Dự án được tạo sẵn 5 giai đoạn: Tư vấn → UI/UX → Development → Testing → Launch.</p>
         <p id="c-error" class="hidden text-sm text-red-600 bg-red-50 rounded-xl p-3"></p>
-        <button class="w-full bg-primary text-white rounded-xl py-3 font-semibold hover:bg-[#34b6d0] disabled:opacity-50">Tạo dự án</button>
+        <button class="w-full bg-primary text-dark-navy rounded-xl py-3 font-semibold hover:bg-[#34b6d0] disabled:opacity-50">Tạo dự án</button>
       </form>`);
 
     const $ = (s) => body.querySelector(s);
@@ -192,7 +192,7 @@
           <div class="col-span-2 space-y-1.5"><label class="${label}" for="p-desc">Mô tả</label>
             <textarea id="p-desc" rows="3" maxlength="5000" class="${input}" ${dis}>${esc(d.description || "")}</textarea></div>
           <p id="p-error" class="col-span-2 hidden text-sm text-red-600 bg-red-50 rounded-xl p-3"></p>
-          ${canEdit ? '<button class="col-span-2 bg-primary text-white rounded-xl py-2.5 font-semibold hover:bg-[#34b6d0]">Lưu thông tin</button>' : ""}
+          ${canEdit ? '<button class="col-span-2 bg-primary text-dark-navy rounded-xl py-2.5 font-semibold hover:bg-[#34b6d0]">Lưu thông tin</button>' : ""}
         </form>
 
         <div class="space-y-3">
@@ -219,7 +219,7 @@
               <textarea id="up-content" rows="3" maxlength="5000" placeholder="Viết cập nhật tiến độ…" class="${input}"></textarea>
               <div class="flex items-center justify-between">
                 <label class="flex items-center gap-2 text-sm"><input id="up-visible" type="checkbox" checked class="rounded text-primary"> Khách hàng xem được (gửi email)</label>
-                <button class="px-4 py-2 rounded-xl bg-primary text-white text-sm font-semibold">Đăng</button>
+                <button class="px-4 py-2 rounded-xl bg-primary text-dark-navy text-sm font-semibold">Đăng</button>
               </div></form>` : ""}
           <ul class="space-y-3">${d.updates
             .map(

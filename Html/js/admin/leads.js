@@ -120,7 +120,7 @@
               <span class="material-symbols-outlined text-lg">rocket_launch</span> Tạo dự án từ lead này</button>`
           : ""}
         <p id="d-error" class="hidden text-sm text-red-600 bg-red-50 rounded-xl p-3"></p>
-        <button id="d-save" class="w-full bg-primary text-white rounded-xl py-3 font-semibold hover:bg-[#34b6d0] disabled:opacity-50" ${mineOrManager ? "" : "disabled"}>Lưu thay đổi</button>
+        <button id="d-save" class="w-full bg-primary text-dark-navy rounded-xl py-3 font-semibold hover:bg-[#34b6d0] disabled:opacity-50" ${mineOrManager ? "" : "disabled"}>Lưu thay đổi</button>
       </div>`);
 
     const showError = (msg) => {

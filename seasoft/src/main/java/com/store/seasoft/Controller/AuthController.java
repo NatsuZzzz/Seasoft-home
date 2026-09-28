@@ -6,7 +6,9 @@ import com.store.seasoft.Dto.AuthRequests.ResetPasswordRequest;
 import com.store.seasoft.Dto.AuthResponse;
 import com.store.seasoft.Dto.LoginRequest;
 import com.store.seasoft.Dto.RegisterRequest;
+import com.store.seasoft.Service.AuthRateLimits;
 import com.store.seasoft.Service.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +22,17 @@ import java.util.Map;
 public class AuthController {
 
     private final AuthService authService;
+    private final AuthRateLimits rateLimits;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
+    public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request, HttpServletRequest http) {
+        rateLimits.checkRegister(http.getRemoteAddr());
         return ResponseEntity.ok(authService.register(request));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request, HttpServletRequest http) {
+        rateLimits.checkLogin(http.getRemoteAddr(), AuthService.normalizeEmail(request.getEmail()));
         return ResponseEntity.ok(authService.login(request));
     }
 
@@ -43,7 +48,9 @@ public class AuthController {
     }
 
     @PostMapping("/forgot-password")
-    public ResponseEntity<Map<String, String>> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
+    public ResponseEntity<Map<String, String>> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request,
+                                                              HttpServletRequest http) {
+        rateLimits.checkForgot(http.getRemoteAddr(), AuthService.normalizeEmail(request.email()));
         authService.forgotPassword(request.email());
         return ResponseEntity.ok(Map.of("message",
                 "Nếu email tồn tại trong hệ thống, link đặt lại mật khẩu đã được gửi"));

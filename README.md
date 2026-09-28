@@ -24,7 +24,15 @@ Chưa cấu hình SMTP thì email (quên mật khẩu) được in ra console v�
 
 Bật log SQL khi dev: `SPRING_PROFILES_ACTIVE=dev`.
 
-## Build CSS frontend (Tailwind)
+## Build frontend
+
+Thư viện (GSAP, Lenis) và font (Inter, Material Symbols chỉ gồm icon đang dùng) được **tự host** trong `Html/vendor`, `Html/fonts` — không phụ thuộc CDN. Thêm icon mới hoặc nâng version thư viện thì chạy lại:
+
+```bash
+npm run vendor
+```
+
+### Tailwind
 
 `Html/css/tailwind.css` là file **build** (đã commit sẵn). Sửa class Tailwind trong `Html/` thì build lại:
 

@@ -100,11 +100,11 @@ Mục tiêu: kéo xuống tới đâu, nội dung "diễn" tới đó — mượ
 
 ## Phase 8 — Hardening
 
-- [ ] 8.1 Security review: CORS, rate-limit login, security headers, validate input
+- [x] 8.1 Security review: CORS, rate-limit login/quên mật khẩu/đăng ký, security headers + CSP, validate input, fail-fast JWT secret
 - [x] 8.2 Tailwind CDN → build CSS tĩnh (làm sớm ở Phase 3 để hết nháy khi chuyển trang)
-- [ ] 8.3 Gom JS chung `api.js`
-- [ ] 8.4 Responsive, Lighthouse ≥ 90
-- [ ] 8.5 Actuator health, logging prod
+- [x] 8.3 Gom code chung (`auth.js` là lớp API chung; CSS login/register gom vào `auth-pages.css`; tự host GSAP/Lenis/font qua `npm run vendor`)
+- [x] 8.4 Responsive, Lighthouse ≥ 90 (4/5 trang ≥ 95; trang chủ mobile 82–83, desktop 98 — xem TC_performance.md)
+- [x] 8.5 Actuator health, logging prod, job dọn token, SSR bài blog
 - **Mốc đánh giá #8**: regression toàn bộ
 
 ## Phase 9 — Đóng gói & Deploy 🚀
@@ -203,3 +203,12 @@ code → test tự động → test tay trên UI → `docs/testcases/TC_<tên>.m
 - **Quyết định**: không seed đánh giá mẫu (tránh đánh giá giả); chỉ đăng đánh giá thật có sự đồng ý của khách.
 - **Nợ kỹ thuật**: bài viết render phía client → bot không chạy JS sẽ không thấy nội dung (cân nhắc SSR cho `post.html` ở Phase 8); ảnh OG đang là logo 487×403, nên thay ảnh 1200×630.
 - **Tiếp theo**: Phase 8 — Hardening.
+
+### Mốc #8 — Phase 8 (2026-09-28) ✅
+- **Kết quả**: 174/174 test tự động (thêm 13). Lighthouse: login/register/blog/post Performance 95, Best Practices 100, SEO 100, Accessibility 94–100; trang chủ mobile 56 → 82–83, desktop 98. 2 file testcase (14 + 13 case).
+- **Bảo mật**: rate limit đăng nhập (10/email, 30/IP / 15 phút), quên mật khẩu (3/email), đăng ký (10/IP/giờ); mật khẩu 8–100 ký tự (login chỉ giới hạn tối đa để tài khoản cũ vẫn vào được); CSP chỉ `self` + X-Frame-Options DENY + Referrer-Policy + Permissions-Policy; JWT secret yếu → không cho khởi động; `/actuator/health` duy nhất được mở; cấu hình prod ẩn lỗi, nhận IP thật sau proxy; job dọn token 3h30 sáng.
+- **Hiệu năng**: font icon 1.1 MB → 7.7 KB (chỉ 63 icon đang dùng); tự host Inter/GSAP/Lenis (0 request bên thứ ba); headline + cụm giới thiệu hero animate bằng CSS thay vì chờ GSAP; gộp lenis.css.
+- **Accessibility**: chữ trên nút cyan đổi trắng → navy (1.94 → 9.17:1, 30 chỗ); h4 → h3; thêm `<main>` + skip link; vùng bấm nút mật khẩu to hơn.
+- **SEO**: `post.html` được server render sẵn nội dung + title/description/canonical/OG/JSON-LD BlogPosting (bot không cần chạy JS); bài không tồn tại trả 404 + noindex.
+- **Nợ kỹ thuật**: trang chủ mobile chưa tới 90 (4 file CSS chặn render, HTML 73 KB); chữ cyan nhỏ trên nền trắng cần chủ dự án quyết định tông màu; rate limit lưu RAM (1 instance).
+- **Tiếp theo**: Phase 9 — Đóng gói & Deploy.

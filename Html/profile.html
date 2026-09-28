@@ -6,10 +6,9 @@
     <title>Hồ sơ của tôi — SeaSoft</title>
     <meta name="robots" content="noindex" />
     <link rel="icon" type="image/png" href="img/favicon.png" />
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link rel="preload" href="fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/material-symbols.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="css/fonts.css" />
     <link rel="stylesheet" href="css/tailwind.css" />
     <link rel="stylesheet" href="css/auth-pages.css" />
     <!-- Chua dang nhap -> chuyen sang login truoc khi render -->
@@ -50,7 +49,7 @@
         <!-- Tom tat -->
         <aside class="glass-card rounded-2xl shadow-card border border-border/70 p-6 fade-slide-up md:col-span-1 h-fit">
           <div class="flex flex-col items-center text-center gap-3">
-            <div id="avatar" class="w-20 h-20 rounded-full bg-primary text-white flex items-center justify-center text-3xl font-bold">?</div>
+            <div id="avatar" class="w-20 h-20 rounded-full bg-primary text-dark-navy flex items-center justify-center text-3xl font-bold">?</div>
             <div>
               <p id="sum-name" class="font-bold text-dark-navy text-lg">…</p>
               <p id="sum-email" class="text-sm text-text-muted break-all"></p>
@@ -85,7 +84,7 @@
                 <p data-error-for="phone" class="hidden text-xs text-red-500"></p>
               </div>
               <div class="sm:col-span-2 flex items-center gap-3 flex-wrap">
-                <button id="profile-btn" type="submit" class="btn-submit inline-flex items-center gap-2 bg-primary text-white font-semibold text-sm rounded-xl px-6 py-3 shadow-md">
+                <button id="profile-btn" type="submit" class="btn-submit inline-flex items-center gap-2 bg-primary text-dark-navy font-semibold text-sm rounded-xl px-6 py-3 shadow-md">
                   <span class="material-symbols-outlined text-lg">save</span> Lưu thay đổi
                 </button>
                 <span id="profile-msg" class="text-sm"></span>
@@ -105,7 +104,7 @@
               </div>
               <div class="space-y-1.5">
                 <label for="pw-new" class="block text-sm font-semibold text-dark-navy">Mật khẩu mới</label>
-                <input id="pw-new" type="password" autocomplete="new-password" placeholder="Tối thiểu 6 ký tự" class="form-input-sea w-full bg-white border border-border rounded-xl py-3 px-4 text-sm placeholder:text-gray-400 focus:ring-0" />
+                <input id="pw-new" type="password" autocomplete="new-password" placeholder="Tối thiểu 8 ký tự" class="form-input-sea w-full bg-white border border-border rounded-xl py-3 px-4 text-sm placeholder:text-gray-400 focus:ring-0" />
               </div>
               <div class="space-y-1.5">
                 <label for="pw-confirm" class="block text-sm font-semibold text-dark-navy">Nhập lại mật khẩu mới</label>
@@ -224,7 +223,7 @@
         const confirm = document.getElementById("pw-confirm").value;
 
         if (!currentPassword) return setMsg(msg, "Nhập mật khẩu hiện tại", false);
-        if (newPassword.length < 6) return setMsg(msg, "Mật khẩu mới tối thiểu 6 ký tự", false);
+        if (newPassword.length < 8) return setMsg(msg, "Mật khẩu mới tối thiểu 8 ký tự", false);
         if (newPassword !== confirm) return setMsg(msg, "Mật khẩu nhập lại không khớp", false);
 
         btn.disabled = true;

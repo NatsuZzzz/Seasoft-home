@@ -9,191 +9,12 @@
       name="description"
       content="Tạo tài khoản SeaSoft miễn phí để bắt đầu hành trình chuyển đổi số, quản lý dự án và theo dõi tiến độ website doanh nghiệp."
     />
-    <!-- Inter Google Font -->
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Material Symbols -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-    />
     <!-- Tailwind CSS -->
+    <link rel="preload" href="fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/material-symbols.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="css/fonts.css" />
     <link rel="stylesheet" href="css/tailwind.css" />
-    <style>
-      .material-symbols-outlined {
-        font-variation-settings:
-          "FILL" 0,
-          "wght" 400,
-          "GRAD" 0,
-          "opsz" 24;
-      }
-
-      /* Floating blobs */
-      .blob-float {
-        animation: blob-float 8s ease-in-out infinite alternate;
-      }
-      .blob-float-2 {
-        animation: blob-float 6s ease-in-out infinite alternate-reverse;
-      }
-      @keyframes blob-float {
-        from {
-          transform: scale(1) translateY(0px) translateX(0px);
-        }
-        to {
-          transform: scale(1.1) translateY(-22px) translateX(12px);
-        }
-      }
-
-      /* Fade-in slide up */
-      @keyframes fadeSlideUp {
-        from {
-          opacity: 0;
-          transform: translateY(28px);
-        }
-        to {
-          opacity: 1;
-          transform: none;
-        }
-      }
-      .fade-slide-up {
-        animation: fadeSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
-      }
-      .fade-slide-up-d1 {
-        animation-delay: 0.08s;
-      }
-      .fade-slide-up-d2 {
-        animation-delay: 0.16s;
-      }
-      .fade-slide-up-d3 {
-        animation-delay: 0.22s;
-      }
-      .fade-slide-up-d4 {
-        animation-delay: 0.28s;
-      }
-      .fade-slide-up-d5 {
-        animation-delay: 0.34s;
-      }
-      .fade-slide-up-d6 {
-        animation-delay: 0.4s;
-      }
-
-      /* Input styles */
-      .form-input-sea {
-        transition:
-          border-color 0.2s,
-          box-shadow 0.2s;
-      }
-      .form-input-sea:focus {
-        border-color: #48cae4;
-        box-shadow: 0 0 0 3px rgba(72, 202, 228, 0.18);
-        outline: none;
-      }
-
-      /* Divider */
-      .divider {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        color: #9ca3af;
-        font-size: 13px;
-      }
-      .divider::before,
-      .divider::after {
-        content: "";
-        flex: 1;
-        height: 1px;
-        background: #e2e8f0;
-      }
-
-      /* Social button */
-      .social-btn {
-        transition:
-          background 0.18s,
-          border-color 0.18s,
-          transform 0.15s;
-      }
-      .social-btn:hover {
-        background: #ebf8fc;
-        border-color: #48cae4;
-        transform: translateY(-1px);
-      }
-      .social-btn:active {
-        transform: scale(0.97);
-      }
-
-      /* Glassmorphism */
-      .glass-card {
-        background: rgba(255, 255, 255, 0.92);
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
-      }
-
-      /* Submit btn */
-      .btn-submit {
-        transition:
-          background 0.18s,
-          box-shadow 0.18s,
-          transform 0.12s;
-      }
-      .btn-submit:hover {
-        background: #34b6d0;
-        box-shadow: 0 0 32px rgba(72, 202, 228, 0.35);
-      }
-      .btn-submit:active {
-        transform: scale(0.97);
-      }
-
-      /* Password strength bar */
-      .strength-bar {
-        height: 3px;
-        border-radius: 9999px;
-        transition:
-          width 0.35s ease,
-          background 0.35s ease;
-      }
-
-      /* Dot grid */
-      .dot-grid {
-        background-image: radial-gradient(
-          circle,
-          rgba(72, 202, 228, 0.15) 1.5px,
-          transparent 1.5px
-        );
-        background-size: 28px 28px;
-      }
-
-      /* Step indicator */
-      .step-badge {
-        transition:
-          background 0.2s,
-          color 0.2s,
-          border-color 0.2s;
-      }
-
-      /* Checkbox custom */
-      input[type="checkbox"] {
-        accent-color: #48cae4;
-      }
-
-      /* Phone prefix styling */
-      .phone-prefix {
-        background: #ebf8fc;
-        border-right: 1px solid #e2e8f0;
-        border-radius: 0.75rem 0 0 0.75rem;
-        padding: 0 12px;
-        display: flex;
-        align-items: center;
-        font-size: 13px;
-        font-weight: 600;
-        color: #03045e;
-        white-space: nowrap;
-        min-height: 100%;
-      }
-    </style>
+    <link rel="stylesheet" href="css/auth-pages.css" />
     <link rel="stylesheet" href="css/animations.css" />
   </head>
 
@@ -221,7 +42,7 @@
           aria-label="SeaSoft - Trang chủ"
         >
           <span
-            class="w-9 h-9 rounded-lg bg-surface-alt text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-200"
+            class="w-9 h-9 rounded-lg bg-surface-alt text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-dark-navy transition-colors duration-200"
           >
             <span class="material-symbols-outlined text-xl">waves</span>
           </span>
@@ -475,7 +296,7 @@
                 <button
                   type="button"
                   id="toggle-reg-pwd"
-                  class="absolute right-3.5 top-1/2 -translate-y-1/2 text-text-muted hover:text-primary transition-colors"
+                  class="absolute right-2 p-1.5 rounded-md top-1/2 -translate-y-1/2 text-text-muted hover:text-primary transition-colors"
                   aria-label="Hiện/ẩn mật khẩu"
                 >
                   <span
@@ -578,7 +399,7 @@
               <button
                 id="register-btn"
                 type="submit"
-                class="btn-submit w-full flex items-center justify-center gap-2 bg-primary text-white font-semibold text-sm rounded-xl py-3.5 shadow-md"
+                class="btn-submit w-full flex items-center justify-center gap-2 bg-primary text-dark-navy font-semibold text-sm rounded-xl py-3.5 shadow-md"
               >
                 <span id="reg-btn-text">Tạo tài khoản miễn phí</span>
                 <span
@@ -716,7 +537,7 @@
 
     <!-- Footer -->
     <footer class="py-5 px-6 text-center">
-      <p class="text-xs text-gray-400">
+      <p class="text-xs text-text-muted">
         © 2024 SeaSoft Web Agency ·
         <a href="#" class="hover:text-primary transition-colors">Điều khoản</a>
         · <a href="#" class="hover:text-primary transition-colors">Bảo mật</a>
@@ -733,6 +554,7 @@
       toggleRegPwd.addEventListener("click", () => {
         const isVisible = regPwdInput.type === "text";
         regPwdInput.type = isVisible ? "password" : "text";
+        /* icons: visibility, visibility_off */
         regPwdIcon.textContent = isVisible ? "visibility_off" : "visibility";
       });
 

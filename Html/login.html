@@ -9,157 +9,12 @@
       name="description"
       content="Đăng nhập vào cổng quản lý dự án SeaSoft — Theo dõi tiến độ, trao đổi với đội ngũ và quản lý website của bạn."
     />
-    <!-- Inter Google Font -->
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Material Symbols -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-    />
     <!-- Tailwind CSS -->
+    <link rel="preload" href="fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/material-symbols.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="css/fonts.css" />
     <link rel="stylesheet" href="css/tailwind.css" />
-    <style>
-      .material-symbols-outlined {
-        font-variation-settings:
-          "FILL" 0,
-          "wght" 400,
-          "GRAD" 0,
-          "opsz" 24;
-      }
-
-      /* Floating blobs */
-      .blob-float {
-        animation: blob-float 7s ease-in-out infinite alternate;
-      }
-      .blob-float-2 {
-        animation: blob-float 9s ease-in-out infinite alternate-reverse;
-      }
-      @keyframes blob-float {
-        from {
-          transform: scale(1) translateY(0px) translateX(0px);
-        }
-        to {
-          transform: scale(1.08) translateY(-20px) translateX(10px);
-        }
-      }
-
-      /* Fade-in slide up */
-      @keyframes fadeSlideUp {
-        from {
-          opacity: 0;
-          transform: translateY(32px);
-        }
-        to {
-          opacity: 1;
-          transform: none;
-        }
-      }
-      .fade-slide-up {
-        animation: fadeSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
-      }
-      .fade-slide-up-d1 {
-        animation-delay: 0.08s;
-      }
-      .fade-slide-up-d2 {
-        animation-delay: 0.16s;
-      }
-      .fade-slide-up-d3 {
-        animation-delay: 0.24s;
-      }
-      .fade-slide-up-d4 {
-        animation-delay: 0.32s;
-      }
-      .fade-slide-up-d5 {
-        animation-delay: 0.4s;
-      }
-
-      /* Input focus ring */
-      .form-input-sea {
-        transition:
-          border-color 0.2s,
-          box-shadow 0.2s;
-      }
-      .form-input-sea:focus {
-        border-color: #48cae4;
-        box-shadow: 0 0 0 3px rgba(72, 202, 228, 0.18);
-        outline: none;
-      }
-
-      /* Password toggle */
-      .pwd-toggle {
-        cursor: pointer;
-        user-select: none;
-      }
-
-      /* Divider */
-      .divider {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        color: #9ca3af;
-        font-size: 13px;
-      }
-      .divider::before,
-      .divider::after {
-        content: "";
-        flex: 1;
-        height: 1px;
-        background: #e2e8f0;
-      }
-
-      /* Social button hover */
-      .social-btn {
-        transition:
-          background 0.18s,
-          border-color 0.18s,
-          transform 0.15s;
-      }
-      .social-btn:hover {
-        background: #ebf8fc;
-        border-color: #48cae4;
-        transform: translateY(-1px);
-      }
-      .social-btn:active {
-        transform: scale(0.97);
-      }
-
-      /* Glassmorphism card */
-      .glass-card {
-        background: rgba(255, 255, 255, 0.92);
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
-      }
-
-      /* Submit btn */
-      .btn-submit {
-        transition:
-          background 0.18s,
-          box-shadow 0.18s,
-          transform 0.12s;
-      }
-      .btn-submit:hover {
-        background: #34b6d0;
-        box-shadow: 0 0 32px rgba(72, 202, 228, 0.35);
-      }
-      .btn-submit:active {
-        transform: scale(0.97);
-      }
-
-      /* Particle dots decoration */
-      .dot-grid {
-        background-image: radial-gradient(
-          circle,
-          rgba(72, 202, 228, 0.18) 1.5px,
-          transparent 1.5px
-        );
-        background-size: 28px 28px;
-      }
-    </style>
+    <link rel="stylesheet" href="css/auth-pages.css" />
     <link rel="stylesheet" href="css/animations.css" />
   </head>
 
@@ -188,7 +43,7 @@
           aria-label="SeaSoft - Trang chủ"
         >
           <span
-            class="w-9 h-9 rounded-lg bg-surface-alt text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-200"
+            class="w-9 h-9 rounded-lg bg-surface-alt text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-dark-navy transition-colors duration-200"
           >
             <span class="material-symbols-outlined text-xl">waves</span>
           </span>
@@ -367,7 +222,7 @@
                 <button
                   type="button"
                   id="toggle-pwd"
-                  class="pwd-toggle absolute right-3.5 top-1/2 -translate-y-1/2 text-text-muted hover:text-primary transition-colors"
+                  class="pwd-toggle absolute right-2 p-1.5 rounded-md top-1/2 -translate-y-1/2 text-text-muted hover:text-primary transition-colors"
                   aria-label="Hiện/ẩn mật khẩu"
                 >
                   <span
@@ -382,7 +237,7 @@
                 class="hidden text-xs text-red-500 mt-1 flex items-center gap-1"
               >
                 <span class="material-symbols-outlined text-sm">error</span>
-                <span>Mật khẩu phải có ít nhất 6 ký tự</span>
+                <span>Vui lòng nhập mật khẩu</span>
               </p>
             </div>
 
@@ -407,7 +262,7 @@
               <button
                 id="login-btn"
                 type="submit"
-                class="btn-submit w-full flex items-center justify-center gap-2 bg-primary text-white font-semibold text-sm rounded-xl py-3.5 shadow-md"
+                class="btn-submit w-full flex items-center justify-center gap-2 bg-primary text-dark-navy font-semibold text-sm rounded-xl py-3.5 shadow-md"
               >
                 <span id="login-btn-text">Đăng nhập</span>
                 <span
@@ -495,7 +350,7 @@
 
     <!-- Footer minimal -->
     <footer class="py-5 px-6 text-center">
-      <p class="text-xs text-gray-400">
+      <p class="text-xs text-text-muted">
         © 2024 SeaSoft Web Agency ·
         <a href="#" class="hover:text-primary transition-colors">Điều khoản</a>
         · <a href="#" class="hover:text-primary transition-colors">Bảo mật</a>
@@ -512,6 +367,7 @@
       toggleBtn.addEventListener("click", () => {
         const isVisible = pwdInput.type === "text";
         pwdInput.type = isVisible ? "password" : "text";
+        /* icons: visibility, visibility_off */
         pwdIcon.textContent = isVisible ? "visibility_off" : "visibility";
       });
 
@@ -548,7 +404,7 @@
           valid = false;
         }
         // Validate password
-        if (password.length < 6) {
+        if (!password) {
           pwdError.classList.remove("hidden");
           valid = false;
         }

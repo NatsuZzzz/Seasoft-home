@@ -156,7 +156,7 @@
         ${k.form(x)}
         <p id="c-error" class="hidden text-sm text-red-600 bg-red-50 rounded-xl p-3"></p>
         <div class="flex gap-2">
-          <button class="flex-1 bg-primary text-white rounded-xl py-3 font-semibold hover:bg-[#34b6d0] disabled:opacity-50">Lưu</button>
+          <button class="flex-1 bg-primary text-dark-navy rounded-xl py-3 font-semibold hover:bg-[#34b6d0] disabled:opacity-50">Lưu</button>
           ${id ? '<button type="button" id="c-delete" class="px-4 rounded-xl border border-rose-200 text-rose-600 font-semibold hover:bg-rose-50">Xoá</button>' : ""}
         </div>
       </form>`);

@@ -6,10 +6,9 @@
     <meta name="robots" content="noindex" />
     <title>Quản trị — SeaSoft</title>
     <link rel="icon" type="image/png" href="img/favicon.png" />
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link rel="preload" href="fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/material-symbols.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="css/fonts.css" />
     <link rel="stylesheet" href="css/tailwind.css" />
     <link rel="stylesheet" href="css/auth-pages.css" />
     <link rel="stylesheet" href="css/animations.css" />
@@ -25,7 +24,7 @@
         <span class="material-symbols-outlined text-5xl text-primary">lock</span>
         <h1 class="text-2xl font-bold">Khu vực dành cho nhân viên</h1>
         <p class="text-sm text-text-muted">Tài khoản của bạn không có quyền truy cập trang quản trị.</p>
-        <a href="Page.html" class="inline-flex bg-primary text-white font-semibold rounded-xl px-6 py-3">Về trang chủ</a>
+        <a href="Page.html" class="inline-flex bg-primary text-dark-navy font-semibold rounded-xl px-6 py-3">Về trang chủ</a>
       </div>
     </div>
 
@@ -114,7 +113,7 @@
               <h1 class="text-2xl sm:text-3xl font-bold">Dự án</h1>
               <p class="text-sm text-text-muted mt-1"><span id="prj-total">0</span> dự án phù hợp bộ lọc</p>
             </div>
-            <button id="prj-new" class="inline-flex items-center gap-1.5 text-sm font-semibold bg-primary text-white rounded-lg px-4 py-2.5 hover:bg-[#34b6d0]">
+            <button id="prj-new" class="inline-flex items-center gap-1.5 text-sm font-semibold bg-primary text-dark-navy rounded-lg px-4 py-2.5 hover:bg-[#34b6d0]">
               <span class="material-symbols-outlined text-lg">add</span> Tạo dự án
             </button>
           </header>
@@ -204,7 +203,7 @@
               <h1 class="text-2xl sm:text-3xl font-bold">Người dùng</h1>
               <p class="text-sm text-text-muted mt-1"><span id="usr-total">0</span> tài khoản phù hợp bộ lọc</p>
             </div>
-            <button id="usr-new" class="inline-flex items-center gap-1.5 text-sm font-semibold bg-primary text-white rounded-lg px-4 py-2.5 hover:bg-[#34b6d0]">
+            <button id="usr-new" class="inline-flex items-center gap-1.5 text-sm font-semibold bg-primary text-dark-navy rounded-lg px-4 py-2.5 hover:bg-[#34b6d0]">
               <span class="material-symbols-outlined text-lg">person_add</span> Thêm nhân viên
             </button>
           </header>
@@ -250,7 +249,7 @@
               <h1 class="text-2xl sm:text-3xl font-bold">Nội dung website</h1>
               <p class="text-sm text-text-muted mt-1">Dự án tiêu biểu, blog và đánh giá hiển thị trên trang công khai</p>
             </div>
-            <button id="ct-new" class="inline-flex items-center gap-1.5 text-sm font-semibold bg-primary text-white rounded-lg px-4 py-2.5 hover:bg-[#34b6d0]">
+            <button id="ct-new" class="inline-flex items-center gap-1.5 text-sm font-semibold bg-primary text-dark-navy rounded-lg px-4 py-2.5 hover:bg-[#34b6d0]">
               <span class="material-symbols-outlined text-lg">add</span> <span id="ct-new-label">Thêm</span>
             </button>
           </header>

@@ -34,6 +34,64 @@
 .fade-slide-up-d1 { animation-delay: 0.08s; }
 .fade-slide-up-d2 { animation-delay: 0.16s; }
 .fade-slide-up-d3 { animation-delay: 0.24s; }
+.fade-slide-up-d4 { animation-delay: 0.32s; }
+.fade-slide-up-d5 { animation-delay: 0.4s; }
+.fade-slide-up-d6 { animation-delay: 0.48s; }
+
+/* ---------- Rieng cho login / register ---------- */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #9ca3af;
+  font-size: 13px;
+}
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e2e8f0;
+}
+.social-btn {
+  transition: background 0.18s, border-color 0.18s, transform 0.15s;
+}
+.social-btn:hover {
+  background: #ebf8fc;
+  border-color: #48cae4;
+  transform: translateY(-1px);
+}
+.social-btn:active {
+  transform: scale(0.97);
+}
+.pwd-toggle {
+  cursor: pointer;
+  user-select: none;
+}
+.strength-bar {
+  height: 3px;
+  border-radius: 9999px;
+  transition: width 0.35s ease, background 0.35s ease;
+}
+.step-badge {
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+input[type="checkbox"] {
+  accent-color: #48cae4;
+}
+.phone-prefix {
+  background: #ebf8fc;
+  border-right: 1px solid #e2e8f0;
+  border-radius: 0.75rem 0 0 0.75rem;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #03045e;
+  white-space: nowrap;
+  min-height: 100%;
+}
 
 .form-input-sea {
   transition: border-color 0.2s, box-shadow 0.2s;
