@@ -21,46 +21,7 @@
       rel="stylesheet"
     />
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              primary: "#48CAE4",
-              secondary: "#90E0EF",
-              "dark-navy": "#03045E",
-              surface: "#F8FCFF",
-              "surface-alt": "#EBF8FC",
-              "text-secondary": "#333333",
-              "text-muted": "#6B7280",
-              border: "#E2E8F0",
-            },
-            fontFamily: {
-              headline: ["Inter", "sans-serif"],
-              display: ["Inter", "sans-serif"],
-              body: ["Inter", "sans-serif"],
-              label: ["Inter", "sans-serif"],
-            },
-            borderRadius: {
-              DEFAULT: "0.25rem",
-              sm: "0.25rem",
-              md: "0.5rem",
-              lg: "0.5rem",
-              xl: "0.75rem",
-              "2xl": "1rem",
-              full: "9999px",
-            },
-            boxShadow: {
-              card: "0 10px 30px -5px rgba(3, 4, 94, 0.05)",
-              cardHover: "0 20px 40px -5px rgba(72, 202, 228, 0.18)",
-              cyanGlow: "0 0 60px rgba(72, 202, 228, 0.4)",
-            },
-          },
-        },
-      };
-    </script>
+    <link rel="stylesheet" href="css/tailwind.css" />
     <style>
       .material-symbols-outlined {
         font-variation-settings:
@@ -762,7 +723,6 @@
     </footer>
 
     <script src="js/auth.js"></script>
-    <script src="js/page-transition.js"></script>
     <script>
       // --- Password Toggle ---
       const regPwdInput = document.getElementById("reg-password");

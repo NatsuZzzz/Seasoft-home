@@ -1,0 +1,4 @@
+/* Nguon cho Tailwind - KHONG sua css/tailwind.css (file build). Chay: npm run build:css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

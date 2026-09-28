@@ -101,7 +101,7 @@ Mục tiêu: kéo xuống tới đâu, nội dung "diễn" tới đó — mượ
 ## Phase 8 — Hardening
 
 - [ ] 8.1 Security review: CORS, rate-limit login, security headers, validate input
-- [ ] 8.2 Tailwind CDN → build CSS tĩnh
+- [x] 8.2 Tailwind CDN → build CSS tĩnh (làm sớm ở Phase 3 để hết nháy khi chuyển trang)
 - [ ] 8.3 Gom JS chung `api.js`
 - [ ] 8.4 Responsive, Lighthouse ≥ 90
 - [ ] 8.5 Actuator health, logging prod
@@ -170,4 +170,5 @@ code → test tự động → test tay trên UI → `docs/testcases/TC_<tên>.m
   - CSS co header ảnh hưởng cả menu mobile (cùng là `div` con) → chỉ nhắm `div:first-child`.
 - **Lưu ý nội dung**: marquee "Công nghệ chúng tôi sử dụng" là danh sách mẫu (Spring Boot, React, Next.js, Tailwind, PostgreSQL, Figma, Docker, WordPress, GSAP, Google Analytics) → cần chủ dự án xác nhận/sửa.
 - **Nợ kỹ thuật**: GSAP/Lenis đang load từ CDN (khi hardening có thể tự host). Chưa đo Lighthouse (Phase 8.4).
+- **Fix sau review của chủ dự án**: chuyển trang bị chớp vài lần (màn che JS: trang mới vẽ trắng trước khi script gắn màn che + Tailwind CDN sinh CSS lúc chạy). Đổi sang View Transitions API (trình duyệt giữ ảnh trang cũ tới khi trang mới sẵn sàng) + build Tailwind tĩnh (`npm run build:css`). Xoá `js/page-transition.js`, `js/tailwind-config.js`.
 - **Tiếp theo**: Phase 4 — Đăng ký tư vấn (Lead).

@@ -24,6 +24,15 @@ Chưa cấu hình SMTP thì email (quên mật khẩu) được in ra console v�
 
 Bật log SQL khi dev: `SPRING_PROFILES_ACTIVE=dev`.
 
+## Build CSS frontend (Tailwind)
+
+`Html/css/tailwind.css` là file **build** (đã commit sẵn). Sửa class Tailwind trong `Html/` thì build lại:
+
+```bash
+npm install
+npm run build:css      # hoặc: npm run watch:css khi đang sửa giao diện
+```
+
 ## Biến môi trường
 
 | Biến | Bắt buộc | Mặc định |

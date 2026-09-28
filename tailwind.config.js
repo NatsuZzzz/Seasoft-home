@@ -1,5 +1,7 @@
-// Theme SeaSoft cho Tailwind CDN - nap ngay sau script cdn.tailwindcss.com
-tailwind.config = {
+/** Theme SeaSoft - build ra Html/css/tailwind.css bang `npm run build:css` */
+module.exports = {
+  // Quet ca file JS vi co class duoc bat/tat bang script (auth.js, animations.js...)
+  content: ["./Html/**/*.{html,js}"],
   darkMode: "class",
   theme: {
     extend: {
@@ -35,4 +37,5 @@ tailwind.config = {
       },
     },
   },
+  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/container-queries")],
 };

@@ -144,45 +144,46 @@
   will-change: transform;
 }
 
-/* ---------- Chuyen trang ---------- */
-.page-transition {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #03045e;
-  color: #48cae4;
-  pointer-events: none;
-  /* Nghi: an ben duoi man hinh */
-  clip-path: inset(100% 0 0 0);
-  transition: clip-path 0.45s cubic-bezier(0.76, 0, 0.24, 1);
+/* ---------- Chuyen trang: View Transitions API (Chrome/Edge 126+, Safari 18.2+) ----------
+ * Trinh duyet giu anh trang cu cho toi khi trang moi render xong roi moi chuyen
+ * -> khong co khung trang/nhay. Trinh duyet khong ho tro thi chuyen trang binh thuong.
+ * Trang moi "keo rem" tu duoi len, trang cu lui nhe ra sau. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+  /* Nen phia sau khi trang cu thu nho lai */
+  ::view-transition {
+    background: #03045e;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    mix-blend-mode: normal;
+    animation-duration: 0.7s;
+    animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+    animation-fill-mode: both;
+  }
+  ::view-transition-old(root) {
+    animation-name: vt-old-out;
+  }
+  ::view-transition-new(root) {
+    animation-name: vt-new-in;
+  }
 }
-.page-transition .material-symbols-outlined {
-  font-size: 48px;
-  animation: pt-bob 1s ease-in-out infinite alternate;
-}
-.page-transition[hidden] {
-  display: none;
-}
-/* Roi trang: man che dang tu duoi len phu kin */
-.page-transition.is-leaving {
-  clip-path: inset(0 0 0 0);
-  pointer-events: all;
-}
-/* Vua vao trang moi: dang phu kin (khong transition) ... */
-.page-transition.is-covering {
-  clip-path: inset(0 0 0 0);
-  transition: none;
-}
-/* ... roi rut tiep len phia tren de lo trang */
-.page-transition.is-revealing {
-  clip-path: inset(0 0 100% 0);
-}
-@keyframes pt-bob {
+@keyframes vt-old-out {
   to {
-    transform: translateY(-6px);
+    transform: scale(0.94) translateY(-2%);
+    filter: brightness(0.75);
+  }
+}
+@keyframes vt-new-in {
+  from {
+    clip-path: inset(100% 0 0 0 round 40px 40px 0 0);
+    transform: translateY(6%);
+  }
+  to {
+    clip-path: inset(0 0 0 0 round 0);
+    transform: none;
   }
 }
 
@@ -200,12 +201,8 @@
 /* ---------- Ton trong nguoi dung tat chuyen dong ---------- */
 @media (prefers-reduced-motion: reduce) {
   .wave-divider svg,
-  .marquee-track,
-  .page-transition .material-symbols-outlined {
+  .marquee-track {
     animation: none !important;
-  }
-  .page-transition {
-    display: none;
   }
   .shake {
     animation: none;
