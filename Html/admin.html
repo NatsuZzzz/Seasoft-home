@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
     <title>Quản trị — SeaSoft</title>
+    <link rel="icon" type="image/png" href="img/favicon.png" />
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -242,6 +243,23 @@
             </div>
           </div>
         </section>
+        <!-- ================= TAB: NOI DUNG ================= -->
+        <section data-tab="content" class="hidden space-y-6">
+          <header class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h1 class="text-2xl sm:text-3xl font-bold">Nội dung website</h1>
+              <p class="text-sm text-text-muted mt-1">Dự án tiêu biểu, blog và đánh giá hiển thị trên trang công khai</p>
+            </div>
+            <button id="ct-new" class="inline-flex items-center gap-1.5 text-sm font-semibold bg-primary text-white rounded-lg px-4 py-2.5 hover:bg-[#34b6d0]">
+              <span class="material-symbols-outlined text-lg">add</span> <span id="ct-new-label">Thêm</span>
+            </button>
+          </header>
+          <div id="ct-kinds" class="inline-flex bg-white border border-border rounded-xl p-1 gap-1" role="tablist"></div>
+          <div class="bg-white rounded-2xl border border-border shadow-card overflow-hidden">
+            <ul id="ct-list" class="divide-y divide-border"></ul>
+            <p id="ct-empty" class="hidden p-10 text-center text-sm text-text-muted">Chưa có nội dung.</p>
+          </div>
+        </section>
       </main>
     </div>
 
@@ -270,6 +288,7 @@
     <script src="js/admin/leads.js"></script>
     <script src="js/admin/projects.js"></script>
     <script src="js/admin/users.js"></script>
+    <script src="js/admin/content.js"></script>
     <script>AdminApp.start();</script>
   </body>
 </html>

@@ -55,7 +55,9 @@
     initMagnetic();
     initAnchorLinks(lenis);
     initScrollSpy();
+    exposeApi();
     root.classList.add("anim-ready"); // bao cho failsafe trong <head> la da chay xong
+    document.dispatchEvent(new Event("seaanim:ready"));
   } catch (err) {
     // Loi giua chung -> dung het hieu ung, tra trang ve trang thai tinh day du
     console.error("[animations] init failed", err);
@@ -272,10 +274,26 @@
     });
   }
 
+  // Cho script khac (noi dung tai tu API) animate phan tu chen vao sau khi trang da khoi tao
+  function exposeApi() {
+    window.SeaAnim = {
+      stagger(parent, type = parent.dataset.stagger || "fade-up") {
+        initTilt(parent);
+        gsap.fromTo(parent.children, fromVars(type), {
+          ...toVars(type),
+          stagger: 0.12,
+          scrollTrigger: triggerFor(parent),
+          clearProps: "transform,filter",
+        });
+        ScrollTrigger.refresh();
+      },
+    };
+  }
+
   // Nghieng 3D nhe theo vi tri chuot (chi thiet bi co chuot)
-  function initTilt() {
+  function initTilt(scope = document) {
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-    document.querySelectorAll("[data-tilt]").forEach((el) => {
+    scope.querySelectorAll("[data-tilt]").forEach((el) => {
       const max = parseFloat(el.dataset.tilt || 6);
       const rx = gsap.quickTo(el, "rotationX", { duration: 0.5, ease: "power2.out" });
       const ry = gsap.quickTo(el, "rotationY", { duration: 0.5, ease: "power2.out" });

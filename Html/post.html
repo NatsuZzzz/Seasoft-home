@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bài viết — SeaSoft</title>
+    <meta name="description" content="Bài viết từ blog SeaSoft." />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="SeaSoft" />
+    <meta property="og:image" content="img/og-image.png" />
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/tailwind.css" />
+    <link rel="stylesheet" href="css/auth-pages.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <style>
+      /* Kieu chu cho noi dung bai viet */
+      .prose-sea { font-size: 1.0625rem; line-height: 1.8; color: #333; }
+      .prose-sea p { margin: 0 0 1.1em; }
+      .prose-sea h2 { font-size: 1.5rem; font-weight: 700; color: #03045e; margin: 1.8em 0 0.6em; }
+      .prose-sea h3 { font-size: 1.2rem; font-weight: 700; color: #03045e; margin: 1.5em 0 0.5em; }
+      .prose-sea ul { list-style: disc; padding-left: 1.4em; margin: 0 0 1.1em; }
+      .prose-sea li { margin: 0.3em 0; }
+      .prose-sea li::marker { color: #48cae4; }
+    </style>
+  </head>
+
+  <body class="min-h-screen bg-surface font-body antialiased overflow-x-hidden text-dark-navy">
+    <div id="site-header"></div>
+
+    <main class="px-4 py-8">
+      <article class="max-w-3xl mx-auto space-y-6">
+        <a href="blog.html" class="inline-flex items-center gap-1 text-sm font-semibold text-text-muted hover:text-primary">
+          <span class="material-symbols-outlined text-base">arrow_back</span> Tất cả bài viết
+        </a>
+        <p id="error" class="hidden glass-card rounded-2xl border border-border p-8 text-center"></p>
+        <div id="content" class="hidden space-y-6 fade-slide-up">
+          <header class="space-y-3">
+            <p id="meta" class="text-sm text-text-muted"></p>
+            <h1 id="title" class="text-3xl sm:text-4xl font-bold leading-tight"></h1>
+            <p id="excerpt" class="text-lg text-text-muted"></p>
+            <div id="tags" class="flex flex-wrap gap-2"></div>
+          </header>
+          <div id="cover" class="rounded-2xl overflow-hidden shadow-cardHover"></div>
+          <div id="body" class="prose-sea glass-card rounded-2xl border border-border/70 p-6 sm:p-10"></div>
+          <aside class="bg-dark-navy text-white rounded-2xl p-8 text-center space-y-3">
+            <h2 class="text-xl font-bold">Cần một website như vậy cho doanh nghiệp?</h2>
+            <p class="text-gray-300 text-sm">Chuyên viên SeaSoft tư vấn và báo giá miễn phí trong 24 giờ.</p>
+            <a href="Page.html#contact" class="inline-flex bg-primary text-dark-navy font-semibold rounded-xl px-6 py-3 hover:bg-secondary">Nhận tư vấn miễn phí</a>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <script src="js/auth.js"></script>
+    <script src="js/labels.js"></script>
+    <script src="js/blog.js"></script>
+    <script>
+      document.getElementById("site-header").innerHTML = Blog.header();
+      const esc = Labels.esc;
+      const slug = new URLSearchParams(location.search).get("slug");
+      const $ = (id) => document.getElementById(id);
+
+      function showError(msg) {
+        $("error").textContent = msg;
+        $("error").classList.remove("hidden");
+        Blog.setMeta("robots", "noindex");
+      }
+
+      if (!slug) showError("Không tìm thấy bài viết.");
+      else
+        Auth.request("/api/public/blog/" + encodeURIComponent(slug))
+          .then((d) => {
+            const p = d.summary;
+            document.title = p.title + " | Blog SeaSoft";
+            Blog.setMeta("description", p.excerpt || p.title);
+            Blog.setMeta("og:title", p.title, "property");
+            Blog.setMeta("og:description", p.excerpt || p.title, "property");
+            if (p.coverImageUrl) Blog.setMeta("og:image", p.coverImageUrl, "property");
+
+            $("meta").textContent = `${Blog.date(p.publishedAt)} · ${p.authorName}`;
+            $("title").textContent = p.title;
+            $("excerpt").textContent = p.excerpt || "";
+            $("tags").innerHTML = (p.tags || "")
+              .split(",")
+              .map((t) => t.trim())
+              .filter(Boolean)
+              .map((t) => `<span class="px-3 py-1 rounded-full bg-surface-alt text-xs font-semibold text-dark-navy">#${esc(t)}</span>`)
+              .join("");
+            if (p.coverImageUrl) $("cover").innerHTML = `<img src="${esc(p.coverImageUrl)}" alt="" class="w-full">`;
+            $("body").innerHTML = Blog.render(d.content);
+            $("content").classList.remove("hidden");
+          })
+          .catch((err) => showError(err.status === 404 ? "Bài viết không tồn tại hoặc đã bị gỡ." : err.message));
+    </script>
+  </body>
+</html>

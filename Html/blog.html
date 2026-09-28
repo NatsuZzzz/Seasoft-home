@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog — Kiến thức thiết kế website | SeaSoft</title>
+    <meta name="description" content="Kinh nghiệm thiết kế website, SEO, UX/UI và chuyển đổi số cho doanh nghiệp từ đội ngũ SeaSoft." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SeaSoft" />
+    <meta property="og:title" content="Blog SeaSoft — Kiến thức thiết kế website" />
+    <meta property="og:image" content="img/og-image.png" />
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/tailwind.css" />
+    <link rel="stylesheet" href="css/auth-pages.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+  </head>
+
+  <body class="min-h-screen bg-surface font-body antialiased overflow-x-hidden text-dark-navy">
+    <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+      <div class="blob-float absolute -top-32 -left-32 w-[520px] h-[520px] rounded-full bg-secondary/20 blur-3xl"></div>
+      <div class="absolute inset-0 dot-grid opacity-60"></div>
+    </div>
+    <div id="site-header"></div>
+
+    <main class="px-4 py-8">
+      <div class="max-w-screen-lg mx-auto space-y-8">
+        <div class="text-center max-w-2xl mx-auto space-y-3 fade-slide-up">
+          <span class="text-primary font-semibold text-sm tracking-wider uppercase">Blog SeaSoft</span>
+          <h1 class="text-3xl sm:text-4xl font-bold">Kiến thức thiết kế website</h1>
+          <p class="text-text-muted">Chia sẻ kinh nghiệm về website doanh nghiệp, SEO, UX/UI và chuyển đổi số.</p>
+        </div>
+
+        <div id="posts" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 stagger-in"></div>
+
+        <div id="empty" class="hidden glass-card rounded-2xl border border-border/70 p-10 text-center space-y-3">
+          <span class="material-symbols-outlined text-5xl text-primary">edit_note</span>
+          <h2 class="text-xl font-bold">Bài viết đang được chuẩn bị</h2>
+          <p class="text-sm text-text-muted">Quay lại sau nhé, hoặc <a href="Page.html#contact" class="text-primary font-semibold">nhận tư vấn trực tiếp</a>.</p>
+        </div>
+
+        <div id="pager" class="hidden flex items-center justify-center gap-3 text-sm">
+          <button id="prev" class="px-4 py-2 rounded-lg border border-border bg-white disabled:opacity-40">← Mới hơn</button>
+          <span id="page-label" class="text-text-muted"></span>
+          <button id="next" class="px-4 py-2 rounded-lg border border-border bg-white disabled:opacity-40">Cũ hơn →</button>
+        </div>
+      </div>
+    </main>
+
+    <script src="js/auth.js"></script>
+    <script src="js/labels.js"></script>
+    <script src="js/blog.js"></script>
+    <script>
+      document.getElementById("site-header").innerHTML = Blog.header();
+      const esc = Labels.esc;
+      let page = Number(new URLSearchParams(location.search).get("page") || 0);
+
+      function card(p) {
+        const cover = p.coverImageUrl
+          ? `<img src="${esc(p.coverImageUrl)}" alt="" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">`
+          : `<div class="w-full h-full flex items-center justify-center bg-gradient-to-tr from-dark-navy to-primary text-white"><span class="material-symbols-outlined text-5xl">article</span></div>`;
+        return `<a href="post.html?slug=${encodeURIComponent(p.slug)}" class="group glass-card rounded-2xl border border-border/70 shadow-card hover:shadow-cardHover overflow-hidden flex flex-col transition-shadow">
+          <div class="aspect-video overflow-hidden bg-surface-alt">${cover}</div>
+          <div class="p-5 flex flex-col gap-2 flex-1">
+            <p class="text-xs text-text-muted">${Blog.date(p.publishedAt)} · ${esc(p.authorName)}</p>
+            <h2 class="font-bold text-lg leading-snug group-hover:text-primary transition-colors">${esc(p.title)}</h2>
+            <p class="text-sm text-text-muted line-clamp-3">${esc(p.excerpt || "")}</p>
+            <span class="text-sm font-semibold text-primary mt-auto pt-2">Đọc tiếp →</span>
+          </div></a>`;
+      }
+
+      async function load() {
+        try {
+          const data = await Auth.request(`/api/public/blog?page=${page}&size=9`);
+          document.getElementById("posts").innerHTML = data.items.map(card).join("");
+          document.getElementById("empty").classList.toggle("hidden", data.totalItems > 0);
+          document.getElementById("pager").classList.toggle("hidden", data.totalPages <= 1);
+          document.getElementById("prev").disabled = page <= 0;
+          document.getElementById("next").disabled = page >= data.totalPages - 1;
+          document.getElementById("page-label").textContent = `Trang ${page + 1} / ${data.totalPages}`;
+        } catch {
+          document.getElementById("empty").classList.remove("hidden");
+        }
+      }
+      const go = (d) => {
+        page += d;
+        history.replaceState(null, "", "?page=" + page);
+        load();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+      document.getElementById("prev").addEventListener("click", () => go(-1));
+      document.getElementById("next").addEventListener("click", () => go(1));
+      load();
+    </script>
+  </body>
+</html>

@@ -95,8 +95,8 @@ Mục tiêu: kéo xuống tới đâu, nội dung "diễn" tới đó — mượ
 
 ## Phase 7 — (Tuỳ chọn) Marketing & SEO
 
-- [ ] Portfolio / case study, blog, testimonial
-- [ ] SEO: meta, sitemap.xml, robots.txt, OG image
+- [x] Portfolio / case study, blog, testimonial (tab "Nội dung" trong admin)
+- [x] SEO: meta, sitemap.xml, robots.txt, OG image, JSON-LD, favicon
 
 ## Phase 8 — Hardening
 
@@ -195,3 +195,11 @@ code → test tự động → test tay trên UI → `docs/testcases/TC_<tên>.m
 - **Ghi chú**: quy tắc "không hạ quyền ADMIN cuối cùng" là lớp phòng thủ; qua API không thể xảy ra vì ADMIN không tự đổi vai trò được.
 - **Dữ liệu demo** (DB dev): nhân viên `nv.demo@seasoft.test` (STAFF).
 - **Tiếp theo**: Phase 7 — Marketing & SEO.
+
+### Mốc #7 — Phase 7 (2026-09-28) ✅
+- **Kết quả**: 161/161 test tự động (thêm 22). Test UI: viết bài có định dạng + thử XSS (bị escape), blog/post hiển thị đúng, meta SEO động, trang chủ lấy dự án từ API vẫn có hiệu ứng, section đánh giá ẩn/hiện đúng, sitemap/robots đúng. 2 file testcase (20 + 12 case).
+- **Đã làm**: V5 (portfolio_items seed 3 dự án cũ, blog_posts, testimonials), API public + admin, slug tiếng Việt tự sinh, `blog.html`, `post.html`, `js/blog.js` (render an toàn), `js/home-content.js`, tab "Nội dung", `/sitemap.xml`, `/robots.txt`, meta/OG/JSON-LD/favicon, noindex trang riêng tư.
+- **Bug bắt được**: helper test tên `post` che hàm `MockMvcRequestBuilders.post` import tĩnh (lọt vì class do VS Code biên dịch sẵn); nội dung tải từ API sau khi hiệu ứng khởi tạo bị kẹt ẩn → thêm `SeaAnim.stagger()` + sự kiện `seaanim:ready`.
+- **Quyết định**: không seed đánh giá mẫu (tránh đánh giá giả); chỉ đăng đánh giá thật có sự đồng ý của khách.
+- **Nợ kỹ thuật**: bài viết render phía client → bot không chạy JS sẽ không thấy nội dung (cân nhắc SSR cho `post.html` ở Phase 8); ảnh OG đang là logo 487×403, nên thay ảnh 1200×630.
+- **Tiếp theo**: Phase 8 — Hardening.
