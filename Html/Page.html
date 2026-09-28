@@ -1,0 +1,1231 @@
+<!doctype html>
+<html class="scroll-smooth" lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>SeaSoft — Thiết Kế Website Chuyên Nghiệp Cho Doanh Nghiệp B2B</title>
+    <!-- Inter Google Font -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Material Symbols Outlined -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#48CAE4",
+              secondary: "#90E0EF",
+              "dark-navy": "#03045E",
+              surface: "#F8FCFF",
+              "surface-alt": "#EBF8FC",
+              "text-secondary": "#333333",
+              "text-muted": "#6B7280",
+              border: "#E2E8F0",
+            },
+            fontFamily: {
+              headline: ["Inter", "sans-serif"],
+              display: ["Inter", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+              label: ["Inter", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              sm: "0.25rem",
+              md: "0.5rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              "2xl": "1rem",
+              full: "9999px",
+            },
+            boxShadow: {
+              card: "0 10px 30px -5px rgba(3, 4, 94, 0.05)",
+              cardHover: "0 20px 40px -5px rgba(72, 202, 228, 0.15)",
+              cyanGlow: "0 0 50px rgba(72, 202, 228, 0.3)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-white text-text font-body antialiased selection:bg-secondary/30 selection:text-dark-navy"
+  >
+    <!-- 1. HEADER (TopAppBar Anchor Component) -->
+    <header
+      class="sticky top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-border/80 shadow-sm transition-all duration-300"
+    >
+      <div
+        class="flex justify-between items-center w-full px-6 md:px-12 max-w-7xl mx-auto h-20"
+      >
+        <!-- Brand Logo -->
+        <a
+          class="flex items-center gap-2 font-headline text-2xl font-bold tracking-tight text-dark-navy group"
+          href="#"
+        >
+          <span
+            class="p-1.5 rounded-lg bg-surface-alt text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-200"
+          >
+            <span class="material-symbols-outlined align-middle text-28"
+              >waves</span
+            >
+          </span>
+          <span class="">Sea<span class="text-primary">Soft</span></span>
+        </a>
+        <!-- Desktop Navigation Links -->
+        <nav
+          class="hidden md:flex items-center gap-8 font-label text-sm font-medium"
+        >
+          <a
+            class="text-primary font-semibold border-b-2 border-primary pb-1 transition-colors duration-150"
+            href="#services"
+            >Dịch vụ</a
+          >
+          <a
+            class="text-text-secondary hover:text-primary transition-colors duration-150"
+            href="#process"
+            >Quy trình</a
+          >
+          <a
+            class="text-text-secondary hover:text-primary transition-colors duration-150"
+            href="#portfolio"
+            >Dự án</a
+          >
+          <a
+            class="text-text-secondary hover:text-primary transition-colors duration-150"
+            href="#why-us"
+            >Về chúng tôi</a
+          >
+          <a
+            class="text-text-secondary hover:text-primary transition-colors duration-150"
+            href="#contact"
+            >Liên hệ</a
+          >
+        </nav>
+        <!-- Trailing Action CTA & Mobile Trigger -->
+        <div class="flex items-center gap-1.5">
+          <a
+            class="hidden lg:inline-flex items-center justify-center font-label text-sm font-semibold bg-primary text-white hover:bg-[#34b6d0] active:scale-95 transition-all duration-150 rounded-lg px-5 py-2.5 shadow-sm"
+            href="#contact"
+            >Nhận tư vấn miễn phí</a
+          ><a
+            class="inline-flex items-center justify-center text-xs sm:text-sm font-medium text-dark-navy hover:text-primary transition-colors px-2 py-1.5 rounded-md"
+            href="login.html"
+            >Đăng nhập</a
+          ><a
+            class="inline-flex items-center justify-center text-xs sm:text-sm font-semibold bg-primary text-white hover:bg-[#34b6d0] active:scale-95 transition-all duration-150 rounded-lg px-2.5 sm:px-3.5 py-1.5 sm:py-2 shadow-sm"
+            href="register.html"
+            >Tạo tài khoản</a
+          ><button
+            aria-label="Mở menu di động"
+            class="md:hidden inline-flex items-center justify-center p-1.5 sm:p-2 rounded-lg text-dark-navy hover:bg-surface-alt focus:outline-none transition-colors"
+            id="mobileMenuBtn"
+          >
+            <span class="material-symbols-outlined text-2xl">menu</span>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile Navigation Drawer -->
+      <div
+        class="hidden md:hidden border-t border-border/80 bg-white px-6 py-4 space-y-3"
+        id="mobileMenu"
+      >
+        <a class="block py-2 text-dark-navy font-semibold" href="#services"
+          >Dịch vụ</a
+        >
+        <a
+          class="block py-2 text-text-secondary hover:text-primary"
+          href="#process"
+          >Quy trình</a
+        >
+        <a
+          class="block py-2 text-text-secondary hover:text-primary"
+          href="#portfolio"
+          >Dự án</a
+        >
+        <a
+          class="block py-2 text-text-secondary hover:text-primary"
+          href="#why-us"
+          >Tại sao chọn SeaSoft</a
+        >
+        <a
+          class="block py-2 text-text-secondary hover:text-primary"
+          href="#contact"
+          >Liên hệ tư vấn</a
+        >
+        <div class="pt-2">
+          <div
+            class="grid grid-cols-2 gap-2 pb-2 mb-2 border-b border-border/60"
+          >
+            <a
+              class="text-center py-2 text-sm font-medium text-dark-navy hover:text-primary bg-surface-alt rounded-lg border border-border/80 transition-colors"
+              href="#login"
+              >Đăng nhập</a
+            ><a
+              class="text-center py-2 text-sm font-semibold text-white bg-primary hover:bg-[#34b6d0] rounded-lg transition-colors"
+              href="#register"
+              >Tạo tài khoản</a
+            >
+          </div>
+          <a
+            class="w-full inline-flex items-center justify-center font-label text-sm font-semibold bg-primary text-white rounded-lg py-2.5"
+            href="#contact"
+            >Nhận tư vấn miễn phí</a
+          >
+        </div>
+      </div>
+    </header>
+    <!-- 2. HERO SECTION -->
+    <section class="relative bg-white pt-10 pb-20 md:py-24 overflow-hidden">
+      <!-- Subtle Secondary Blob Background -->
+      <div
+        class="absolute top-1/2 right-4 -translate-y-1/2 w-[350px] h-[350px] sm:w-[550px] sm:h-[550px] rounded-full bg-secondary/15 blur-3xl pointer-events-none -z-0"
+      ></div>
+      <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center"
+        >
+          <!-- Left Hero Content -->
+          <div class="lg:col-span-7 space-y-6 text-left">
+            <!-- Small Badge Tag -->
+            <div
+              class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-alt border border-secondary/40 text-xs font-semibold text-dark-navy"
+            >
+              <span
+                class="w-2 h-2 rounded-full bg-primary animate-pulse"
+              ></span>
+              Thiết kế website chuyên nghiệp
+            </div>
+            <!-- Headline -->
+            <h1
+              class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-dark-navy leading-[1.15]"
+            >
+              Website chuyên nghiệp cho thương hiệu doanh nghiệp
+            </h1>
+            <!-- Subheadline -->
+            <p
+              class="font-body text-lg text-text-muted max-w-2xl leading-relaxed"
+            >
+              SeaSoft thiết kế website theo yêu cầu, tối ưu cho thương hiệu,
+              trải nghiệm người dùng và mục tiêu kinh doanh.
+            </p>
+            <!-- Dual CTA Buttons -->
+            <div
+              class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2"
+            >
+              <a
+                class="inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold text-white bg-primary hover:bg-[#34b6d0] active:scale-95 rounded-lg shadow-sm transition-all duration-150"
+                href="#contact"
+              >
+                Bắt đầu dự án
+                <span class="material-symbols-outlined ml-2 text-xl"
+                  >arrow_forward</span
+                >
+              </a>
+              <a
+                class="inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold text-dark-navy border-2 border-primary bg-white hover:bg-surface-alt active:scale-95 rounded-lg transition-all duration-150"
+                href="#portfolio"
+              >
+                Xem dự án
+              </a>
+            </div>
+            <!-- 3 Stats Inline -->
+            <div class="grid grid-cols-3 gap-4 pt-8 border-t border-border">
+              <div>
+                <p
+                  class="font-headline text-2xl sm:text-3xl font-bold text-dark-navy"
+                >
+                  50+
+                </p>
+                <p
+                  class="text-xs sm:text-sm font-medium text-text-muted mt-0.5"
+                >
+                  Dự án hoàn thành
+                </p>
+              </div>
+              <div>
+                <p
+                  class="font-headline text-2xl sm:text-3xl font-bold text-dark-navy"
+                >
+                  5+
+                </p>
+                <p
+                  class="text-xs sm:text-sm font-medium text-text-muted mt-0.5"
+                >
+                  Năm kinh nghiệm
+                </p>
+              </div>
+              <div>
+                <p
+                  class="font-headline text-2xl sm:text-3xl font-bold text-dark-navy"
+                >
+                  100%
+                </p>
+                <p
+                  class="text-xs sm:text-sm font-medium text-text-muted mt-0.5"
+                >
+                  Hài lòng từ đối tác
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Right Hero Mockups (Browser + Mobile) -->
+          <div class="lg:col-span-5 relative flex justify-center items-center">
+            <!-- Main Browser Mockup -->
+            <div
+              class="w-full max-w-lg bg-white rounded-xl shadow-2xl border border-border/80 overflow-hidden relative transform hover:-translate-y-1 transition-transform duration-300"
+            >
+              <!-- Browser Top Bar with Cyan Navbar Touch -->
+              <div
+                class="bg-surface px-4 py-3 border-b border-border flex items-center justify-between"
+              >
+                <div class="flex items-center gap-1.5">
+                  <span class="w-3 h-3 rounded-full bg-red-400"></span>
+                  <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+                  <span class="w-3 h-3 rounded-full bg-green-400"></span>
+                </div>
+                <div
+                  class="bg-white px-3 py-1 rounded-md text-[11px] text-text-muted border border-border/60 flex items-center gap-1 w-48"
+                >
+                  <span
+                    class="material-symbols-outlined text-[13px] text-primary"
+                    >lock</span
+                  >
+                  <span class="">seasoft.vn/demo-brand</span>
+                </div>
+                <span class="w-3"></span>
+              </div>
+              <!-- Browser Viewport Preview -->
+              <div class="p-4 bg-white space-y-3">
+                <!-- Internal Cyan Header Bar -->
+                <div
+                  class="h-8 bg-primary rounded-md flex items-center justify-between px-3"
+                >
+                  <div class="w-16 h-3 bg-white/80 rounded"></div>
+                  <div class="flex gap-2">
+                    <div class="w-8 h-2 bg-white/60 rounded"></div>
+                    <div class="w-8 h-2 bg-white/60 rounded"></div>
+                    <div class="w-10 h-3 bg-white rounded"></div>
+                  </div>
+                </div>
+                <!-- Hero banner inside browser -->
+                <div class="h-44 rounded-lg overflow-hidden relative">
+                  <img
+                    alt="B2B Web Preview"
+                    class="w-full h-full object-cover"
+                    data-alt="A clean, minimalist modern corporate website user interface rendered inside a sleek browser window mockup. The screen features a crisp ocean blue and white palette with bold typography, dynamic layout graphs, and elegant abstract glass reflections on a clean studio background under bright daylight lighting."
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVcWzfTIAfQoqY9kWBuI5GXJ9U1iENRHK4fjHFxVS3hXabuDul7_15u8fg2_OeN8t74b4PQns7NXqyCEogCbcwWEpXk_skaVE6OAwwMkSCYvQQpzWTMUSI9JgrzvBTCB-6XsZ5bSbCf7OkTTk4bAfWu-35NgbpPSQtGXNY9q0jgXbhDcGFfUadxdorbby5F-HFEtYF0lG68JoSdy4zDu_9eZQPB252Q8jR20eo0h2SRJNKaiXJe1YHjsUV_ijzIIsDpsMsOqhL2H7X"
+                  />
+                </div>
+                <!-- Content Blocks -->
+                <div class="grid grid-cols-3 gap-2 pt-1">
+                  <div
+                    class="h-12 bg-surface rounded p-2 border border-border/60"
+                  >
+                    <div class="w-6 h-2 bg-primary/40 rounded mb-1"></div>
+                    <div class="w-12 h-1.5 bg-gray-200 rounded"></div>
+                  </div>
+                  <div
+                    class="h-12 bg-surface rounded p-2 border border-border/60"
+                  >
+                    <div class="w-6 h-2 bg-primary/40 rounded mb-1"></div>
+                    <div class="w-12 h-1.5 bg-gray-200 rounded"></div>
+                  </div>
+                  <div
+                    class="h-12 bg-surface rounded p-2 border border-border/60"
+                  >
+                    <div class="w-6 h-2 bg-primary/40 rounded mb-1"></div>
+                    <div class="w-12 h-1.5 bg-gray-200 rounded"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Floating Phone Mockup -->
+            <div
+              class="absolute -bottom-6 -left-4 sm:-left-6 w-36 sm:w-44 bg-dark-navy p-2 rounded-2xl shadow-xl border-2 border-white transform rotate-3 hover:rotate-0 transition-transform duration-300"
+            >
+              <div class="bg-white rounded-xl overflow-hidden">
+                <div class="h-3 bg-dark-navy flex justify-center items-center">
+                  <div class="w-10 h-1 bg-gray-600 rounded-full"></div>
+                </div>
+                <div class="h-48 sm:h-56 bg-surface-alt p-2 space-y-2">
+                  <div class="h-5 bg-primary rounded flex items-center px-1.5">
+                    <div class="w-6 h-1.5 bg-white rounded"></div>
+                  </div>
+                  <div
+                    class="h-20 rounded bg-white p-1 border border-border/50 flex flex-col justify-end"
+                  >
+                    <div class="w-16 h-2 bg-dark-navy rounded mb-1"></div>
+                    <div class="w-20 h-1.5 bg-gray-300 rounded"></div>
+                  </div>
+                  <div class="h-10 rounded bg-secondary/30 p-1">
+                    <div class="w-10 h-1.5 bg-primary rounded"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 3. SERVICES SECTION -->
+    <section
+      class="bg-surface py-20 md:py-24 border-y border-border/60"
+      id="services"
+    >
+      <div class="max-w-7xl mx-auto px-6 md:px-12">
+        <!-- Section Header -->
+        <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+          <span
+            class="text-primary font-semibold text-sm tracking-wider uppercase"
+            >Dịch vụ cốt lõi</span
+          >
+          <h2
+            class="font-headline text-3xl sm:text-4xl font-bold text-dark-navy"
+          >
+            Dịch vụ của chúng tôi
+          </h2>
+          <p class="text-text-muted text-base">
+            Giải pháp thiết kế web toàn diện cho mọi quy mô doanh nghiệp
+          </p>
+        </div>
+        <!-- 4 Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Card 1 -->
+          <div
+            class="bg-white rounded-lg p-6 shadow-card hover:shadow-cardHover border-t-[3px] border-primary transition-all duration-200 transform hover:-translate-y-1.5 flex flex-col justify-between"
+          >
+            <div>
+              <div
+                class="w-12 h-12 rounded-lg bg-surface-alt text-primary flex items-center justify-center mb-5"
+              >
+                <span class="material-symbols-outlined text-2xl">globe</span>
+              </div>
+              <h3 class="font-headline text-lg font-bold text-dark-navy mb-2">
+                Website doanh nghiệp
+              </h3>
+              <p class="font-body text-sm text-text-muted leading-relaxed">
+                Xây dựng hình ảnh thương hiệu uy tín, chuẩn quốc tế, giúp khẳng
+                định vị thế và tăng tỷ lệ chuyển đổi khách hàng tiềm năng.
+              </p>
+            </div>
+            <div
+              class="mt-6 pt-4 border-t border-gray-100 flex items-center text-xs font-semibold text-primary"
+            >
+              <span class="">Tìm hiểu chi tiết</span>
+              <span class="material-symbols-outlined text-sm ml-1"
+                >arrow_forward</span
+              >
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div
+            class="bg-white rounded-lg p-6 shadow-card hover:shadow-cardHover border-t-[3px] border-primary transition-all duration-200 transform hover:-translate-y-1.5 flex flex-col justify-between"
+          >
+            <div>
+              <div
+                class="w-12 h-12 rounded-lg bg-surface-alt text-primary flex items-center justify-center mb-5"
+              >
+                <span class="material-symbols-outlined text-2xl">layers</span>
+              </div>
+              <h3 class="font-headline text-lg font-bold text-dark-navy mb-2">
+                Landing Page
+              </h3>
+              <p class="font-body text-sm text-text-muted leading-relaxed">
+                Thiết kế trang đích chuyên biệt cho chiến dịch marketing, quảng
+                cáo ra mắt sản phẩm với cấu trúc tâm lý tối ưu tương tác.
+              </p>
+            </div>
+            <div
+              class="mt-6 pt-4 border-t border-gray-100 flex items-center text-xs font-semibold text-primary"
+            >
+              <span class="">Tìm hiểu chi tiết</span>
+              <span class="material-symbols-outlined text-sm ml-1"
+                >arrow_forward</span
+              >
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div
+            class="bg-white rounded-lg p-6 shadow-card hover:shadow-cardHover border-t-[3px] border-primary transition-all duration-200 transform hover:-translate-y-1.5 flex flex-col justify-between"
+          >
+            <div>
+              <div
+                class="w-12 h-12 rounded-lg bg-surface-alt text-primary flex items-center justify-center mb-5"
+              >
+                <span class="material-symbols-outlined text-2xl"
+                  >shopping_bag</span
+                >
+              </div>
+              <h3 class="font-headline text-lg font-bold text-dark-navy mb-2">
+                Website bán hàng
+              </h3>
+              <p class="font-body text-sm text-text-muted leading-relaxed">
+                Hệ thống thương mại điện tử mượt mà, quản lý đơn hàng thông minh
+                cùng trải nghiệm thanh toán bảo mật chuẩn doanh nghiệp.
+              </p>
+            </div>
+            <div
+              class="mt-6 pt-4 border-t border-gray-100 flex items-center text-xs font-semibold text-primary"
+            >
+              <span class="">Tìm hiểu chi tiết</span>
+              <span class="material-symbols-outlined text-sm ml-1"
+                >arrow_forward</span
+              >
+            </div>
+          </div>
+          <!-- Card 4 -->
+          <div
+            class="bg-white rounded-lg p-6 shadow-card hover:shadow-cardHover border-t-[3px] border-primary transition-all duration-200 transform hover:-translate-y-1.5 flex flex-col justify-between"
+          >
+            <div>
+              <div
+                class="w-12 h-12 rounded-lg bg-surface-alt text-primary flex items-center justify-center mb-5"
+              >
+                <span class="material-symbols-outlined text-2xl">settings</span>
+              </div>
+              <h3 class="font-headline text-lg font-bold text-dark-navy mb-2">
+                Website theo yêu cầu
+              </h3>
+              <p class="font-body text-sm text-text-muted leading-relaxed">
+                Giải pháp lập trình chức năng phức tạp, tích hợp CRM, API bên
+                thứ ba và kiến trúc hệ thống riêng biệt theo đặc thù ngành.
+              </p>
+            </div>
+            <div
+              class="mt-6 pt-4 border-t border-gray-100 flex items-center text-xs font-semibold text-primary"
+            >
+              <span class="">Tìm hiểu chi tiết</span>
+              <span class="material-symbols-outlined text-sm ml-1"
+                >arrow_forward</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 4. PROCESS SECTION -->
+    <section class="bg-white py-20 md:py-24" id="process">
+      <div class="max-w-7xl mx-auto px-6 md:px-12">
+        <!-- Section Header -->
+        <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+          <span
+            class="text-primary font-semibold text-sm tracking-wider uppercase"
+            >Lộ trình triển khai</span
+          >
+          <h2
+            class="font-headline text-3xl sm:text-4xl font-bold text-dark-navy"
+          >
+            Quy trình làm việc
+          </h2>
+          <p class="text-text-muted text-base">
+            Phương pháp tinh gọn, minh bạch từ ý tưởng khởi nguồn đến khi bàn
+            giao vận hành
+          </p>
+        </div>
+        <!-- 5-Step Timeline -->
+        <div class="relative">
+          <!-- Connecting Line for Desktop -->
+          <div
+            class="hidden lg:block absolute top-1/4 left-[8%] right-[8%] h-[3px] bg-secondary z-0"
+          ></div>
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 relative z-10"
+          >
+            <!-- Step 01 -->
+            <div class="text-center flex flex-col items-center group">
+              <div
+                class="w-16 h-16 rounded-full bg-dark-navy text-white flex items-center justify-center font-headline font-bold text-lg shadow-md mb-4 border-4 border-white group-hover:bg-primary transition-colors"
+              >
+                01
+              </div>
+              <div
+                class="w-10 h-10 rounded-full bg-surface-alt text-dark-navy flex items-center justify-center mb-3"
+              >
+                <span class="material-symbols-outlined text-xl">forum</span>
+              </div>
+              <h4 class="font-headline text-base font-bold text-dark-navy mb-1">
+                Tư vấn
+              </h4>
+              <p class="text-xs text-text-muted leading-relaxed px-2">
+                Khảo sát yêu cầu bài toán kinh doanh và định hướng chiến lược
+                kiến trúc web.
+              </p>
+            </div>
+            <!-- Step 02 -->
+            <div class="text-center flex flex-col items-center group">
+              <div
+                class="w-16 h-16 rounded-full bg-dark-navy text-white flex items-center justify-center font-headline font-bold text-lg shadow-md mb-4 border-4 border-white group-hover:bg-primary transition-colors"
+              >
+                02
+              </div>
+              <div
+                class="w-10 h-10 rounded-full bg-surface-alt text-dark-navy flex items-center justify-center mb-3"
+              >
+                <span class="material-symbols-outlined text-xl">draw</span>
+              </div>
+              <h4 class="font-headline text-base font-bold text-dark-navy mb-1">
+                UI/UX Design
+              </h4>
+              <p class="text-xs text-text-muted leading-relaxed px-2">
+                Phác thảo Wireframe và hoàn thiện giao diện mẫu thử tương tác
+                trực quan.
+              </p>
+            </div>
+            <!-- Step 03 -->
+            <div class="text-center flex flex-col items-center group">
+              <div
+                class="w-16 h-16 rounded-full bg-dark-navy text-white flex items-center justify-center font-headline font-bold text-lg shadow-md mb-4 border-4 border-white group-hover:bg-primary transition-colors"
+              >
+                03
+              </div>
+              <div
+                class="w-10 h-10 rounded-full bg-surface-alt text-dark-navy flex items-center justify-center mb-3"
+              >
+                <span class="material-symbols-outlined text-xl">code</span>
+              </div>
+              <h4 class="font-headline text-base font-bold text-dark-navy mb-1">
+                Development
+              </h4>
+              <p class="text-xs text-text-muted leading-relaxed px-2">
+                Lập trình Front-end &amp; Back-end với mã nguồn sạch, tối ưu bảo
+                mật và SEO.
+              </p>
+            </div>
+            <!-- Step 04 -->
+            <div class="text-center flex flex-col items-center group">
+              <div
+                class="w-16 h-16 rounded-full bg-dark-navy text-white flex items-center justify-center font-headline font-bold text-lg shadow-md mb-4 border-4 border-white group-hover:bg-primary transition-colors"
+              >
+                04
+              </div>
+              <div
+                class="w-10 h-10 rounded-full bg-surface-alt text-dark-navy flex items-center justify-center mb-3"
+              >
+                <span class="material-symbols-outlined text-xl"
+                  >fact_check</span
+                >
+              </div>
+              <h4 class="font-headline text-base font-bold text-dark-navy mb-1">
+                Testing
+              </h4>
+              <p class="text-xs text-text-muted leading-relaxed px-2">
+                Kiểm thử đa thiết bị, tối ưu tốc độ và rà soát các tiêu chuẩn
+                bảo mật.
+              </p>
+            </div>
+            <!-- Step 05 -->
+            <div class="text-center flex flex-col items-center group">
+              <div
+                class="w-16 h-16 rounded-full bg-dark-navy text-white flex items-center justify-center font-headline font-bold text-lg shadow-md mb-4 border-4 border-white group-hover:bg-primary transition-colors"
+              >
+                05
+              </div>
+              <div
+                class="w-10 h-10 rounded-full bg-surface-alt text-dark-navy flex items-center justify-center mb-3"
+              >
+                <span class="material-symbols-outlined text-xl"
+                  >rocket_launch</span
+                >
+              </div>
+              <h4 class="font-headline text-base font-bold text-dark-navy mb-1">
+                Launch
+              </h4>
+              <p class="text-xs text-text-muted leading-relaxed px-2">
+                Bàn giao hướng dẫn sử dụng, triển khai tên miền và bảo hành kỹ
+                thuật lâu dài.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 5. PORTFOLIO SECTION -->
+    <section
+      class="bg-surface py-20 md:py-24 border-y border-border/60"
+      id="portfolio"
+    >
+      <div class="max-w-7xl mx-auto px-6 md:px-12">
+        <!-- Section Header -->
+        <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+          <span
+            class="text-primary font-semibold text-sm tracking-wider uppercase"
+            >Dự án tiêu biểu</span
+          >
+          <h2
+            class="font-headline text-3xl sm:text-4xl font-bold text-dark-navy"
+          >
+            Dự án nổi bật
+          </h2>
+          <p class="text-text-muted text-base">
+            Những giải pháp số đột phá được chúng tôi kiến tạo cho khách hàng
+            doanh nghiệp
+          </p>
+        </div>
+        <!-- Portfolio Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Portfolio Card 1 -->
+          <div
+            class="bg-white rounded-xl overflow-hidden shadow-card border border-border/60 group hover:shadow-cardHover transition-all duration-300"
+          >
+            <div
+              class="relative aspect-video overflow-hidden bg-gradient-to-tr from-dark-navy/20 to-secondary/30"
+            >
+              <img
+                alt="VinTech Corp"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                data-alt="A clean, minimalist 16:9 modern website dashboard mockup for a technology corporation named VinTech Corp. The design displays sleek data visualization graphs in subtle cyan and dark navy tones on crisp light white background, shot in an aesthetic high-key tech studio lighting."
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX8z0NAiATrmcDmnvsSkovL4JSMunNAXMjKT4488VixavI2c2wz1ISd3iyLvmBxEQ9VfB-yJcrY45fgVVOLQHVBYiELj_3-K8v-9UfCWvho2kU69l9c-8u4cmeNXQtry1f_29c8exUwqCJy1XsjFREjj912v6_YwKI15e9TWcShUKFSOFekZjqp6k5WnZbDpj4b0Mit4OX9I9b3ZkegrxCNSfWrF_3IOC0KFaPS4sdG7BH54jqsSeeQl0UaBykVJHotD-JkExfNslX"
+              />
+              <div
+                class="absolute inset-0 bg-dark-navy/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+              >
+                <span
+                  class="px-4 py-2 bg-white text-dark-navy text-xs font-semibold rounded-full shadow-lg"
+                  >Xem chi tiết</span
+                >
+              </div>
+            </div>
+            <div class="p-6">
+              <span
+                class="inline-block px-3 py-1 rounded-full bg-surface-alt text-primary font-medium text-xs mb-3"
+              >
+                Website Doanh Nghiệp
+              </span>
+              <h3
+                class="font-headline text-lg font-bold text-dark-navy mb-2 line-clamp-2 group-hover:text-primary transition-colors"
+              >
+                Hệ thống website doanh nghiệp VinTech Corp
+              </h3>
+              <p class="text-xs text-text-muted mb-4 line-clamp-2">
+                Kiến trúc website đa ngôn ngữ, tích hợp cổng thông tin nội bộ và
+                giới thiệu danh mục sản phẩm công nghệ cao.
+              </p>
+              <a
+                class="inline-flex items-center text-sm font-semibold text-primary hover:text-dark-navy transition-colors"
+                href="#contact"
+              >
+                Xem chi tiết
+                <span class="material-symbols-outlined text-base ml-1"
+                  >arrow_forward</span
+                >
+              </a>
+            </div>
+          </div>
+          <!-- Portfolio Card 2 -->
+          <div
+            class="bg-white rounded-xl overflow-hidden shadow-card border border-border/60 group hover:shadow-cardHover transition-all duration-300"
+          >
+            <div
+              class="relative aspect-video overflow-hidden bg-gradient-to-tr from-dark-navy/20 to-secondary/30"
+            >
+              <img
+                alt="Marina Bay"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                data-alt="A modern luxury real estate landing page mockup for Marina Bay on a 16:9 ratio screen. The design displays an elegant oceanfront villa architecture with soft cyan accents, minimalist typography, and high-end property showcase elements under serene, high-contrast natural lighting."
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsDj6vggB4bXwlaX0ugrmgem3O6M6vcenfdMTTbBx3cvszO802Hz-CRILyVy8WuBrutEgjSko8vBhE1w8MI2qZyNxCzFEgcqNLhzo_E8q1YZsR3lcZt-iZRBanoKg1BFUBc7hfLL0qZbGfyG3lJz9Q4WyL3gJgdRsYNnnRNWNRGcwj5M2pHH22Xr5vigxR-WYP2YjSXaQye9LXN2O61Csb8qtH2T4qJQ-naKFfMOahBq_peWyPf5PYv4V_ZlGipGCeNf2us0_UITvb"
+              />
+              <div
+                class="absolute inset-0 bg-dark-navy/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+              >
+                <span
+                  class="px-4 py-2 bg-white text-dark-navy text-xs font-semibold rounded-full shadow-lg"
+                  >Xem chi tiết</span
+                >
+              </div>
+            </div>
+            <div class="p-6">
+              <span
+                class="inline-block px-3 py-1 rounded-full bg-surface-alt text-primary font-medium text-xs mb-3"
+              >
+                Landing Page BĐS
+              </span>
+              <h3
+                class="font-headline text-lg font-bold text-dark-navy mb-2 line-clamp-2 group-hover:text-primary transition-colors"
+              >
+                Landing Page bất động sản Marina Bay
+              </h3>
+              <p class="text-xs text-text-muted mb-4 line-clamp-2">
+                Trang đích tối ưu tỷ lệ đặt chỗ với hiệu ứng 3D trực quan và
+                giao diện tương tác bảng giá căn hộ thời gian thực.
+              </p>
+              <a
+                class="inline-flex items-center text-sm font-semibold text-primary hover:text-dark-navy transition-colors"
+                href="#contact"
+              >
+                Xem chi tiết
+                <span class="material-symbols-outlined text-base ml-1"
+                  >arrow_forward</span
+                >
+              </a>
+            </div>
+          </div>
+          <!-- Portfolio Card 3 -->
+          <div
+            class="bg-white rounded-xl overflow-hidden shadow-card border border-border/60 group hover:shadow-cardHover transition-all duration-300"
+          >
+            <div
+              class="relative aspect-video overflow-hidden bg-gradient-to-tr from-dark-navy/20 to-secondary/30"
+            >
+              <img
+                alt="EcoMart"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                data-alt="A 16:9 minimalist e-commerce store user interface mockup for an organic goods brand called EcoMart. Features neat product grids, refined cyan promotional badges, seamless shopping bag drawer, and crisp white surfaces with natural soft morning shadows."
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6MIOJCZO1A5oZGrlibeHFaTk-0eea9sxe0hpg5zLV1M0cNFGvG2E4YtWI9WWWCoL9JzewzqZw8Cxjs2h1HpDuHJ-ZBG7McSa8sQMCVp0TLb5Y-Of2rS1vQZTDQV_ckC0yWodfqw91g7Ear1Y9qLt-CisaVHB504jhpJHrfgMXdindUjrcEP78eaFoU_rwHYNgkVij6Kcfhk6ifZozB19R63c-qEAUaTLYVUT2xZy6iRNsgeXxgU0Fjj_IBH3KwT-n24oV9B_0AhMc"
+              />
+              <div
+                class="absolute inset-0 bg-dark-navy/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+              >
+                <span
+                  class="px-4 py-2 bg-white text-dark-navy text-xs font-semibold rounded-full shadow-lg"
+                  >Xem chi tiết</span
+                >
+              </div>
+            </div>
+            <div class="p-6">
+              <span
+                class="inline-block px-3 py-1 rounded-full bg-surface-alt text-primary font-medium text-xs mb-3"
+              >
+                E-Commerce Platform
+              </span>
+              <h3
+                class="font-headline text-lg font-bold text-dark-navy mb-2 line-clamp-2 group-hover:text-primary transition-colors"
+              >
+                Sàn thương mại điện tử EcoMart
+              </h3>
+              <p class="text-xs text-text-muted mb-4 line-clamp-2">
+                Giải pháp sàn bán hàng trực tuyến với tốc độ tải dưới 1.2 giây,
+                đồng bộ kho vận và thanh toán tức thì.
+              </p>
+              <a
+                class="inline-flex items-center text-sm font-semibold text-primary hover:text-dark-navy transition-colors"
+                href="#contact"
+              >
+                Xem chi tiết
+                <span class="material-symbols-outlined text-base ml-1"
+                  >arrow_forward</span
+                >
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 6. WHY SEASOFT SECTION -->
+    <section
+      class="bg-dark-navy text-white py-20 md:py-28 relative overflow-hidden"
+      id="why-us"
+    >
+      <!-- Ambient Cyan Glow Background -->
+      <div
+        class="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-primary/20 blur-3xl pointer-events-none"
+      ></div>
+      <div
+        class="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-secondary/15 blur-3xl pointer-events-none"
+      ></div>
+      <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center"
+        >
+          <!-- Feature List Left -->
+          <div class="lg:col-span-6 space-y-6">
+            <span
+              class="text-primary font-semibold text-sm tracking-wider uppercase"
+              >Lợi thế cạnh tranh</span
+            >
+            <h2
+              class="font-headline text-3xl sm:text-4xl font-bold tracking-tight text-white"
+            >
+              Tại sao chọn SeaSoft?
+            </h2>
+            <p class="text-gray-300 text-base leading-relaxed">
+              Chúng tôi không chỉ tạo ra giao diện đẹp mắt mà còn xây dựng công
+              cụ số hiệu quả, mang lại doanh thu bền vững cho các đối tác B2B.
+            </p>
+            <div class="space-y-4 pt-2">
+              <!-- Feature 1 -->
+              <div class="flex items-start gap-4">
+                <div
+                  class="flex-shrink-0 w-7 h-7 rounded-full bg-primary/20 text-primary flex items-center justify-center border border-primary/40 mt-0.5"
+                >
+                  <span class="material-symbols-outlined text-base">check</span>
+                </div>
+                <div>
+                  <h4 class="font-headline font-semibold text-white text-base">
+                    Thiết kế theo yêu cầu
+                  </h4>
+                  <p class="text-sm text-gray-400">
+                    Giao diện độc bản, may đo theo đúng bộ nhận diện và văn hoá
+                    doanh nghiệp của bạn.
+                  </p>
+                </div>
+              </div>
+              <!-- Feature 2 -->
+              <div class="flex items-start gap-4">
+                <div
+                  class="flex-shrink-0 w-7 h-7 rounded-full bg-primary/20 text-primary flex items-center justify-center border border-primary/40 mt-0.5"
+                >
+                  <span class="material-symbols-outlined text-base">check</span>
+                </div>
+                <div>
+                  <h4 class="font-headline font-semibold text-white text-base">
+                    Responsive trên mọi thiết bị
+                  </h4>
+                  <p class="text-sm text-gray-400">
+                    Hiển thị sắc nét, mượt mà từ máy tính để bàn, iPad đến mọi
+                    dòng điện thoại di động.
+                  </p>
+                </div>
+              </div>
+              <!-- Feature 3 -->
+              <div class="flex items-start gap-4">
+                <div
+                  class="flex-shrink-0 w-7 h-7 rounded-full bg-primary/20 text-primary flex items-center justify-center border border-primary/40 mt-0.5"
+                >
+                  <span class="material-symbols-outlined text-base">check</span>
+                </div>
+                <div>
+                  <h4 class="font-headline font-semibold text-white text-base">
+                    Chuẩn UX/UI hiện đại
+                  </h4>
+                  <p class="text-sm text-gray-400">
+                    Bố cục logic, dẫn dắt hành vi người dùng và tăng tỷ lệ điền
+                    form đăng ký tư vấn.
+                  </p>
+                </div>
+              </div>
+              <!-- Feature 4 -->
+              <div class="flex items-start gap-4">
+                <div
+                  class="flex-shrink-0 w-7 h-7 rounded-full bg-primary/20 text-primary flex items-center justify-center border border-primary/40 mt-0.5"
+                >
+                  <span class="material-symbols-outlined text-base">check</span>
+                </div>
+                <div>
+                  <h4 class="font-headline font-semibold text-white text-base">
+                    Tối ưu tốc độ tải trang
+                  </h4>
+                  <p class="text-sm text-gray-400">
+                    Điểm Google PageSpeed tối ưu &gt;90 điểm, giúp website leo
+                    top SEO thuận lợi.
+                  </p>
+                </div>
+              </div>
+              <!-- Feature 5 -->
+              <div class="flex items-start gap-4">
+                <div
+                  class="flex-shrink-0 w-7 h-7 rounded-full bg-primary/20 text-primary flex items-center justify-center border border-primary/40 mt-0.5"
+                >
+                  <span class="material-symbols-outlined text-base">check</span>
+                </div>
+                <div>
+                  <h4 class="font-headline font-semibold text-white text-base">
+                    Hỗ trợ sau bàn giao
+                  </h4>
+                  <p class="text-sm text-gray-400">
+                    Đội ngũ kỹ sư hỗ trợ 24/7, sao lưu dữ liệu tự động định kỳ
+                    và bảo hành trọn đời.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Sleek Laptop Mockup with Cyan Glow Effect -->
+          <div class="lg:col-span-6 relative flex items-center justify-center">
+            <div class="relative w-full max-w-md p-4">
+              <!-- Glow backdrop -->
+              <div
+                class="absolute inset-0 bg-primary/25 filter blur-2xl rounded-full transform -rotate-6"
+              ></div>
+              <!-- Laptop Body Mockup -->
+              <div
+                class="relative bg-gray-900 border border-white/20 rounded-2xl p-3 shadow-2xl"
+              >
+                <!-- Laptop Screen -->
+                <div
+                  class="bg-black rounded-lg overflow-hidden border border-gray-800 relative aspect-[16/10]"
+                >
+                  <img
+                    alt="Tech Excellence SeaSoft"
+                    class="w-full h-full object-cover opacity-90"
+                    data-alt="A premium sleek laptop display mockup showing modern dark navy and bright cyan web development code and responsive web layouts. The screen glows softly into a modern dark environment, accompanied by subtle cyan accent backlighting and minimalist engineering aesthetics."
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLTl9-jf36GRoWfdRXwHQsGXbn49v7EJf264049gDvN6ktFA84f5bpo0WFKN0cIKWCr_auTj_KDKSIZK3geytC3ZqeZR2S7JGkUbSAti8YmSsuyMztDM1oLiwrUfoNQz8xVZ9O1oOBCTk6gx9_tR_N6w6SKG1-8-BT-6zD4QTwY5tQ3JSAEIxx5abouIOeYgkuxH1_vgCgCGQzQeW2eXYp2j5BK67OiXcN1TdvFWK_Ip96Iz4WrwQ8zHlAjtGRxD3hU2AXHSdImgbK"
+                  />
+                  <div
+                    class="absolute bottom-3 left-3 right-3 p-3 bg-dark-navy/90 backdrop-blur-md rounded border border-white/10 flex items-center justify-between"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span
+                        class="w-2.5 h-2.5 rounded-full bg-primary animate-ping"
+                      ></span>
+                      <span class="text-xs font-semibold text-white"
+                        >99.9% Uptime &amp; Speed</span
+                      >
+                    </div>
+                    <span class="text-[11px] text-secondary font-medium"
+                      >B2B Standard</span
+                    >
+                  </div>
+                </div>
+                <!-- Laptop Base Notch -->
+                <div
+                  class="w-32 h-1.5 bg-gray-700 rounded-full mx-auto mt-2"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 7. FINAL CTA SECTION -->
+    <section
+      class="bg-gradient-to-b from-white via-surface to-surface-alt/60 py-20 md:py-28 text-center border-b border-border/80"
+      id="contact"
+    >
+      <div class="max-w-4xl mx-auto px-6 md:px-12 space-y-6">
+        <span
+          class="inline-block px-3.5 py-1 rounded-full bg-secondary/30 text-dark-navy text-xs font-semibold"
+        >
+          Khởi đầu sự phát triển số
+        </span>
+        <h2
+          class="font-headline text-3xl sm:text-4xl lg:text-5xl font-bold text-dark-navy tracking-tight"
+        >
+          Bạn đã có ý tưởng website?
+        </h2>
+        <p
+          class="font-body text-base sm:text-lg text-text-muted max-w-xl mx-auto"
+        >
+          Hãy để SeaSoft biến ý tưởng thành website thực tế. Đội ngũ chuyên viên
+          sẽ tư vấn lộ trình và báo giá chi tiết trong vòng 24 giờ.
+        </p>
+        <div class="pt-4">
+          <a
+            class="inline-flex items-center justify-center px-8 py-4 text-base sm:text-lg font-semibold text-white bg-primary hover:bg-[#34b6d0] active:scale-95 transition-all duration-150 rounded-lg shadow-lg hover:shadow-cyanGlow"
+            href="#contact"
+          >
+            Nhận tư vấn miễn phí
+            <span class="material-symbols-outlined ml-2 text-xl">send</span>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- 8. FOOTER (Anchor Component) -->
+    <footer class="w-full bg-dark-navy text-white border-t border-white/10">
+      <div
+        class="max-w-7xl mx-auto px-6 md:px-12 py-16 flex flex-col md:flex-row justify-between gap-10"
+      >
+        <!-- Col 1: Brand & Tagline -->
+        <div class="space-y-4 max-w-sm">
+          <a
+            class="font-headline text-2xl font-bold text-white tracking-tight flex items-center gap-2"
+            href="#"
+          >
+            <span class="material-symbols-outlined text-primary text-28"
+              >waves</span
+            >
+            <span class="">Sea<span class="text-primary">Soft</span></span>
+          </a>
+          <p class="font-body text-sm text-gray-300 leading-relaxed">
+            Agency thiết kế website cao cấp chuẩn B2B. Đồng hành cùng sự tăng
+            trưởng chuyển đổi số của doanh nghiệp tại Việt Nam.
+          </p>
+          <div class="flex items-center gap-3 pt-2 text-gray-400">
+            <a
+              class="w-8 h-8 rounded-full bg-white/5 hover:bg-primary hover:text-white flex items-center justify-center transition-colors"
+              href="#"
+            >
+              <span class="material-symbols-outlined text-lg">public</span>
+            </a>
+            <a
+              class="w-8 h-8 rounded-full bg-white/5 hover:bg-primary hover:text-white flex items-center justify-center transition-colors"
+              href="#"
+            >
+              <span class="material-symbols-outlined text-lg">mail</span>
+            </a>
+            <a
+              class="w-8 h-8 rounded-full bg-white/5 hover:bg-primary hover:text-white flex items-center justify-center transition-colors"
+              href="#"
+            >
+              <span class="material-symbols-outlined text-lg">share</span>
+            </a>
+          </div>
+        </div>
+        <!-- Col 2: Dịch vụ -->
+        <div class="space-y-3">
+          <h4
+            class="font-headline text-base font-semibold text-white tracking-wide"
+          >
+            Dịch vụ
+          </h4>
+          <ul class="font-body text-sm space-y-2 text-gray-300">
+            <li class="">
+              <a class="hover:text-secondary transition-colors" href="#services"
+                >Website doanh nghiệp</a
+              >
+            </li>
+            <li class="">
+              <a class="hover:text-secondary transition-colors" href="#services"
+                >Landing Page bán hàng</a
+              >
+            </li>
+            <li class="">
+              <a class="hover:text-secondary transition-colors" href="#services"
+                >Website thương mại điện tử</a
+              >
+            </li>
+            <li class="">
+              <a class="hover:text-secondary transition-colors" href="#services"
+                >Thiết kế UI/UX theo yêu cầu</a
+              >
+            </li>
+            <li class="">
+              <a class="hover:text-secondary transition-colors" href="#services"
+                >Bảo trì &amp; Nâng cấp website</a
+              >
+            </li>
+          </ul>
+        </div>
+        <!-- Col 3: Công ty -->
+        <div class="space-y-3">
+          <h4
+            class="font-headline text-base font-semibold text-white tracking-wide"
+          >
+            Công ty
+          </h4>
+          <ul class="font-body text-sm space-y-2 text-gray-300">
+            <li class="">
+              <a class="hover:text-secondary transition-colors" href="#why-us"
+                >Về chúng tôi</a
+              >
+            </li>
+            <li class="">
+              <a class="hover:text-secondary transition-colors" href="#process"
+                >Quy trình làm việc</a
+              >
+            </li>
+            <li class="">
+              <a
+                class="hover:text-secondary transition-colors"
+                href="#portfolio"
+                >Dự án tiêu biểu</a
+              >
+            </li>
+            <li class="">
+              <a class="hover:text-secondary transition-colors" href="#"
+                >Báo giá dịch vụ</a
+              >
+            </li>
+            <li class="">
+              <a class="hover:text-secondary transition-colors" href="#"
+                >Điều khoản bảo mật</a
+              >
+            </li>
+          </ul>
+        </div>
+        <!-- Col 4: Thông tin liên hệ -->
+        <div class="space-y-3">
+          <h4
+            class="font-headline text-base font-semibold text-white tracking-wide"
+          >
+            Thông tin liên hệ
+          </h4>
+          <ul class="font-body text-sm space-y-3 text-gray-300">
+            <li class="flex items-start gap-2.5">
+              <span
+                class="material-symbols-outlined text-primary text-lg mt-0.5"
+                >location_on</span
+              >
+              <span class=""
+                >Tòa nhà SeaSoft, Quận 1, TP. Hồ Chí Minh, Việt Nam</span
+              >
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-primary text-lg"
+                >call</span
+              >
+              <span class="text-white font-medium">(+84) 28 8888 6688</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-primary text-lg"
+                >mail</span
+              >
+              <span class="">contact@seasoft.vn</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-primary text-lg"
+                >schedule</span
+              >
+              <span class="">Thứ Hai - Thứ Sáu: 8:30 - 18:00</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- Bottom copyright bar -->
+      <div class="border-t border-white/10 py-6 px-6 md:px-12">
+        <div
+          class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400"
+        >
+          <p class="">© 2024 SeaSoft Web Agency. Bảo lưu mọi quyền.</p>
+          <div class="flex items-center gap-6">
+            <a class="hover:text-white transition-colors" href="#"
+              >Quy định sử dụng</a
+            >
+            <a class="hover:text-white transition-colors" href="#"
+              >Điều khoản bảo mật</a
+            >
+            <a class="hover:text-white transition-colors" href="#"
+              >Chính sách chất lượng</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Micro Interaction Script for Mobile Navigation -->
+    <script>
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener("click", () => {
+          mobileMenu.classList.toggle("hidden");
+        });
+
+        // Close menu upon clicking any link inside mobile drawer
+        mobileMenu.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileMenu.classList.add("hidden");
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

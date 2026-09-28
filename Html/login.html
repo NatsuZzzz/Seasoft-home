@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="vi" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập — SeaSoft</title>
+    <meta
+      name="description"
+      content="Đăng nhập vào cổng quản lý dự án SeaSoft — Theo dõi tiến độ, trao đổi với đội ngũ và quản lý website của bạn."
+    />
+    <!-- Inter Google Font -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Material Symbols -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#48CAE4",
+              secondary: "#90E0EF",
+              "dark-navy": "#03045E",
+              surface: "#F8FCFF",
+              "surface-alt": "#EBF8FC",
+              "text-secondary": "#333333",
+              "text-muted": "#6B7280",
+              border: "#E2E8F0",
+            },
+            fontFamily: {
+              headline: ["Inter", "sans-serif"],
+              display: ["Inter", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+              label: ["Inter", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              sm: "0.25rem",
+              md: "0.5rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              "2xl": "1rem",
+              full: "9999px",
+            },
+            boxShadow: {
+              card: "0 10px 30px -5px rgba(3, 4, 94, 0.05)",
+              cardHover: "0 20px 40px -5px rgba(72, 202, 228, 0.18)",
+              cyanGlow: "0 0 60px rgba(72, 202, 228, 0.4)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+
+      /* Floating blobs */
+      .blob-float {
+        animation: blob-float 7s ease-in-out infinite alternate;
+      }
+      .blob-float-2 {
+        animation: blob-float 9s ease-in-out infinite alternate-reverse;
+      }
+      @keyframes blob-float {
+        from {
+          transform: scale(1) translateY(0px) translateX(0px);
+        }
+        to {
+          transform: scale(1.08) translateY(-20px) translateX(10px);
+        }
+      }
+
+      /* Fade-in slide up */
+      @keyframes fadeSlideUp {
+        from {
+          opacity: 0;
+          transform: translateY(32px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .fade-slide-up {
+        animation: fadeSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+      .fade-slide-up-d1 {
+        animation-delay: 0.08s;
+      }
+      .fade-slide-up-d2 {
+        animation-delay: 0.16s;
+      }
+      .fade-slide-up-d3 {
+        animation-delay: 0.24s;
+      }
+      .fade-slide-up-d4 {
+        animation-delay: 0.32s;
+      }
+      .fade-slide-up-d5 {
+        animation-delay: 0.4s;
+      }
+
+      /* Input focus ring */
+      .form-input-sea {
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+      .form-input-sea:focus {
+        border-color: #48cae4;
+        box-shadow: 0 0 0 3px rgba(72, 202, 228, 0.18);
+        outline: none;
+      }
+
+      /* Password toggle */
+      .pwd-toggle {
+        cursor: pointer;
+        user-select: none;
+      }
+
+      /* Divider */
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #9ca3af;
+        font-size: 13px;
+      }
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #e2e8f0;
+      }
+
+      /* Social button hover */
+      .social-btn {
+        transition:
+          background 0.18s,
+          border-color 0.18s,
+          transform 0.15s;
+      }
+      .social-btn:hover {
+        background: #ebf8fc;
+        border-color: #48cae4;
+        transform: translateY(-1px);
+      }
+      .social-btn:active {
+        transform: scale(0.97);
+      }
+
+      /* Glassmorphism card */
+      .glass-card {
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+      }
+
+      /* Submit btn */
+      .btn-submit {
+        transition:
+          background 0.18s,
+          box-shadow 0.18s,
+          transform 0.12s;
+      }
+      .btn-submit:hover {
+        background: #34b6d0;
+        box-shadow: 0 0 32px rgba(72, 202, 228, 0.35);
+      }
+      .btn-submit:active {
+        transform: scale(0.97);
+      }
+
+      /* Particle dots decoration */
+      .dot-grid {
+        background-image: radial-gradient(
+          circle,
+          rgba(72, 202, 228, 0.18) 1.5px,
+          transparent 1.5px
+        );
+        background-size: 28px 28px;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen bg-surface font-body antialiased overflow-x-hidden">
+    <!-- Background ambient blobs -->
+    <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+      <div
+        class="blob-float absolute -top-32 -left-32 w-[520px] h-[520px] rounded-full bg-secondary/20 blur-3xl"
+      ></div>
+      <div
+        class="blob-float-2 absolute -bottom-40 -right-28 w-[440px] h-[440px] rounded-full bg-primary/15 blur-3xl"
+      ></div>
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-dark-navy/3 blur-3xl"
+      ></div>
+      <!-- Dot grid overlay -->
+      <div class="absolute inset-0 dot-grid opacity-60"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="w-full px-6 pt-6 pb-4">
+      <div class="max-w-screen-xl mx-auto flex items-center justify-between">
+        <a
+          href="Page.html"
+          class="flex items-center gap-2 font-headline text-2xl font-bold tracking-tight text-dark-navy group"
+          aria-label="SeaSoft - Trang chủ"
+        >
+          <span
+            class="w-9 h-9 rounded-lg bg-surface-alt text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-200"
+          >
+            <span class="material-symbols-outlined text-xl">waves</span>
+          </span>
+          <span>Sea<span class="text-primary">Soft</span></span>
+        </a>
+        <a
+          href="Page.html"
+          class="inline-flex items-center gap-1.5 text-sm font-medium text-text-muted hover:text-primary transition-colors"
+        >
+          <span class="material-symbols-outlined text-base">arrow_back</span>
+          Trang chủ
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main
+      class="flex-1 flex items-center justify-center px-4 py-10 min-h-[calc(100vh-88px)]"
+    >
+      <div class="w-full max-w-md">
+        <!-- Card -->
+        <div
+          class="glass-card rounded-2xl shadow-cardHover border border-border/70 p-8 sm:p-10 fade-slide-up"
+        >
+          <!-- Top Badge -->
+          <div class="fade-slide-up fade-slide-up-d1 flex justify-center mb-6">
+            <span
+              class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-alt border border-secondary/40 text-xs font-semibold text-dark-navy"
+            >
+              <span
+                class="w-2 h-2 rounded-full bg-primary animate-pulse"
+              ></span>
+              Cổng quản lý dự án
+            </span>
+          </div>
+
+          <!-- Title -->
+          <div
+            class="fade-slide-up fade-slide-up-d1 text-center mb-8 space-y-1.5"
+          >
+            <h1
+              class="font-display text-2xl sm:text-3xl font-bold text-dark-navy"
+            >
+              Chào mừng trở lại!
+            </h1>
+            <p class="text-sm text-text-muted">
+              Đăng nhập để theo dõi tiến độ và quản lý dự án của bạn
+            </p>
+          </div>
+
+          <!-- Social login -->
+          <div class="fade-slide-up fade-slide-up-d2 flex gap-3 mb-6">
+            <button
+              id="google-login"
+              class="social-btn flex-1 flex items-center justify-center gap-2.5 border border-border rounded-xl py-2.5 bg-white text-sm font-semibold text-text-secondary hover:text-dark-navy"
+            >
+              <!-- Google icon SVG -->
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l3.66-2.84z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
+                  fill="#EA4335"
+                />
+              </svg>
+              Google
+            </button>
+            <button
+              id="facebook-login"
+              class="social-btn flex-1 flex items-center justify-center gap-2.5 border border-border rounded-xl py-2.5 bg-white text-sm font-semibold text-text-secondary hover:text-dark-navy"
+            >
+              <!-- Facebook icon -->
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="#1877F2"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+                />
+              </svg>
+              Facebook
+            </button>
+          </div>
+
+          <!-- Divider -->
+          <div class="fade-slide-up fade-slide-up-d2 divider mb-6">
+            hoặc đăng nhập bằng email
+          </div>
+
+          <!-- Login Form -->
+          <form
+            id="login-form"
+            novalidate
+            class="space-y-5"
+            onsubmit="handleLogin(event)"
+          >
+            <!-- Email -->
+            <div class="fade-slide-up fade-slide-up-d3 space-y-1.5">
+              <label
+                for="login-email"
+                class="block text-sm font-semibold text-dark-navy"
+                >Email</label
+              >
+              <div class="relative">
+                <span
+                  class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted text-[18px] pointer-events-none"
+                  >mail</span
+                >
+                <input
+                  id="login-email"
+                  type="email"
+                  name="email"
+                  autocomplete="email"
+                  placeholder="ban@congty.vn"
+                  required
+                  class="form-input-sea w-full bg-white border border-border rounded-xl py-3 pl-10 pr-4 text-sm text-dark-navy placeholder:text-gray-400 focus:ring-0"
+                />
+              </div>
+              <p
+                id="email-error"
+                class="hidden text-xs text-red-500 mt-1 flex items-center gap-1"
+              >
+                <span class="material-symbols-outlined text-sm">error</span>
+                <span>Vui lòng nhập email hợp lệ</span>
+              </p>
+            </div>
+
+            <!-- Password -->
+            <div class="fade-slide-up fade-slide-up-d3 space-y-1.5">
+              <div class="flex items-center justify-between">
+                <label
+                  for="login-password"
+                  class="block text-sm font-semibold text-dark-navy"
+                  >Mật khẩu</label
+                >
+                <a
+                  href="#"
+                  id="forgot-password-link"
+                  class="text-xs font-medium text-primary hover:text-dark-navy transition-colors"
+                  >Quên mật khẩu?</a
+                >
+              </div>
+              <div class="relative">
+                <span
+                  class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted text-[18px] pointer-events-none"
+                  >lock</span
+                >
+                <input
+                  id="login-password"
+                  type="password"
+                  name="password"
+                  autocomplete="current-password"
+                  placeholder="••••••••"
+                  required
+                  class="form-input-sea w-full bg-white border border-border rounded-xl py-3 pl-10 pr-12 text-sm text-dark-navy placeholder:text-gray-400 focus:ring-0"
+                />
+                <button
+                  type="button"
+                  id="toggle-pwd"
+                  class="pwd-toggle absolute right-3.5 top-1/2 -translate-y-1/2 text-text-muted hover:text-primary transition-colors"
+                  aria-label="Hiện/ẩn mật khẩu"
+                >
+                  <span
+                    class="material-symbols-outlined text-[18px]"
+                    id="pwd-icon"
+                    >visibility_off</span
+                  >
+                </button>
+              </div>
+              <p
+                id="pwd-error"
+                class="hidden text-xs text-red-500 mt-1 flex items-center gap-1"
+              >
+                <span class="material-symbols-outlined text-sm">error</span>
+                <span>Mật khẩu phải có ít nhất 6 ký tự</span>
+              </p>
+            </div>
+
+            <!-- Remember me -->
+            <div
+              class="fade-slide-up fade-slide-up-d4 flex items-center gap-2.5"
+            >
+              <input
+                id="remember-me"
+                type="checkbox"
+                class="w-4 h-4 rounded border-border text-primary focus:ring-primary focus:ring-1 accent-primary cursor-pointer"
+              />
+              <label
+                for="remember-me"
+                class="text-sm text-text-muted cursor-pointer select-none"
+                >Ghi nhớ đăng nhập trong 30 ngày</label
+              >
+            </div>
+
+            <!-- Submit -->
+            <div class="fade-slide-up fade-slide-up-d4 pt-1">
+              <button
+                id="login-btn"
+                type="submit"
+                class="btn-submit w-full flex items-center justify-center gap-2 bg-primary text-white font-semibold text-sm rounded-xl py-3.5 shadow-md"
+              >
+                <span id="login-btn-text">Đăng nhập</span>
+                <span
+                  class="material-symbols-outlined text-xl"
+                  id="login-btn-icon"
+                  >login</span
+                >
+                <!-- Spinner (hidden by default) -->
+                <svg
+                  id="login-spinner"
+                  class="hidden animate-spin w-5 h-5 text-white"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-dasharray="31.4"
+                    stroke-dashoffset="10"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <!-- Error alert -->
+            <div
+              id="form-error"
+              class="hidden fade-slide-up rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-600 flex items-center gap-2.5"
+            >
+              <span
+                class="material-symbols-outlined text-red-500 text-lg flex-shrink-0"
+                >warning</span
+              >
+              <span id="form-error-text"
+                >Email hoặc mật khẩu không đúng. Vui lòng thử lại.</span
+              >
+            </div>
+          </form>
+
+          <!-- Divider to register -->
+          <div
+            class="fade-slide-up fade-slide-up-d5 text-center mt-8 pt-6 border-t border-border/60"
+          >
+            <p class="text-sm text-text-muted">
+              Chưa có tài khoản?
+              <a
+                href="register.html"
+                class="text-primary font-semibold hover:text-dark-navy transition-colors ml-1"
+                >Đăng ký miễn phí →</a
+              >
+            </p>
+          </div>
+        </div>
+        <!-- /card -->
+
+        <!-- Trust badges -->
+        <div
+          class="fade-slide-up fade-slide-up-d5 flex items-center justify-center gap-6 mt-7 flex-wrap"
+        >
+          <div class="flex items-center gap-1.5 text-xs text-text-muted">
+            <span class="material-symbols-outlined text-primary text-base"
+              >security</span
+            >
+            Bảo mật SSL 256-bit
+          </div>
+          <div class="flex items-center gap-1.5 text-xs text-text-muted">
+            <span class="material-symbols-outlined text-primary text-base"
+              >shield</span
+            >
+            Chính sách bảo mật GDPR
+          </div>
+          <div class="flex items-center gap-1.5 text-xs text-text-muted">
+            <span class="material-symbols-outlined text-primary text-base"
+              >verified_user</span
+            >
+            2FA được hỗ trợ
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer minimal -->
+    <footer class="py-5 px-6 text-center">
+      <p class="text-xs text-gray-400">
+        © 2024 SeaSoft Web Agency ·
+        <a href="#" class="hover:text-primary transition-colors">Điều khoản</a>
+        · <a href="#" class="hover:text-primary transition-colors">Bảo mật</a>
+      </p>
+    </footer>
+
+    <script>
+      // --- Password Toggle ---
+      const pwdInput = document.getElementById("login-password");
+      const toggleBtn = document.getElementById("toggle-pwd");
+      const pwdIcon = document.getElementById("pwd-icon");
+
+      toggleBtn.addEventListener("click", () => {
+        const isVisible = pwdInput.type === "text";
+        pwdInput.type = isVisible ? "password" : "text";
+        pwdIcon.textContent = isVisible ? "visibility_off" : "visibility";
+      });
+
+      // --- Cấu hình API backend ---
+      const API_BASE_URL = "http://localhost:8080";
+
+      // --- Form Validation & Submission ---
+      function handleLogin(e) {
+        e.preventDefault();
+        const email = document.getElementById("login-email").value.trim();
+        const password = document.getElementById("login-password").value;
+        const emailError = document.getElementById("email-error");
+        const pwdError = document.getElementById("pwd-error");
+        const formError = document.getElementById("form-error");
+        const formErrorText = document.getElementById("form-error-text");
+        let valid = true;
+
+        // Hide errors
+        emailError.classList.add("hidden");
+        pwdError.classList.add("hidden");
+        formError.classList.add("hidden");
+
+        // Validate email
+        const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailReg.test(email)) {
+          emailError.classList.remove("hidden");
+          valid = false;
+        }
+        // Validate password
+        if (password.length < 6) {
+          pwdError.classList.remove("hidden");
+          valid = false;
+        }
+        if (!valid) return;
+
+        // Show loading state
+        const btn = document.getElementById("login-btn");
+        const btnText = document.getElementById("login-btn-text");
+        const btnIcon = document.getElementById("login-btn-icon");
+        const spinner = document.getElementById("login-spinner");
+        btn.disabled = true;
+        btn.classList.add("opacity-80");
+        btnText.textContent = "Đang đăng nhập…";
+        btnIcon.classList.add("hidden");
+        spinner.classList.remove("hidden");
+
+        // Gọi API đăng nhập thật
+        fetch(`${API_BASE_URL}/api/auth/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        })
+          .then(async (res) => {
+            const data = await res.json();
+            if (!res.ok) {
+              throw new Error(
+                data.message || "Email hoặc mật khẩu không đúng.",
+              );
+            }
+            return data;
+          })
+          .then((data) => {
+            // Lưu token để dùng cho các request cần đăng nhập sau này
+            localStorage.setItem("seasoft_token", data.token);
+            localStorage.setItem(
+              "seasoft_user",
+              JSON.stringify({
+                email: data.email,
+                fullName: data.fullName,
+                role: data.role,
+              }),
+            );
+            window.location.href = "Page.html";
+          })
+          .catch((err) => {
+            formErrorText.textContent = err.message;
+            formError.classList.remove("hidden");
+          })
+          .finally(() => {
+            btn.disabled = false;
+            btn.classList.remove("opacity-80");
+            btnText.textContent = "Đăng nhập";
+            btnIcon.classList.remove("hidden");
+            spinner.classList.add("hidden");
+          });
+      }
+
+      // --- Forgot password link ---
+      document
+        .getElementById("forgot-password-link")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          alert(
+            "Tính năng đặt lại mật khẩu sẽ được gửi về email đã đăng ký của bạn!",
+          );
+        });
+
+      // --- Social login buttons ---
+      document.getElementById("google-login").addEventListener("click", () => {
+        alert("Tính năng đăng nhập bằng Google đang được tích hợp!");
+      });
+      document
+        .getElementById("facebook-login")
+        .addEventListener("click", () => {
+          alert("Tính năng đăng nhập bằng Facebook đang được tích hợp!");
+        });
+    </script>
+  </body>
+</html>

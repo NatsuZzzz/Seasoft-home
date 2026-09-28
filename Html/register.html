@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="vi" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng ký tài khoản — SeaSoft</title>
+    <meta
+      name="description"
+      content="Tạo tài khoản SeaSoft miễn phí để bắt đầu hành trình chuyển đổi số, quản lý dự án và theo dõi tiến độ website doanh nghiệp."
+    />
+    <!-- Inter Google Font -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Material Symbols -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#48CAE4",
+              secondary: "#90E0EF",
+              "dark-navy": "#03045E",
+              surface: "#F8FCFF",
+              "surface-alt": "#EBF8FC",
+              "text-secondary": "#333333",
+              "text-muted": "#6B7280",
+              border: "#E2E8F0",
+            },
+            fontFamily: {
+              headline: ["Inter", "sans-serif"],
+              display: ["Inter", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+              label: ["Inter", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              sm: "0.25rem",
+              md: "0.5rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              "2xl": "1rem",
+              full: "9999px",
+            },
+            boxShadow: {
+              card: "0 10px 30px -5px rgba(3, 4, 94, 0.05)",
+              cardHover: "0 20px 40px -5px rgba(72, 202, 228, 0.18)",
+              cyanGlow: "0 0 60px rgba(72, 202, 228, 0.4)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+
+      /* Floating blobs */
+      .blob-float {
+        animation: blob-float 8s ease-in-out infinite alternate;
+      }
+      .blob-float-2 {
+        animation: blob-float 6s ease-in-out infinite alternate-reverse;
+      }
+      @keyframes blob-float {
+        from {
+          transform: scale(1) translateY(0px) translateX(0px);
+        }
+        to {
+          transform: scale(1.1) translateY(-22px) translateX(12px);
+        }
+      }
+
+      /* Fade-in slide up */
+      @keyframes fadeSlideUp {
+        from {
+          opacity: 0;
+          transform: translateY(28px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .fade-slide-up {
+        animation: fadeSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+      .fade-slide-up-d1 {
+        animation-delay: 0.08s;
+      }
+      .fade-slide-up-d2 {
+        animation-delay: 0.16s;
+      }
+      .fade-slide-up-d3 {
+        animation-delay: 0.22s;
+      }
+      .fade-slide-up-d4 {
+        animation-delay: 0.28s;
+      }
+      .fade-slide-up-d5 {
+        animation-delay: 0.34s;
+      }
+      .fade-slide-up-d6 {
+        animation-delay: 0.4s;
+      }
+
+      /* Input styles */
+      .form-input-sea {
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+      .form-input-sea:focus {
+        border-color: #48cae4;
+        box-shadow: 0 0 0 3px rgba(72, 202, 228, 0.18);
+        outline: none;
+      }
+
+      /* Divider */
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #9ca3af;
+        font-size: 13px;
+      }
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #e2e8f0;
+      }
+
+      /* Social button */
+      .social-btn {
+        transition:
+          background 0.18s,
+          border-color 0.18s,
+          transform 0.15s;
+      }
+      .social-btn:hover {
+        background: #ebf8fc;
+        border-color: #48cae4;
+        transform: translateY(-1px);
+      }
+      .social-btn:active {
+        transform: scale(0.97);
+      }
+
+      /* Glassmorphism */
+      .glass-card {
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+      }
+
+      /* Submit btn */
+      .btn-submit {
+        transition:
+          background 0.18s,
+          box-shadow 0.18s,
+          transform 0.12s;
+      }
+      .btn-submit:hover {
+        background: #34b6d0;
+        box-shadow: 0 0 32px rgba(72, 202, 228, 0.35);
+      }
+      .btn-submit:active {
+        transform: scale(0.97);
+      }
+
+      /* Password strength bar */
+      .strength-bar {
+        height: 3px;
+        border-radius: 9999px;
+        transition:
+          width 0.35s ease,
+          background 0.35s ease;
+      }
+
+      /* Dot grid */
+      .dot-grid {
+        background-image: radial-gradient(
+          circle,
+          rgba(72, 202, 228, 0.15) 1.5px,
+          transparent 1.5px
+        );
+        background-size: 28px 28px;
+      }
+
+      /* Step indicator */
+      .step-badge {
+        transition:
+          background 0.2s,
+          color 0.2s,
+          border-color 0.2s;
+      }
+
+      /* Checkbox custom */
+      input[type="checkbox"] {
+        accent-color: #48cae4;
+      }
+
+      /* Phone prefix styling */
+      .phone-prefix {
+        background: #ebf8fc;
+        border-right: 1px solid #e2e8f0;
+        border-radius: 0.75rem 0 0 0.75rem;
+        padding: 0 12px;
+        display: flex;
+        align-items: center;
+        font-size: 13px;
+        font-weight: 600;
+        color: #03045e;
+        white-space: nowrap;
+        min-height: 100%;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen bg-surface font-body antialiased overflow-x-hidden">
+    <!-- Background ambient blobs -->
+    <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+      <div
+        class="blob-float absolute -top-28 -right-28 w-[500px] h-[500px] rounded-full bg-primary/15 blur-3xl"
+      ></div>
+      <div
+        class="blob-float-2 absolute -bottom-32 -left-32 w-[460px] h-[460px] rounded-full bg-secondary/20 blur-3xl"
+      ></div>
+      <div
+        class="absolute top-1/3 right-1/4 w-[300px] h-[300px] rounded-full bg-dark-navy/3 blur-3xl"
+      ></div>
+      <div class="absolute inset-0 dot-grid opacity-50"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="w-full px-6 pt-6 pb-4">
+      <div class="max-w-screen-xl mx-auto flex items-center justify-between">
+        <a
+          href="Page.html"
+          class="flex items-center gap-2 font-headline text-2xl font-bold tracking-tight text-dark-navy group"
+          aria-label="SeaSoft - Trang chủ"
+        >
+          <span
+            class="w-9 h-9 rounded-lg bg-surface-alt text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-200"
+          >
+            <span class="material-symbols-outlined text-xl">waves</span>
+          </span>
+          <span>Sea<span class="text-primary">Soft</span></span>
+        </a>
+        <a
+          href="Page.html"
+          class="inline-flex items-center gap-1.5 text-sm font-medium text-text-muted hover:text-primary transition-colors"
+        >
+          <span class="material-symbols-outlined text-base">arrow_back</span>
+          Trang chủ
+        </a>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main
+      class="flex-1 flex items-center justify-center px-4 py-10 min-h-[calc(100vh-88px)]"
+    >
+      <div class="w-full max-w-lg">
+        <!-- Card -->
+        <div
+          class="glass-card rounded-2xl shadow-cardHover border border-border/70 p-8 sm:p-10 fade-slide-up"
+        >
+          <!-- Top badge -->
+          <div class="fade-slide-up fade-slide-up-d1 flex justify-center mb-6">
+            <span
+              class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-alt border border-secondary/40 text-xs font-semibold text-dark-navy"
+            >
+              <span class="material-symbols-outlined text-primary text-sm"
+                >auto_awesome</span
+              >
+              Miễn phí — Không cần thẻ tín dụng
+            </span>
+          </div>
+
+          <!-- Title -->
+          <div
+            class="fade-slide-up fade-slide-up-d1 text-center mb-7 space-y-1.5"
+          >
+            <h1
+              class="font-display text-2xl sm:text-3xl font-bold text-dark-navy"
+            >
+              Tạo tài khoản miễn phí
+            </h1>
+            <p class="text-sm text-text-muted">
+              Bắt đầu hành trình chuyển đổi số cùng SeaSoft ngay hôm nay
+            </p>
+          </div>
+
+          <!-- Social Sign Up -->
+          <div class="fade-slide-up fade-slide-up-d2 flex gap-3 mb-6">
+            <button
+              id="google-signup"
+              class="social-btn flex-1 flex items-center justify-center gap-2.5 border border-border rounded-xl py-2.5 bg-white text-sm font-semibold text-text-secondary hover:text-dark-navy"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l3.66-2.84z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
+                  fill="#EA4335"
+                />
+              </svg>
+              Google
+            </button>
+            <button
+              id="facebook-signup"
+              class="social-btn flex-1 flex items-center justify-center gap-2.5 border border-border rounded-xl py-2.5 bg-white text-sm font-semibold text-text-secondary hover:text-dark-navy"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="#1877F2"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+                />
+              </svg>
+              Facebook
+            </button>
+          </div>
+
+          <!-- Divider -->
+          <div class="fade-slide-up fade-slide-up-d2 divider mb-6">
+            hoặc đăng ký với email
+          </div>
+
+          <!-- Registration Form -->
+          <form
+            id="register-form"
+            novalidate
+            class="space-y-5"
+            onsubmit="handleRegister(event)"
+          >
+            <!-- Full Name -->
+            <div class="fade-slide-up fade-slide-up-d3 space-y-1.5">
+              <label
+                for="reg-name"
+                class="block text-sm font-semibold text-dark-navy"
+                >Họ và tên <span class="text-red-400">*</span></label
+              >
+              <div class="relative">
+                <span
+                  class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted text-[18px] pointer-events-none"
+                  >person</span
+                >
+                <input
+                  id="reg-name"
+                  type="text"
+                  name="fullname"
+                  autocomplete="name"
+                  placeholder="Nguyễn Văn A"
+                  required
+                  class="form-input-sea w-full bg-white border border-border rounded-xl py-3 pl-10 pr-4 text-sm text-dark-navy placeholder:text-gray-400 focus:ring-0"
+                />
+              </div>
+              <p
+                id="name-error"
+                class="hidden text-xs text-red-500 flex items-center gap-1"
+              >
+                <span class="material-symbols-outlined text-sm">error</span>
+                Vui lòng nhập họ và tên đầy đủ
+              </p>
+            </div>
+
+            <!-- Email + Phone in a grid -->
+            <div
+              class="fade-slide-up fade-slide-up-d3 grid grid-cols-1 sm:grid-cols-2 gap-4"
+            >
+              <!-- Email -->
+              <div class="space-y-1.5">
+                <label
+                  for="reg-email"
+                  class="block text-sm font-semibold text-dark-navy"
+                  >Email <span class="text-red-400">*</span></label
+                >
+                <div class="relative">
+                  <span
+                    class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted text-[18px] pointer-events-none"
+                    >mail</span
+                  >
+                  <input
+                    id="reg-email"
+                    type="email"
+                    name="email"
+                    autocomplete="email"
+                    placeholder="ban@congty.vn"
+                    required
+                    class="form-input-sea w-full bg-white border border-border rounded-xl py-3 pl-10 pr-4 text-sm text-dark-navy placeholder:text-gray-400 focus:ring-0"
+                  />
+                </div>
+                <p
+                  id="reg-email-error"
+                  class="hidden text-xs text-red-500 flex items-center gap-1"
+                >
+                  <span class="material-symbols-outlined text-sm">error</span>
+                  Email không hợp lệ
+                </p>
+              </div>
+
+              <!-- Phone -->
+              <div class="space-y-1.5">
+                <label
+                  for="reg-phone"
+                  class="block text-sm font-semibold text-dark-navy"
+                  >Số điện thoại</label
+                >
+                <div
+                  class="relative flex border border-border rounded-xl overflow-hidden bg-white focus-within:border-primary focus-within:shadow-[0_0_0_3px_rgba(72,202,228,0.18)] transition-all"
+                >
+                  <span class="phone-prefix">🇻🇳 +84</span>
+                  <input
+                    id="reg-phone"
+                    type="tel"
+                    name="phone"
+                    autocomplete="tel"
+                    placeholder="909 123 456"
+                    class="flex-1 py-3 px-3 text-sm text-dark-navy placeholder:text-gray-400 outline-none border-none bg-transparent"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Company (optional) -->
+            <div class="fade-slide-up fade-slide-up-d4 space-y-1.5">
+              <label
+                for="reg-company"
+                class="block text-sm font-semibold text-dark-navy"
+              >
+                Tên doanh nghiệp
+                <span class="ml-1 text-xs font-normal text-text-muted"
+                  >(không bắt buộc)</span
+                >
+              </label>
+              <div class="relative">
+                <span
+                  class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted text-[18px] pointer-events-none"
+                  >business</span
+                >
+                <input
+                  id="reg-company"
+                  type="text"
+                  name="company"
+                  placeholder="Công ty TNHH ABC"
+                  class="form-input-sea w-full bg-white border border-border rounded-xl py-3 pl-10 pr-4 text-sm text-dark-navy placeholder:text-gray-400 focus:ring-0"
+                />
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="fade-slide-up fade-slide-up-d4 space-y-1.5">
+              <label
+                for="reg-password"
+                class="block text-sm font-semibold text-dark-navy"
+                >Mật khẩu <span class="text-red-400">*</span></label
+              >
+              <div class="relative">
+                <span
+                  class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted text-[18px] pointer-events-none"
+                  >lock</span
+                >
+                <input
+                  id="reg-password"
+                  type="password"
+                  name="password"
+                  autocomplete="new-password"
+                  placeholder="••••••••"
+                  required
+                  oninput="checkStrength(this.value)"
+                  class="form-input-sea w-full bg-white border border-border rounded-xl py-3 pl-10 pr-12 text-sm text-dark-navy placeholder:text-gray-400 focus:ring-0"
+                />
+                <button
+                  type="button"
+                  id="toggle-reg-pwd"
+                  class="absolute right-3.5 top-1/2 -translate-y-1/2 text-text-muted hover:text-primary transition-colors"
+                  aria-label="Hiện/ẩn mật khẩu"
+                >
+                  <span
+                    class="material-symbols-outlined text-[18px]"
+                    id="reg-pwd-icon"
+                    >visibility_off</span
+                  >
+                </button>
+              </div>
+              <!-- Strength meter -->
+              <div class="flex gap-1.5 mt-2" id="strength-bars">
+                <div class="strength-bar flex-1 bg-gray-200" id="bar1"></div>
+                <div class="strength-bar flex-1 bg-gray-200" id="bar2"></div>
+                <div class="strength-bar flex-1 bg-gray-200" id="bar3"></div>
+                <div class="strength-bar flex-1 bg-gray-200" id="bar4"></div>
+              </div>
+              <p class="text-xs text-text-muted mt-0.5" id="strength-label">
+                Nhập mật khẩu để xem độ mạnh
+              </p>
+              <p
+                id="reg-pwd-error"
+                class="hidden text-xs text-red-500 flex items-center gap-1"
+              >
+                <span class="material-symbols-outlined text-sm">error</span>
+                Mật khẩu phải có ít nhất 8 ký tự
+              </p>
+            </div>
+
+            <!-- Confirm password -->
+            <div class="fade-slide-up fade-slide-up-d4 space-y-1.5">
+              <label
+                for="reg-confirm-pwd"
+                class="block text-sm font-semibold text-dark-navy"
+                >Xác nhận mật khẩu <span class="text-red-400">*</span></label
+              >
+              <div class="relative">
+                <span
+                  class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted text-[18px] pointer-events-none"
+                  >lock_reset</span
+                >
+                <input
+                  id="reg-confirm-pwd"
+                  type="password"
+                  name="confirm_password"
+                  autocomplete="new-password"
+                  placeholder="••••••••"
+                  required
+                  class="form-input-sea w-full bg-white border border-border rounded-xl py-3 pl-10 pr-4 text-sm text-dark-navy placeholder:text-gray-400 focus:ring-0"
+                />
+              </div>
+              <p
+                id="confirm-pwd-error"
+                class="hidden text-xs text-red-500 flex items-center gap-1"
+              >
+                <span class="material-symbols-outlined text-sm">error</span>
+                Mật khẩu xác nhận không khớp
+              </p>
+            </div>
+
+            <!-- Terms & Conditions -->
+            <div class="fade-slide-up fade-slide-up-d5 space-y-3">
+              <label class="flex items-start gap-3 cursor-pointer group">
+                <input
+                  id="reg-terms"
+                  type="checkbox"
+                  required
+                  class="mt-0.5 w-4 h-4 rounded border-border cursor-pointer flex-shrink-0"
+                />
+                <span class="text-sm text-text-muted leading-relaxed">
+                  Tôi đồng ý với
+                  <a
+                    href="#"
+                    class="text-primary font-semibold hover:text-dark-navy transition-colors"
+                    >Điều khoản sử dụng</a
+                  >
+                  và
+                  <a
+                    href="#"
+                    class="text-primary font-semibold hover:text-dark-navy transition-colors"
+                    >Chính sách bảo mật</a
+                  >
+                  của SeaSoft
+                </span>
+              </label>
+              <label class="flex items-start gap-3 cursor-pointer">
+                <input
+                  id="reg-newsletter"
+                  type="checkbox"
+                  class="mt-0.5 w-4 h-4 rounded border-border cursor-pointer flex-shrink-0"
+                />
+                <span class="text-sm text-text-muted leading-relaxed"
+                  >Nhận thông tin về tài nguyên thiết kế web, case study và ưu
+                  đãi đặc biệt</span
+                >
+              </label>
+            </div>
+
+            <!-- Submit -->
+            <div class="fade-slide-up fade-slide-up-d5 pt-1">
+              <button
+                id="register-btn"
+                type="submit"
+                class="btn-submit w-full flex items-center justify-center gap-2 bg-primary text-white font-semibold text-sm rounded-xl py-3.5 shadow-md"
+              >
+                <span id="reg-btn-text">Tạo tài khoản miễn phí</span>
+                <span
+                  class="material-symbols-outlined text-xl"
+                  id="reg-btn-icon"
+                  >person_add</span
+                >
+                <svg
+                  id="reg-spinner"
+                  class="hidden animate-spin w-5 h-5 text-white"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-dasharray="31.4"
+                    stroke-dashoffset="10"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <!-- Success -->
+            <div
+              id="reg-success"
+              class="hidden rounded-xl bg-green-50 border border-green-200 px-4 py-4 text-sm text-green-700"
+            >
+              <div class="flex items-center gap-2.5 mb-2">
+                <span class="material-symbols-outlined text-green-500 text-xl"
+                  >check_circle</span
+                >
+                <span class="font-semibold">Đăng ký thành công!</span>
+              </div>
+              <p class="text-xs text-green-600">
+                Tài khoản của bạn đã được tạo và đăng nhập tự động. Đang chuyển
+                hướng về trang chủ...
+              </p>
+            </div>
+
+            <!-- Error -->
+            <div
+              id="reg-error"
+              class="hidden rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-600 flex items-center gap-2.5"
+            >
+              <span
+                class="material-symbols-outlined text-red-500 text-lg flex-shrink-0"
+                >warning</span
+              >
+              <span id="reg-error-text">Đã xảy ra lỗi. Vui lòng thử lại.</span>
+            </div>
+          </form>
+
+          <!-- Benefits row -->
+          <div
+            class="fade-slide-up fade-slide-up-d6 mt-7 pt-6 border-t border-border/60 grid grid-cols-3 gap-3 text-center"
+          >
+            <div class="space-y-1.5">
+              <div
+                class="w-9 h-9 rounded-xl bg-surface-alt text-primary flex items-center justify-center mx-auto"
+              >
+                <span class="material-symbols-outlined text-lg">dashboard</span>
+              </div>
+              <p class="text-xs text-text-muted font-medium">
+                Dashboard quản lý
+              </p>
+            </div>
+            <div class="space-y-1.5">
+              <div
+                class="w-9 h-9 rounded-xl bg-surface-alt text-primary flex items-center justify-center mx-auto"
+              >
+                <span class="material-symbols-outlined text-lg"
+                  >support_agent</span
+                >
+              </div>
+              <p class="text-xs text-text-muted font-medium">Hỗ trợ 24/7</p>
+            </div>
+            <div class="space-y-1.5">
+              <div
+                class="w-9 h-9 rounded-xl bg-surface-alt text-primary flex items-center justify-center mx-auto"
+              >
+                <span class="material-symbols-outlined text-lg"
+                  >trending_up</span
+                >
+              </div>
+              <p class="text-xs text-text-muted font-medium">
+                Báo cáo hiệu suất
+              </p>
+            </div>
+          </div>
+
+          <!-- Already have account -->
+          <div class="fade-slide-up fade-slide-up-d6 text-center mt-6">
+            <p class="text-sm text-text-muted">
+              Đã có tài khoản?
+              <a
+                href="login.html"
+                class="text-primary font-semibold hover:text-dark-navy transition-colors ml-1"
+                >Đăng nhập →</a
+              >
+            </p>
+          </div>
+        </div>
+        <!-- /card -->
+
+        <!-- Trust badges -->
+        <div
+          class="fade-slide-up fade-slide-up-d6 flex items-center justify-center gap-6 mt-7 flex-wrap"
+        >
+          <div class="flex items-center gap-1.5 text-xs text-text-muted">
+            <span class="material-symbols-outlined text-primary text-base"
+              >security</span
+            >
+            SSL 256-bit
+          </div>
+          <div class="flex items-center gap-1.5 text-xs text-text-muted">
+            <span class="material-symbols-outlined text-primary text-base"
+              >shield</span
+            >
+            Bảo mật GDPR
+          </div>
+          <div class="flex items-center gap-1.5 text-xs text-text-muted">
+            <span class="material-symbols-outlined text-primary text-base"
+              >no_accounts</span
+            >
+            Không spam email
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-5 px-6 text-center">
+      <p class="text-xs text-gray-400">
+        © 2024 SeaSoft Web Agency ·
+        <a href="#" class="hover:text-primary transition-colors">Điều khoản</a>
+        · <a href="#" class="hover:text-primary transition-colors">Bảo mật</a>
+      </p>
+    </footer>
+
+    <script>
+      // --- Password Toggle ---
+      const regPwdInput = document.getElementById("reg-password");
+      const toggleRegPwd = document.getElementById("toggle-reg-pwd");
+      const regPwdIcon = document.getElementById("reg-pwd-icon");
+
+      toggleRegPwd.addEventListener("click", () => {
+        const isVisible = regPwdInput.type === "text";
+        regPwdInput.type = isVisible ? "password" : "text";
+        regPwdIcon.textContent = isVisible ? "visibility_off" : "visibility";
+      });
+
+      // --- Password Strength ---
+      function checkStrength(value) {
+        const bars = ["bar1", "bar2", "bar3", "bar4"];
+        const label = document.getElementById("strength-label");
+        let score = 0;
+        if (value.length >= 8) score++;
+        if (/[A-Z]/.test(value)) score++;
+        if (/[0-9]/.test(value)) score++;
+        if (/[^A-Za-z0-9]/.test(value)) score++;
+
+        const colors = ["", "#EF4444", "#F59E0B", "#3B82F6", "#10B981"];
+        const labels = ["", "Rất yếu", "Yếu", "Trung bình", "Mạnh"];
+
+        bars.forEach((id, i) => {
+          const bar = document.getElementById(id);
+          bar.style.background = i < score ? colors[score] : "#E5E7EB";
+        });
+
+        if (value.length === 0) {
+          label.textContent = "Nhập mật khẩu để xem độ mạnh";
+          label.className = "text-xs text-text-muted mt-0.5";
+        } else {
+          label.textContent = "Độ mạnh: " + labels[score];
+          const colorMap = {
+            1: "text-red-500",
+            2: "text-amber-500",
+            3: "text-blue-500",
+            4: "text-green-600",
+          };
+          label.className =
+            "text-xs mt-0.5 font-medium " +
+            (colorMap[score] || "text-text-muted");
+        }
+      }
+
+      // --- Cấu hình API backend ---
+      const API_BASE_URL = "http://localhost:8080";
+
+      // --- Form Submission ---
+      function handleRegister(e) {
+        e.preventDefault();
+        const name = document.getElementById("reg-name").value.trim();
+        const email = document.getElementById("reg-email").value.trim();
+        const phone = document.getElementById("reg-phone").value.trim();
+        const password = document.getElementById("reg-password").value;
+        const confirmPwd = document.getElementById("reg-confirm-pwd").value;
+        const terms = document.getElementById("reg-terms").checked;
+
+        // Hide errors
+        [
+          "name-error",
+          "reg-email-error",
+          "reg-pwd-error",
+          "confirm-pwd-error",
+          "reg-error",
+          "reg-success",
+        ].forEach((id) => {
+          document.getElementById(id).classList.add("hidden");
+        });
+
+        let valid = true;
+        const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (name.length < 2) {
+          document.getElementById("name-error").classList.remove("hidden");
+          valid = false;
+        }
+        if (!emailReg.test(email)) {
+          document.getElementById("reg-email-error").classList.remove("hidden");
+          valid = false;
+        }
+        if (password.length < 8) {
+          document.getElementById("reg-pwd-error").classList.remove("hidden");
+          valid = false;
+        }
+        if (password !== confirmPwd) {
+          document
+            .getElementById("confirm-pwd-error")
+            .classList.remove("hidden");
+          valid = false;
+        }
+        if (!terms) {
+          document.getElementById("reg-error").classList.remove("hidden");
+          document.getElementById("reg-error-text").textContent =
+            "Bạn cần đồng ý với điều khoản sử dụng để tiếp tục.";
+          valid = false;
+        }
+
+        if (!valid) return;
+
+        // Loading
+        const btn = document.getElementById("register-btn");
+        const btnText = document.getElementById("reg-btn-text");
+        const btnIcon = document.getElementById("reg-btn-icon");
+        const spinner = document.getElementById("reg-spinner");
+        btn.disabled = true;
+        btn.classList.add("opacity-80");
+        btnText.textContent = "Đang tạo tài khoản…";
+        btnIcon.classList.add("hidden");
+        spinner.classList.remove("hidden");
+
+        // Gọi API đăng ký thật
+        fetch(`${API_BASE_URL}/api/auth/register`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ fullName: name, email, phone, password }),
+        })
+          .then(async (res) => {
+            const data = await res.json();
+            if (!res.ok) {
+              throw new Error(
+                data.message || "Đã xảy ra lỗi. Vui lòng thử lại.",
+              );
+            }
+            return data;
+          })
+          .then((data) => {
+            // Đăng ký xong backend trả token luôn -> lưu lại để tự đăng nhập
+            localStorage.setItem("seasoft_token", data.token);
+            localStorage.setItem(
+              "seasoft_user",
+              JSON.stringify({
+                email: data.email,
+                fullName: data.fullName,
+                role: data.role,
+              }),
+            );
+
+            document.getElementById("reg-success").classList.remove("hidden");
+            document
+              .getElementById("register-form")
+              .querySelectorAll('input, button[type="submit"]')
+              .forEach((el) => (el.disabled = true));
+
+            setTimeout(() => {
+              window.location.href = "Page.html";
+            }, 1800);
+          })
+          .catch((err) => {
+            document.getElementById("reg-error-text").textContent = err.message;
+            document.getElementById("reg-error").classList.remove("hidden");
+          })
+          .finally(() => {
+            btn.disabled = false;
+            btn.classList.remove("opacity-80");
+            btnText.textContent = "Tạo tài khoản miễn phí";
+            btnIcon.classList.remove("hidden");
+            spinner.classList.add("hidden");
+          });
+      }
+
+      // --- Social buttons ---
+      document.getElementById("google-signup").addEventListener("click", () => {
+        alert("Tính năng đăng ký bằng Google đang được tích hợp!");
+      });
+      document
+        .getElementById("facebook-signup")
+        .addEventListener("click", () => {
+          alert("Tính năng đăng ký bằng Facebook đang được tích hợp!");
+        });
+    </script>
+  </body>
+</html>
