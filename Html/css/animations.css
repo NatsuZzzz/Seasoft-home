@@ -1,0 +1,213 @@
+/*
+ * SeaSoft - hieu ung giao dien (dung voi js/animations.js)
+ *
+ * Nguyen tac: chi an noi dung truoc khi animate khi <html> co class "js-anim"
+ * (duoc bat boi script nho trong <head> va tu go neu GSAP khong tai duoc)
+ * -> khong co JS / CDN loi / reduced-motion thi trang van hien day du.
+ */
+
+/* ---------- Trang thai ban dau truoc khi reveal ---------- */
+.js-anim [data-reveal],
+.js-anim [data-stagger] > *,
+.js-anim [data-split]:not(.is-split),
+.js-anim [data-split] .split-word > span {
+  opacity: 0;
+}
+
+/* Tach chu cho headline: moi tu nam trong 1 "khung" an phan tran */
+[data-split] .split-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.08em; /* khong cat chan chu g, y, p */
+  margin-bottom: -0.08em;
+}
+[data-split] .split-word > span {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* ---------- Thanh tien trinh doc trang ---------- */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  z-index: 60;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, #48cae4, #90e0ef, #48cae4);
+  pointer-events: none;
+}
+
+/* ---------- Header co lai khi cuon ---------- */
+.site-header > div:first-child {
+  transition: height 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.site-header.is-scrolled {
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 10px 30px -12px rgba(3, 4, 94, 0.18);
+}
+.site-header.is-scrolled > div:first-child {
+  height: 4rem;
+}
+
+/* ---------- Song dong (wave divider, lay cam hung tu logo) ---------- */
+.wave-divider {
+  position: relative;
+  line-height: 0;
+  overflow: hidden;
+}
+.wave-divider svg {
+  display: block;
+  width: 200%;
+  height: 70px;
+  animation: wave-slide 14s linear infinite;
+}
+.wave-divider svg + svg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  animation-duration: 22s;
+  animation-direction: reverse;
+}
+@keyframes wave-slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- Marquee ---------- */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+.marquee-chip {
+  flex-shrink: 0;
+  padding: 0.6rem 1.25rem;
+  border-radius: 9999px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: #03045e;
+  font-weight: 600;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  box-shadow: 0 10px 30px -5px rgba(3, 4, 94, 0.05);
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- Quy trinh: thanh tien trinh + buoc dang active ---------- */
+.process-line-fill {
+  transform-origin: 0 50%;
+}
+.js-anim .process-line-fill {
+  transform: scaleX(0);
+}
+.process-step .step-num {
+  transition:
+    background-color 0.4s,
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.4s;
+}
+.process-step.is-active .step-num {
+  background-color: #48cae4;
+  transform: scale(1.12);
+  box-shadow: 0 0 0 8px rgba(72, 202, 228, 0.18);
+}
+.process-step .step-body {
+  transition: opacity 0.4s, transform 0.4s;
+}
+/* Chi lam mo cac buoc chua toi khi dang chay hieu ung pin (desktop) */
+.process-pinned .process-step:not(.is-active) .step-body {
+  opacity: 0.35;
+  transform: translateY(6px);
+}
+
+/* ---------- Card nghieng 3D khi hover ---------- */
+[data-tilt] {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* ---------- Chuyen trang ---------- */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #03045e;
+  color: #48cae4;
+  pointer-events: none;
+  /* Nghi: an ben duoi man hinh */
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.45s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.page-transition .material-symbols-outlined {
+  font-size: 48px;
+  animation: pt-bob 1s ease-in-out infinite alternate;
+}
+.page-transition[hidden] {
+  display: none;
+}
+/* Roi trang: man che dang tu duoi len phu kin */
+.page-transition.is-leaving {
+  clip-path: inset(0 0 0 0);
+  pointer-events: all;
+}
+/* Vua vao trang moi: dang phu kin (khong transition) ... */
+.page-transition.is-covering {
+  clip-path: inset(0 0 0 0);
+  transition: none;
+}
+/* ... roi rut tiep len phia tren de lo trang */
+.page-transition.is-revealing {
+  clip-path: inset(0 0 100% 0);
+}
+@keyframes pt-bob {
+  to {
+    transform: translateY(-6px);
+  }
+}
+
+/* ---------- Form: rung khi loi ---------- */
+.shake {
+  animation: shake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+@keyframes shake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(4px); }
+  30%, 50%, 70% { transform: translateX(-7px); }
+  40%, 60% { transform: translateX(7px); }
+}
+
+/* ---------- Ton trong nguoi dung tat chuyen dong ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .wave-divider svg,
+  .marquee-track,
+  .page-transition .material-symbols-outlined {
+    animation: none !important;
+  }
+  .page-transition {
+    display: none;
+  }
+  .shake {
+    animation: none;
+  }
+}

@@ -198,6 +198,7 @@
         background-size: 28px 28px;
       }
     </style>
+    <link rel="stylesheet" href="css/animations.css" />
   </head>
 
   <body class="min-h-screen bg-surface font-body antialiased overflow-x-hidden">
@@ -540,6 +541,7 @@
     </footer>
 
     <script src="js/auth.js"></script>
+    <script src="js/page-transition.js"></script>
     <script>
       // --- Password Toggle ---
       const pwdInput = document.getElementById("login-password");
@@ -554,6 +556,13 @@
 
       // Đã đăng nhập rồi thì không cần ở trang này
       if (Auth.isLoggedIn()) location.replace(Auth.nextUrl());
+
+      // Rung form khi lỗi (css/animations.css)
+      function shake(el) {
+        el.classList.remove("shake");
+        void el.offsetWidth; // reset animation để rung lại được nhiều lần
+        el.classList.add("shake");
+      }
 
       // --- Form Validation & Submission ---
       function handleLogin(e) {
@@ -582,7 +591,7 @@
           pwdError.classList.remove("hidden");
           valid = false;
         }
-        if (!valid) return;
+        if (!valid) return shake(e.target);
 
         // Show loading state
         const btn = document.getElementById("login-btn");
@@ -609,6 +618,7 @@
           .catch((err) => {
             formErrorText.textContent = err.message;
             formError.classList.remove("hidden");
+            shake(e.target);
           })
           .finally(() => {
             btn.disabled = false;

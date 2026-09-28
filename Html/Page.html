@@ -16,10 +16,22 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
       rel="stylesheet"
     />
+    <!-- Hieu ung cuon: an noi dung cho animate, tu go sau 4s neu JS/CDN loi -->
+    <script>
+      (function () {
+        var d = document.documentElement;
+        if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        d.classList.add("js-anim");
+        setTimeout(function () {
+          if (!d.classList.contains("anim-ready")) d.classList.remove("js-anim");
+        }, 4000);
+      })();
+    </script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
       rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.css"
     />
+    <link rel="stylesheet" href="css/animations.css" />
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
@@ -81,7 +93,7 @@
   >
     <!-- 1. HEADER (TopAppBar Anchor Component) -->
     <header
-      class="sticky top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-border/80 shadow-sm transition-all duration-300"
+      class="site-header sticky top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-border/80 shadow-sm transition-all duration-300"
     >
       <div
         class="flex justify-between items-center w-full px-6 md:px-12 max-w-7xl mx-auto h-20"
@@ -250,6 +262,7 @@
           <div class="lg:col-span-7 space-y-6 text-left">
             <!-- Small Badge Tag -->
             <div
+              data-reveal="fade-down"
               class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-alt border border-secondary/40 text-xs font-semibold text-dark-navy"
             >
               <span
@@ -259,12 +272,15 @@
             </div>
             <!-- Headline -->
             <h1
+              data-split
               class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-dark-navy leading-[1.15]"
             >
               Website chuyên nghiệp cho thương hiệu doanh nghiệp
             </h1>
             <!-- Subheadline -->
             <p
+              data-reveal="blur"
+              data-reveal-delay="0.5"
               class="font-body text-lg text-text-muted max-w-2xl leading-relaxed"
             >
               SeaSoft thiết kế website theo yêu cầu, tối ưu cho thương hiệu,
@@ -272,10 +288,13 @@
             </p>
             <!-- Dual CTA Buttons -->
             <div
+              data-stagger="fade-up"
+              data-reveal-delay="0.7"
               class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2"
             >
               <a
-                class="inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold text-white bg-primary hover:bg-[#34b6d0] active:scale-95 rounded-lg shadow-sm transition-all duration-150"
+                data-magnetic
+                class="inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold text-white bg-primary hover:bg-[#34b6d0] active:scale-95 rounded-lg shadow-sm transition-colors duration-150"
                 href="#contact"
               >
                 Bắt đầu dự án
@@ -284,17 +303,24 @@
                 >
               </a>
               <a
-                class="inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold text-dark-navy border-2 border-primary bg-white hover:bg-surface-alt active:scale-95 rounded-lg transition-all duration-150"
+                data-magnetic
+                class="inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold text-dark-navy border-2 border-primary bg-white hover:bg-surface-alt active:scale-95 rounded-lg transition-colors duration-150"
                 href="#portfolio"
               >
                 Xem dự án
               </a>
             </div>
             <!-- 3 Stats Inline -->
-            <div class="grid grid-cols-3 gap-4 pt-8 border-t border-border">
+            <div
+              data-stagger="fade-up"
+              data-reveal-delay="0.9"
+              class="grid grid-cols-3 gap-4 pt-8 border-t border-border"
+            >
               <div>
                 <p
-                  class="font-headline text-2xl sm:text-3xl font-bold text-dark-navy"
+                  data-counter="50"
+                  data-suffix="+"
+                  class="font-headline text-2xl sm:text-3xl font-bold text-dark-navy tabular-nums"
                 >
                   50+
                 </p>
@@ -306,7 +332,9 @@
               </div>
               <div>
                 <p
-                  class="font-headline text-2xl sm:text-3xl font-bold text-dark-navy"
+                  data-counter="5"
+                  data-suffix="+"
+                  class="font-headline text-2xl sm:text-3xl font-bold text-dark-navy tabular-nums"
                 >
                   5+
                 </p>
@@ -318,7 +346,9 @@
               </div>
               <div>
                 <p
-                  class="font-headline text-2xl sm:text-3xl font-bold text-dark-navy"
+                  data-counter="100"
+                  data-suffix="%"
+                  class="font-headline text-2xl sm:text-3xl font-bold text-dark-navy tabular-nums"
                 >
                   100%
                 </p>
@@ -331,10 +361,15 @@
             </div>
           </div>
           <!-- Right Hero Mockups (Browser + Mobile) -->
-          <div class="lg:col-span-5 relative flex justify-center items-center">
+          <div
+            data-reveal="fade-left"
+            data-reveal-delay="0.3"
+            class="lg:col-span-5 relative flex justify-center items-center"
+          >
             <!-- Main Browser Mockup -->
             <div
-              class="w-full max-w-lg bg-white rounded-xl shadow-2xl border border-border/80 overflow-hidden relative transform hover:-translate-y-1 transition-transform duration-300"
+              data-parallax="0.12"
+              class="w-full max-w-lg bg-white rounded-xl shadow-2xl border border-border/80 overflow-hidden relative"
             >
               <!-- Browser Top Bar with Cyan Navbar Touch -->
               <div
@@ -403,7 +438,8 @@
             </div>
             <!-- Floating Phone Mockup -->
             <div
-              class="absolute -bottom-6 -left-4 sm:-left-6 w-36 sm:w-44 bg-dark-navy p-2 rounded-2xl shadow-xl border-2 border-white transform rotate-3 hover:rotate-0 transition-transform duration-300"
+              data-parallax="0.45"
+              class="absolute -bottom-6 -left-4 sm:-left-6 w-36 sm:w-44 bg-dark-navy p-2 rounded-2xl shadow-xl border-2 border-white rotate-3"
             >
               <div class="bg-white rounded-xl overflow-hidden">
                 <div class="h-3 bg-dark-navy flex justify-center items-center">
@@ -428,7 +464,57 @@
           </div>
         </div>
       </div>
+      <!-- Song dong o chan hero (lay cam hung tu logo SeaSoft) -->
+      <div class="wave-divider absolute bottom-0 inset-x-0" aria-hidden="true">
+        <svg viewBox="0 0 2880 70" preserveAspectRatio="none">
+          <path
+            fill="#90E0EF"
+            fill-opacity="0.35"
+            d="M0 35 C240 70 480 0 720 35 C960 70 1200 0 1440 35 C1680 70 1920 0 2160 35 C2400 70 2640 0 2880 35 V70 H0 Z"
+          />
+        </svg>
+        <svg viewBox="0 0 2880 70" preserveAspectRatio="none">
+          <path
+            fill="#F8FCFF"
+            d="M0 45 C240 15 480 70 720 45 C960 15 1200 70 1440 45 C1680 15 1920 70 2160 45 C2400 15 2640 70 2880 45 V70 H0 Z"
+          />
+        </svg>
+      </div>
     </section>
+    <!-- 2b. MARQUEE CONG NGHE -->
+    <div class="bg-surface pt-4 pb-10" aria-label="Công nghệ sử dụng">
+      <p
+        data-reveal="fade-up"
+        class="text-center text-xs font-semibold tracking-[0.2em] uppercase text-text-muted mb-5"
+      >
+        Công nghệ chúng tôi sử dụng
+      </p>
+      <div class="marquee">
+        <div class="marquee-track gap-4 pr-4">
+          <!-- Lap lai 2 lan de cuon vo tan -->
+          <span class="marquee-chip">Spring Boot</span>
+          <span class="marquee-chip">React</span>
+          <span class="marquee-chip">Next.js</span>
+          <span class="marquee-chip">Tailwind CSS</span>
+          <span class="marquee-chip">PostgreSQL</span>
+          <span class="marquee-chip">Figma</span>
+          <span class="marquee-chip">Docker</span>
+          <span class="marquee-chip">WordPress</span>
+          <span class="marquee-chip">GSAP</span>
+          <span class="marquee-chip">Google Analytics</span>
+          <span class="marquee-chip" aria-hidden="true">Spring Boot</span>
+          <span class="marquee-chip" aria-hidden="true">React</span>
+          <span class="marquee-chip" aria-hidden="true">Next.js</span>
+          <span class="marquee-chip" aria-hidden="true">Tailwind CSS</span>
+          <span class="marquee-chip" aria-hidden="true">PostgreSQL</span>
+          <span class="marquee-chip" aria-hidden="true">Figma</span>
+          <span class="marquee-chip" aria-hidden="true">Docker</span>
+          <span class="marquee-chip" aria-hidden="true">WordPress</span>
+          <span class="marquee-chip" aria-hidden="true">GSAP</span>
+          <span class="marquee-chip" aria-hidden="true">Google Analytics</span>
+        </div>
+      </div>
+    </div>
     <!-- 3. SERVICES SECTION -->
     <section
       class="bg-surface py-20 md:py-24 border-y border-border/60"
@@ -436,7 +522,8 @@
     >
       <div class="max-w-7xl mx-auto px-6 md:px-12">
         <!-- Section Header -->
-        <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <div data-stagger="fade-up"
+          class="text-center max-w-2xl mx-auto mb-16 space-y-3">
           <span
             class="text-primary font-semibold text-sm tracking-wider uppercase"
             >Dịch vụ cốt lõi</span
@@ -451,10 +538,14 @@
           </p>
         </div>
         <!-- 4 Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div
+          data-stagger="fade-up"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
           <!-- Card 1 -->
           <div
-            class="bg-white rounded-lg p-6 shadow-card hover:shadow-cardHover border-t-[3px] border-primary transition-all duration-200 transform hover:-translate-y-1.5 flex flex-col justify-between"
+            data-tilt="6"
+            class="bg-white rounded-lg p-6 shadow-card hover:shadow-cardHover border-t-[3px] border-primary transition-shadow duration-200 flex flex-col justify-between"
           >
             <div>
               <div
@@ -481,7 +572,8 @@
           </div>
           <!-- Card 2 -->
           <div
-            class="bg-white rounded-lg p-6 shadow-card hover:shadow-cardHover border-t-[3px] border-primary transition-all duration-200 transform hover:-translate-y-1.5 flex flex-col justify-between"
+            data-tilt="6"
+            class="bg-white rounded-lg p-6 shadow-card hover:shadow-cardHover border-t-[3px] border-primary transition-shadow duration-200 flex flex-col justify-between"
           >
             <div>
               <div
@@ -508,7 +600,8 @@
           </div>
           <!-- Card 3 -->
           <div
-            class="bg-white rounded-lg p-6 shadow-card hover:shadow-cardHover border-t-[3px] border-primary transition-all duration-200 transform hover:-translate-y-1.5 flex flex-col justify-between"
+            data-tilt="6"
+            class="bg-white rounded-lg p-6 shadow-card hover:shadow-cardHover border-t-[3px] border-primary transition-shadow duration-200 flex flex-col justify-between"
           >
             <div>
               <div
@@ -537,7 +630,8 @@
           </div>
           <!-- Card 4 -->
           <div
-            class="bg-white rounded-lg p-6 shadow-card hover:shadow-cardHover border-t-[3px] border-primary transition-all duration-200 transform hover:-translate-y-1.5 flex flex-col justify-between"
+            data-tilt="6"
+            class="bg-white rounded-lg p-6 shadow-card hover:shadow-cardHover border-t-[3px] border-primary transition-shadow duration-200 flex flex-col justify-between"
           >
             <div>
               <div
@@ -566,10 +660,11 @@
       </div>
     </section>
     <!-- 4. PROCESS SECTION -->
-    <section class="bg-white py-20 md:py-24" id="process">
+    <section class="bg-white py-20 md:py-24" id="process" data-process>
       <div class="max-w-7xl mx-auto px-6 md:px-12">
         <!-- Section Header -->
-        <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <div data-stagger="fade-up"
+          class="text-center max-w-2xl mx-auto mb-16 space-y-3">
           <span
             class="text-primary font-semibold text-sm tracking-wider uppercase"
             >Lộ trình triển khai</span
@@ -587,112 +682,118 @@
         <!-- 5-Step Timeline -->
         <div class="relative">
           <!-- Connecting Line for Desktop -->
+          <!-- Thanh noi: nen nhat + phan to mau chay theo cuon (process-line-fill) -->
           <div
-            class="hidden lg:block absolute top-1/4 left-[8%] right-[8%] h-[3px] bg-secondary z-0"
-          ></div>
+            class="hidden lg:block absolute top-8 left-[10%] right-[10%] h-[3px] bg-secondary/40 rounded-full overflow-hidden z-0"
+          >
+            <div
+              class="process-line-fill h-full w-full bg-gradient-to-r from-primary to-dark-navy"
+            ></div>
+          </div>
           <div
+            data-stagger="fade-up"
             class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 relative z-10"
           >
             <!-- Step 01 -->
-            <div class="text-center flex flex-col items-center group">
+            <div class="process-step text-center flex flex-col items-center group">
               <div
-                class="w-16 h-16 rounded-full bg-dark-navy text-white flex items-center justify-center font-headline font-bold text-lg shadow-md mb-4 border-4 border-white group-hover:bg-primary transition-colors"
+                class="step-num w-16 h-16 rounded-full bg-dark-navy text-white flex items-center justify-center font-headline font-bold text-lg shadow-md mb-4 border-4 border-white group-hover:bg-primary transition-colors"
               >
                 01
               </div>
               <div
-                class="w-10 h-10 rounded-full bg-surface-alt text-dark-navy flex items-center justify-center mb-3"
+                class="step-body w-10 h-10 rounded-full bg-surface-alt text-dark-navy flex items-center justify-center mb-3"
               >
                 <span class="material-symbols-outlined text-xl">forum</span>
               </div>
-              <h4 class="font-headline text-base font-bold text-dark-navy mb-1">
+              <h4 class="step-body font-headline text-base font-bold text-dark-navy mb-1">
                 Tư vấn
               </h4>
-              <p class="text-xs text-text-muted leading-relaxed px-2">
+              <p class="step-body text-xs text-text-muted leading-relaxed px-2">
                 Khảo sát yêu cầu bài toán kinh doanh và định hướng chiến lược
                 kiến trúc web.
               </p>
             </div>
             <!-- Step 02 -->
-            <div class="text-center flex flex-col items-center group">
+            <div class="process-step text-center flex flex-col items-center group">
               <div
-                class="w-16 h-16 rounded-full bg-dark-navy text-white flex items-center justify-center font-headline font-bold text-lg shadow-md mb-4 border-4 border-white group-hover:bg-primary transition-colors"
+                class="step-num w-16 h-16 rounded-full bg-dark-navy text-white flex items-center justify-center font-headline font-bold text-lg shadow-md mb-4 border-4 border-white group-hover:bg-primary transition-colors"
               >
                 02
               </div>
               <div
-                class="w-10 h-10 rounded-full bg-surface-alt text-dark-navy flex items-center justify-center mb-3"
+                class="step-body w-10 h-10 rounded-full bg-surface-alt text-dark-navy flex items-center justify-center mb-3"
               >
                 <span class="material-symbols-outlined text-xl">draw</span>
               </div>
-              <h4 class="font-headline text-base font-bold text-dark-navy mb-1">
+              <h4 class="step-body font-headline text-base font-bold text-dark-navy mb-1">
                 UI/UX Design
               </h4>
-              <p class="text-xs text-text-muted leading-relaxed px-2">
+              <p class="step-body text-xs text-text-muted leading-relaxed px-2">
                 Phác thảo Wireframe và hoàn thiện giao diện mẫu thử tương tác
                 trực quan.
               </p>
             </div>
             <!-- Step 03 -->
-            <div class="text-center flex flex-col items-center group">
+            <div class="process-step text-center flex flex-col items-center group">
               <div
-                class="w-16 h-16 rounded-full bg-dark-navy text-white flex items-center justify-center font-headline font-bold text-lg shadow-md mb-4 border-4 border-white group-hover:bg-primary transition-colors"
+                class="step-num w-16 h-16 rounded-full bg-dark-navy text-white flex items-center justify-center font-headline font-bold text-lg shadow-md mb-4 border-4 border-white group-hover:bg-primary transition-colors"
               >
                 03
               </div>
               <div
-                class="w-10 h-10 rounded-full bg-surface-alt text-dark-navy flex items-center justify-center mb-3"
+                class="step-body w-10 h-10 rounded-full bg-surface-alt text-dark-navy flex items-center justify-center mb-3"
               >
                 <span class="material-symbols-outlined text-xl">code</span>
               </div>
-              <h4 class="font-headline text-base font-bold text-dark-navy mb-1">
+              <h4 class="step-body font-headline text-base font-bold text-dark-navy mb-1">
                 Development
               </h4>
-              <p class="text-xs text-text-muted leading-relaxed px-2">
+              <p class="step-body text-xs text-text-muted leading-relaxed px-2">
                 Lập trình Front-end &amp; Back-end với mã nguồn sạch, tối ưu bảo
                 mật và SEO.
               </p>
             </div>
             <!-- Step 04 -->
-            <div class="text-center flex flex-col items-center group">
+            <div class="process-step text-center flex flex-col items-center group">
               <div
-                class="w-16 h-16 rounded-full bg-dark-navy text-white flex items-center justify-center font-headline font-bold text-lg shadow-md mb-4 border-4 border-white group-hover:bg-primary transition-colors"
+                class="step-num w-16 h-16 rounded-full bg-dark-navy text-white flex items-center justify-center font-headline font-bold text-lg shadow-md mb-4 border-4 border-white group-hover:bg-primary transition-colors"
               >
                 04
               </div>
               <div
-                class="w-10 h-10 rounded-full bg-surface-alt text-dark-navy flex items-center justify-center mb-3"
+                class="step-body w-10 h-10 rounded-full bg-surface-alt text-dark-navy flex items-center justify-center mb-3"
               >
                 <span class="material-symbols-outlined text-xl"
                   >fact_check</span
                 >
               </div>
-              <h4 class="font-headline text-base font-bold text-dark-navy mb-1">
+              <h4 class="step-body font-headline text-base font-bold text-dark-navy mb-1">
                 Testing
               </h4>
-              <p class="text-xs text-text-muted leading-relaxed px-2">
+              <p class="step-body text-xs text-text-muted leading-relaxed px-2">
                 Kiểm thử đa thiết bị, tối ưu tốc độ và rà soát các tiêu chuẩn
                 bảo mật.
               </p>
             </div>
             <!-- Step 05 -->
-            <div class="text-center flex flex-col items-center group">
+            <div class="process-step text-center flex flex-col items-center group">
               <div
-                class="w-16 h-16 rounded-full bg-dark-navy text-white flex items-center justify-center font-headline font-bold text-lg shadow-md mb-4 border-4 border-white group-hover:bg-primary transition-colors"
+                class="step-num w-16 h-16 rounded-full bg-dark-navy text-white flex items-center justify-center font-headline font-bold text-lg shadow-md mb-4 border-4 border-white group-hover:bg-primary transition-colors"
               >
                 05
               </div>
               <div
-                class="w-10 h-10 rounded-full bg-surface-alt text-dark-navy flex items-center justify-center mb-3"
+                class="step-body w-10 h-10 rounded-full bg-surface-alt text-dark-navy flex items-center justify-center mb-3"
               >
                 <span class="material-symbols-outlined text-xl"
                   >rocket_launch</span
                 >
               </div>
-              <h4 class="font-headline text-base font-bold text-dark-navy mb-1">
+              <h4 class="step-body font-headline text-base font-bold text-dark-navy mb-1">
                 Launch
               </h4>
-              <p class="text-xs text-text-muted leading-relaxed px-2">
+              <p class="step-body text-xs text-text-muted leading-relaxed px-2">
                 Bàn giao hướng dẫn sử dụng, triển khai tên miền và bảo hành kỹ
                 thuật lâu dài.
               </p>
@@ -708,7 +809,8 @@
     >
       <div class="max-w-7xl mx-auto px-6 md:px-12">
         <!-- Section Header -->
-        <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <div data-stagger="fade-up"
+          class="text-center max-w-2xl mx-auto mb-16 space-y-3">
           <span
             class="text-primary font-semibold text-sm tracking-wider uppercase"
             >Dự án tiêu biểu</span
@@ -724,10 +826,11 @@
           </p>
         </div>
         <!-- Portfolio Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div data-stagger="fade-up" class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <!-- Portfolio Card 1 -->
           <div
-            class="bg-white rounded-xl overflow-hidden shadow-card border border-border/60 group hover:shadow-cardHover transition-all duration-300"
+            data-tilt="4"
+            class="bg-white rounded-xl overflow-hidden shadow-card border border-border/60 group hover:shadow-cardHover transition-shadow duration-300"
           >
             <div
               class="relative aspect-video overflow-hidden bg-gradient-to-tr from-dark-navy/20 to-secondary/30"
@@ -775,7 +878,8 @@
           </div>
           <!-- Portfolio Card 2 -->
           <div
-            class="bg-white rounded-xl overflow-hidden shadow-card border border-border/60 group hover:shadow-cardHover transition-all duration-300"
+            data-tilt="4"
+            class="bg-white rounded-xl overflow-hidden shadow-card border border-border/60 group hover:shadow-cardHover transition-shadow duration-300"
           >
             <div
               class="relative aspect-video overflow-hidden bg-gradient-to-tr from-dark-navy/20 to-secondary/30"
@@ -823,7 +927,8 @@
           </div>
           <!-- Portfolio Card 3 -->
           <div
-            class="bg-white rounded-xl overflow-hidden shadow-card border border-border/60 group hover:shadow-cardHover transition-all duration-300"
+            data-tilt="4"
+            class="bg-white rounded-xl overflow-hidden shadow-card border border-border/60 group hover:shadow-cardHover transition-shadow duration-300"
           >
             <div
               class="relative aspect-video overflow-hidden bg-gradient-to-tr from-dark-navy/20 to-secondary/30"
@@ -874,6 +979,7 @@
     </section>
     <!-- 6. WHY SEASOFT SECTION -->
     <section
+      data-clip-reveal
       class="bg-dark-navy text-white py-20 md:py-28 relative overflow-hidden"
       id="why-us"
     >
@@ -889,7 +995,7 @@
           class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center"
         >
           <!-- Feature List Left -->
-          <div class="lg:col-span-6 space-y-6">
+          <div data-stagger="fade-right" class="lg:col-span-6 space-y-6">
             <span
               class="text-primary font-semibold text-sm tracking-wider uppercase"
               >Lợi thế cạnh tranh</span
@@ -903,7 +1009,11 @@
               Chúng tôi không chỉ tạo ra giao diện đẹp mắt mà còn xây dựng công
               cụ số hiệu quả, mang lại doanh thu bền vững cho các đối tác B2B.
             </p>
-            <div class="space-y-4 pt-2">
+            <div
+              data-stagger="fade-right"
+              data-reveal-delay="0.3"
+              class="space-y-4 pt-2"
+            >
               <!-- Feature 1 -->
               <div class="flex items-start gap-4">
                 <div
@@ -992,8 +1102,12 @@
             </div>
           </div>
           <!-- Sleek Laptop Mockup with Cyan Glow Effect -->
-          <div class="lg:col-span-6 relative flex items-center justify-center">
-            <div class="relative w-full max-w-md p-4">
+          <div
+            data-reveal="scale"
+            data-reveal-delay="0.2"
+            class="lg:col-span-6 relative flex items-center justify-center"
+          >
+            <div data-parallax="0.18" class="relative w-full max-w-md p-4">
               <!-- Glow backdrop -->
               <div
                 class="absolute inset-0 bg-primary/25 filter blur-2xl rounded-full transform -rotate-6"
@@ -1043,7 +1157,10 @@
       class="bg-gradient-to-b from-white via-surface to-surface-alt/60 py-20 md:py-28 text-center border-b border-border/80"
       id="contact"
     >
-      <div class="max-w-4xl mx-auto px-6 md:px-12 space-y-6">
+      <div
+        data-stagger="fade-up"
+        class="max-w-4xl mx-auto px-6 md:px-12 space-y-6"
+      >
         <span
           class="inline-block px-3.5 py-1 rounded-full bg-secondary/30 text-dark-navy text-xs font-semibold"
         >
@@ -1062,7 +1179,8 @@
         </p>
         <div class="pt-4">
           <a
-            class="inline-flex items-center justify-center px-8 py-4 text-base sm:text-lg font-semibold text-white bg-primary hover:bg-[#34b6d0] active:scale-95 transition-all duration-150 rounded-lg shadow-lg hover:shadow-cyanGlow"
+            data-magnetic="0.4"
+            class="inline-flex items-center justify-center px-8 py-4 text-base sm:text-lg font-semibold text-white bg-primary hover:bg-[#34b6d0] active:scale-95 transition-[background-color,box-shadow] duration-150 rounded-lg shadow-lg hover:shadow-cyanGlow"
             href="#contact"
           >
             Nhận tư vấn miễn phí
@@ -1072,8 +1190,26 @@
       </div>
     </section>
     <!-- 8. FOOTER (Anchor Component) -->
-    <footer class="w-full bg-dark-navy text-white border-t border-white/10">
+    <!-- Song chuyen tu CTA sang footer navy -->
+    <div class="wave-divider bg-surface-alt/60" aria-hidden="true">
+      <svg viewBox="0 0 2880 70" preserveAspectRatio="none">
+        <path
+          fill="#48CAE4"
+          fill-opacity="0.35"
+          d="M0 35 C240 70 480 0 720 35 C960 70 1200 0 1440 35 C1680 70 1920 0 2160 35 C2400 70 2640 0 2880 35 V70 H0 Z"
+        />
+      </svg>
+      <svg viewBox="0 0 2880 70" preserveAspectRatio="none">
+        <path
+          fill="#03045E"
+          d="M0 45 C240 15 480 70 720 45 C960 15 1200 70 1440 45 C1680 15 1920 70 2160 45 C2400 15 2640 70 2880 45 V70 H0 Z"
+        />
+      </svg>
+    </div>
+    <footer class="w-full bg-dark-navy text-white">
       <div
+        data-stagger="fade-up"
+        data-stagger-each="0.08"
         class="max-w-7xl mx-auto px-6 md:px-12 py-16 flex flex-col md:flex-row justify-between gap-10"
       >
         <!-- Col 1: Brand & Tagline -->
@@ -1243,6 +1379,12 @@
       </div>
     </footer>
     <script src="js/auth.js"></script>
+    <!-- Hieu ung cuon: GSAP + ScrollTrigger + Lenis (smooth scroll) -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/page-transition.js"></script>
     <!-- Micro Interaction Script for Mobile Navigation -->
     <script>
       const mobileMenuBtn = document.getElementById("mobileMenuBtn");

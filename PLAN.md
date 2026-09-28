@@ -53,18 +53,18 @@
 
 Mục tiêu: kéo xuống tới đâu, nội dung "diễn" tới đó — mượt, không giật, không làm chậm trang.
 
-- [ ] 3.1 Thư viện: **GSAP + ScrollTrigger** (hiệu ứng theo cuộn) + **Lenis** (smooth scroll), load từ CDN jsDelivr
-- [ ] 3.2 File dùng chung `js/animations.js` + `css/animations.css`, gắn bằng data-attribute (`data-reveal="fade-up"`, `data-stagger`, `data-parallax`) để trang nào cũng tái sử dụng
-- [ ] 3.3 Hero: text xuất hiện từng dòng/từng chữ, mockup parallax nhẹ, nền wave chuyển động (theo logo sóng)
-- [ ] 3.4 Reveal khi cuộn: fade-up, slide-in trái/phải, scale-in cho card dịch vụ; stagger cho danh sách
-- [ ] 3.5 Section "Quy trình" (`#process`): **pin + scrub** — cuộn tới đâu từng bước sáng lên tới đó, thanh tiến trình chạy theo
-- [ ] 3.6 Chuyển cảnh giữa section: đổi màu nền mượt khi cuộn (trắng → navy), wave divider
-- [ ] 3.7 Counter số liệu chạy số, marquee logo khách hàng
-- [ ] 3.8 Micro-interaction: hover card nổi 3D nhẹ, nút magnetic, header co lại + blur khi cuộn, progress bar đọc trang
-- [ ] 3.9 Chuyển trang (Page ↔ login ↔ register): overlay fade/slide
-- [ ] 3.10 Login/Register: form xuất hiện mượt, shake khi lỗi, loading state trên nút
-- [ ] 3.11 Hiệu năng & a11y: chỉ animate `transform`/`opacity`, tôn trọng `prefers-reduced-motion`, giảm parallax trên mobile
-- [ ] 3.12 Test (desktop + mobile, reduced-motion) + `TC_ui_animation.md`
+- [x] 3.1 Thư viện: **GSAP + ScrollTrigger** (hiệu ứng theo cuộn) + **Lenis** (smooth scroll), load từ CDN jsDelivr
+- [x] 3.2 File dùng chung `js/animations.js` + `css/animations.css`, gắn bằng data-attribute (`data-reveal="fade-up"`, `data-stagger`, `data-parallax`) để trang nào cũng tái sử dụng
+- [x] 3.3 Hero: text xuất hiện từng dòng/từng chữ, mockup parallax nhẹ, nền wave chuyển động (theo logo sóng)
+- [x] 3.4 Reveal khi cuộn: fade-up, slide-in trái/phải, scale-in cho card dịch vụ; stagger cho danh sách
+- [x] 3.5 Section "Quy trình" (`#process`): **pin + scrub** — cuộn tới đâu từng bước sáng lên tới đó, thanh tiến trình chạy theo
+- [x] 3.6 Chuyển cảnh giữa section: đổi màu nền mượt khi cuộn (trắng → navy), wave divider
+- [x] 3.7 Counter số liệu chạy số, marquee logo khách hàng
+- [x] 3.8 Micro-interaction: hover card nổi 3D nhẹ, nút magnetic, header co lại + blur khi cuộn, progress bar đọc trang
+- [x] 3.9 Chuyển trang (Page ↔ login ↔ register): overlay fade/slide
+- [x] 3.10 Login/Register: form xuất hiện mượt, shake khi lỗi, loading state trên nút
+- [x] 3.11 Hiệu năng & a11y: chỉ animate `transform`/`opacity`, tôn trọng `prefers-reduced-motion`, giảm parallax trên mobile
+- [x] 3.12 Test (desktop + mobile, reduced-motion) + `TC_ui_animation.md`
 - **Mốc đánh giá #3**
 
 ## Phase 4 — Đăng ký tư vấn (Lead)
@@ -158,3 +158,16 @@ code → test tự động → test tay trên UI → `docs/testcases/TC_<tên>.m
   - Checkbox "Ghi nhớ 30 ngày" đổi thành "Ghi nhớ trên thiết bị này" cho đúng thực tế.
 - **Nợ kỹ thuật**: `login.html`/`register.html`/`Page.html` vẫn nhúng Tailwind config + CSS inline (trang mới dùng file chung `js/tailwind-config.js`, `css/auth-pages.css`) → gom ở Phase 8.3. Frontend yêu cầu mật khẩu ≥ 8 khi đăng ký, backend ≥ 6 → thống nhất khi hardening.
 - **Tiếp theo**: Phase 3 — Giao diện động ✨.
+
+### Mốc #3 — Phase 3 (2026-09-28) ✅
+- **Kết quả**: `TC_ui_animation.md` 17 case pass (desktop 1440, mobile 375, reduced-motion, CDN chết). 0 lỗi JS, 0 phần tử kẹt ẩn sau khi cuộn hết trang. Backend 63/63 test không đổi.
+- **Đã làm**: `js/animations.js` (GSAP + ScrollTrigger + Lenis, gắn bằng `data-*`), `css/animations.css`, `js/page-transition.js`. Hero tách chữ + số chạy + parallax, sóng động, marquee công nghệ, card nghiêng 3D, nút magnetic, header co lại, thanh progress, Quy trình pin + scrub, chuyển cảnh navy nở ra full màn hình, scrollspy menu, chuyển trang có màn che sóng, form rung khi lỗi.
+- **Bug bắt được khi test**:
+  - Lỗi TDZ (`const FROM` dùng trước khi khai báo) làm dừng init → nội dung kẹt ẩn tới khi failsafe 4s. Fix + thêm `try/catch` tự hiện nội dung tĩnh nếu init lỗi.
+  - Màn chuyển trang dựa vào `requestAnimationFrame` → tab ẩn thì kẹt phủ kín trang. Chuyển sang forced reflow + `display:none` khi nghỉ.
+  - Lenis không biết trang dài thêm do pin → không cuộn tới được "Liên hệ". Gọi `lenis.resize()` khi ScrollTrigger refresh.
+  - Scrollspy về đầu trang vẫn sáng mục cuối → sửa logic toggle.
+  - CSS co header ảnh hưởng cả menu mobile (cùng là `div` con) → chỉ nhắm `div:first-child`.
+- **Lưu ý nội dung**: marquee "Công nghệ chúng tôi sử dụng" là danh sách mẫu (Spring Boot, React, Next.js, Tailwind, PostgreSQL, Figma, Docker, WordPress, GSAP, Google Analytics) → cần chủ dự án xác nhận/sửa.
+- **Nợ kỹ thuật**: GSAP/Lenis đang load từ CDN (khi hardening có thể tự host). Chưa đo Lighthouse (Phase 8.4).
+- **Tiếp theo**: Phase 4 — Đăng ký tư vấn (Lead).
