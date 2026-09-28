@@ -13,8 +13,18 @@
       tabs.push(tab);
     },
 
-    start() {
+    async start() {
       if (!Auth.isLoggedIn()) return; // requireAuth da chuyen trang
+      // Role luu trong trinh duyet co the cu (admin vua doi vai tro) -> lay lai tu server
+      try {
+        const me = await Auth.api("/api/users/me");
+        if (me.role !== Auth.user()?.role || me.fullName !== Auth.user()?.fullName) {
+          Auth.updateUser({ role: me.role, fullName: me.fullName });
+          Auth.renderHeader();
+        }
+      } catch {
+        return; // phien het han -> Auth da chuyen sang trang dang nhap
+      }
       if (!Auth.isStaff()) {
         document.getElementById("forbidden").classList.remove("hidden");
         return;

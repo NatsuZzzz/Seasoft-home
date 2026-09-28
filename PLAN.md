@@ -86,11 +86,11 @@ Mục tiêu: kéo xuống tới đâu, nội dung "diễn" tới đó — mượ
 
 ## Phase 6 — Admin / Manager Panel
 
-- [ ] 6.1 Quản lý user: tạo STAFF, khoá/mở, đổi role
-- [ ] 6.2 Quản lý lead + dự án (filter, phân trang)
-- [ ] 6.3 Thống kê
-- [ ] 6.4 `admin.html`
-- [ ] 6.5 Test + `TC_admin_user.md`, `TC_admin_stats.md`
+- [x] 6.1 Quản lý user: tạo STAFF, khoá/mở, đổi role
+- [x] 6.2 Quản lý lead + dự án (filter, phân trang)
+- [x] 6.3 Thống kê
+- [x] 6.4 `admin.html`
+- [x] 6.5 Test + `TC_admin_user.md`, `TC_admin_stats.md`
 - **Mốc đánh giá #6**
 
 ## Phase 7 — (Tuỳ chọn) Marketing & SEO
@@ -187,3 +187,11 @@ code → test tự động → test tay trên UI → `docs/testcases/TC_<tên>.m
 - **Thiết kế bảo mật**: khách truy cập dự án qua `findByIdAndCustomerId` → dự án người khác trả 404 chứ không phải 403.
 - **Dữ liệu demo** (DB dev): khách `demo.khach@seasoft.test` + dự án SS-2026-0001 để chủ dự án xem thử.
 - **Tiếp theo**: Phase 6 — Admin/Manager panel (người dùng + thống kê).
+
+### Mốc #6 — Phase 6 (2026-09-28) ✅
+- **Kết quả**: 139/139 test tự động (thêm 24), pass ngay lần đầu. Test UI: tab Tổng quan (5 thẻ + 5 biểu đồ, tooltip hover/bàn phím, bảng thay thế), tab Người dùng (thêm nhân viên → nhận lời mời thật từ log → đăng nhập, khoá/mở, đổi vai trò), MANAGER bị giới hạn đúng, STAFF chỉ thấy 2 tab. 2 file testcase (18 + 17 case).
+- **Đã làm**: `/api/admin/users` (lọc, tạo nhân viên bằng email mời 48h, sửa hồ sơ nhân sự, khoá/mở + thu hồi phiên, đổi vai trò, gửi link đặt lại mật khẩu), `/api/admin/stats` (SQL group by, 8 tuần bằng `generate_series`), tab Tổng quan + Người dùng; biểu đồ HTML/CSS không thư viện theo quy chuẩn skill dataviz (màu đã validate).
+- **Bug bắt được**: giao diện dùng role lưu trong trình duyệt → đổi vai trò xong vẫn thấy tab cũ (fix: đồng bộ `/api/users/me` khi mở trang quản trị); giá trị 0 vẫn vẽ vạch 2px.
+- **Ghi chú**: quy tắc "không hạ quyền ADMIN cuối cùng" là lớp phòng thủ; qua API không thể xảy ra vì ADMIN không tự đổi vai trò được.
+- **Dữ liệu demo** (DB dev): nhân viên `nv.demo@seasoft.test` (STAFF).
+- **Tiếp theo**: Phase 7 — Marketing & SEO.

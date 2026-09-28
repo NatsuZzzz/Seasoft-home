@@ -157,8 +157,96 @@
             </div>
           </div>
         </section>
+        <!-- ================= TAB: TONG QUAN (thong ke) ================= -->
+        <section data-tab="stats" class="hidden space-y-6">
+          <header class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h1 class="text-2xl sm:text-3xl font-bold">Tổng quan</h1>
+              <p class="text-sm text-text-muted mt-1">Số liệu cập nhật lúc <span id="st-time">—</span></p>
+            </div>
+            <button id="st-refresh" class="inline-flex items-center gap-1.5 text-sm font-semibold border border-border bg-white rounded-lg px-3 py-2 hover:border-primary hover:text-primary">
+              <span class="material-symbols-outlined text-lg">refresh</span> Tải lại
+            </button>
+          </header>
+          <div id="st-tiles" class="grid gap-4 grid-cols-2 lg:grid-cols-5"></div>
+          <div class="grid gap-6 lg:grid-cols-2">
+            <figure class="bg-white rounded-2xl border border-border shadow-card p-6 lg:col-span-2">
+              <figcaption class="mb-4"><h2 class="font-bold">Lead mới theo tuần</h2>
+                <p class="text-xs text-text-muted">8 tuần gần nhất, tuần bắt đầu từ thứ Hai</p></figcaption>
+              <div id="ch-weeks"></div>
+            </figure>
+            <figure class="bg-white rounded-2xl border border-border shadow-card p-6">
+              <figcaption class="mb-4"><h2 class="font-bold">Lead theo trạng thái</h2>
+                <p class="text-xs text-text-muted">Toàn bộ thời gian</p></figcaption>
+              <div id="ch-lead-status"></div>
+            </figure>
+            <figure class="bg-white rounded-2xl border border-border shadow-card p-6">
+              <figcaption class="mb-4"><h2 class="font-bold">Lead theo dịch vụ</h2>
+                <p class="text-xs text-text-muted">Toàn bộ thời gian</p></figcaption>
+              <div id="ch-lead-service"></div>
+            </figure>
+            <figure class="bg-white rounded-2xl border border-border shadow-card p-6">
+              <figcaption class="mb-4"><h2 class="font-bold">Dự án theo trạng thái</h2></figcaption>
+              <div id="ch-project-status"></div>
+            </figure>
+            <figure class="bg-white rounded-2xl border border-border shadow-card p-6">
+              <figcaption class="mb-4"><h2 class="font-bold">Người dùng theo vai trò</h2></figcaption>
+              <div id="ch-users"></div>
+            </figure>
+          </div>
+        </section>
+
+        <!-- ================= TAB: NGUOI DUNG ================= -->
+        <section data-tab="users" class="hidden space-y-6">
+          <header class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h1 class="text-2xl sm:text-3xl font-bold">Người dùng</h1>
+              <p class="text-sm text-text-muted mt-1"><span id="usr-total">0</span> tài khoản phù hợp bộ lọc</p>
+            </div>
+            <button id="usr-new" class="inline-flex items-center gap-1.5 text-sm font-semibold bg-primary text-white rounded-lg px-4 py-2.5 hover:bg-[#34b6d0]">
+              <span class="material-symbols-outlined text-lg">person_add</span> Thêm nhân viên
+            </button>
+          </header>
+          <div class="bg-white rounded-2xl border border-border shadow-card p-4 flex flex-wrap gap-3 items-center">
+            <div class="relative flex-1 min-w-[200px]">
+              <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-lg">search</span>
+              <input id="usr-q" type="search" placeholder="Tìm tên, email, SĐT…"
+                class="w-full border border-border rounded-xl py-2.5 pl-10 pr-3 text-sm focus:border-primary focus:ring-primary/20 focus:ring-4" />
+            </div>
+            <select id="usr-role" class="border border-border rounded-xl py-2.5 px-3 text-sm focus:border-primary focus:ring-primary/20 focus:ring-4">
+              <option value="">Mọi vai trò</option>
+            </select>
+            <select id="usr-status" class="border border-border rounded-xl py-2.5 px-3 text-sm focus:border-primary focus:ring-primary/20 focus:ring-4">
+              <option value="">Mọi trạng thái</option>
+            </select>
+          </div>
+          <div class="bg-white rounded-2xl border border-border shadow-card overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead class="bg-surface-alt/60 text-left text-xs uppercase tracking-wide text-text-muted">
+                  <tr>
+                    <th class="px-4 py-3 font-semibold">Người dùng</th>
+                    <th class="px-4 py-3 font-semibold">Vai trò</th>
+                    <th class="px-4 py-3 font-semibold">Trạng thái</th>
+                    <th class="px-4 py-3 font-semibold hidden md:table-cell">Đăng nhập gần nhất</th>
+                    <th class="px-4 py-3 font-semibold hidden lg:table-cell">Ngày tạo</th>
+                  </tr>
+                </thead>
+                <tbody id="usr-rows" class="divide-y divide-border"></tbody>
+              </table>
+            </div>
+            <div class="flex items-center justify-between px-4 py-3 border-t border-border text-sm">
+              <button id="usr-prev" class="px-3 py-1.5 rounded-lg border border-border disabled:opacity-40 hover:border-primary">← Trước</button>
+              <span id="usr-page" class="text-text-muted"></span>
+              <button id="usr-next" class="px-3 py-1.5 rounded-lg border border-border disabled:opacity-40 hover:border-primary">Sau →</button>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
+
+    <!-- Tooltip bieu do (dung chung) -->
+    <div id="chart-tip" class="chart-tip" role="tooltip"></div>
 
     <!-- Drawer chi tiet (dung chung cho cac tab) -->
     <div id="drawer-backdrop" class="drawer-backdrop"></div>
@@ -178,8 +266,10 @@
     <script src="js/labels.js"></script>
     <script src="js/admin/core.js"></script>
     <script src="js/portal.js"></script>
+    <script src="js/admin/stats.js"></script>
     <script src="js/admin/leads.js"></script>
     <script src="js/admin/projects.js"></script>
+    <script src="js/admin/users.js"></script>
     <script>AdminApp.start();</script>
   </body>
 </html>

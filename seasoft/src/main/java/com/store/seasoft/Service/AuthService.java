@@ -101,22 +101,27 @@ public class AuthService {
         userRepository.findByEmail(normalizeEmail(rawEmail))
                 .filter(u -> u.getStatus() != UserStatus.SUSPENDED)
                 .ifPresent(user -> {
-                    passwordResetTokenRepository.invalidateAllByUserId(user.getId(), Instant.now());
-
-                    String raw = TokenUtils.randomToken();
-                    PasswordResetToken token = new PasswordResetToken();
-                    token.setUser(user);
-                    token.setTokenHash(TokenUtils.sha256(raw));
-                    token.setExpiresAt(Instant.now().plus(RESET_TOKEN_TTL));
-                    passwordResetTokenRepository.save(token);
-
-                    String link = frontendUrl + "/reset-password.html?token=" + raw;
+                    String link = createPasswordLink(user, RESET_TOKEN_TTL);
                     mailService.send(user.getEmail(), "SeaSoft - Đặt lại mật khẩu",
                             "Xin chào " + user.getFullName() + ",\n\n"
                                     + "Bấm vào link sau để đặt lại mật khẩu (hết hạn sau 30 phút):\n"
                                     + link + "\n\n"
                                     + "Nếu bạn không yêu cầu, hãy bỏ qua email này.");
                 });
+    }
+
+    // Tao link dat mat khau dung 1 lan (vo hieu cac link cu). Dung cho quen mat khau
+    // va cho loi moi nhan vien moi (admin khong can biet mat khau cua nhan vien).
+    @Transactional
+    public String createPasswordLink(User user, Duration ttl) {
+        passwordResetTokenRepository.invalidateAllByUserId(user.getId(), Instant.now());
+        String raw = TokenUtils.randomToken();
+        PasswordResetToken token = new PasswordResetToken();
+        token.setUser(user);
+        token.setTokenHash(TokenUtils.sha256(raw));
+        token.setExpiresAt(Instant.now().plus(ttl));
+        passwordResetTokenRepository.save(token);
+        return frontendUrl + "/reset-password.html?token=" + raw;
     }
 
     @Transactional

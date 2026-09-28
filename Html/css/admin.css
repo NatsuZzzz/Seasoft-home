@@ -106,6 +106,136 @@ body.drawer-open {
   }
 }
 
+/* ---------- Bieu do (1 chuoi, mau #0096C7 da qua validator) ---------- */
+:root {
+  --chart-mark: #0096c7;
+  --chart-grid: #eef2f6;
+  --chart-ink: #03045e;
+  --chart-muted: #6b7280;
+}
+/* Cot doc: toi da 24px, bo 4px o dau so lieu, vuong o chan */
+.col-chart {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  align-items: end;
+  height: 200px;
+  border-bottom: 1px solid var(--chart-grid);
+  gap: 2px;
+}
+.col-slot {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  cursor: default;
+}
+.col-bar {
+  width: min(24px, 60%);
+  background: var(--chart-mark);
+  border-radius: 4px 4px 0 0;
+  transform-origin: bottom;
+  animation: grow-y 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.col-slot:hover .col-bar,
+.col-slot:focus-visible .col-bar {
+  filter: brightness(0.85);
+}
+.col-value {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--chart-ink);
+  margin-bottom: 4px;
+}
+.col-labels {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  margin-top: 6px;
+  font-size: 0.7rem;
+  color: var(--chart-muted);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+/* Thanh ngang: nhan trai, thanh, gia tri o dau thanh */
+.hbar-row {
+  display: grid;
+  grid-template-columns: minmax(90px, 34%) 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 0;
+  font-size: 0.8125rem;
+}
+.hbar-label {
+  color: var(--chart-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hbar-track {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.hbar {
+  height: 16px;
+  background: var(--chart-mark);
+  border-radius: 0 4px 4px 0;
+  transform-origin: left;
+  animation: grow-x 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hbar-value {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--chart-ink);
+  font-variant-numeric: tabular-nums;
+}
+@keyframes grow-y {
+  from {
+    transform: scaleY(0);
+  }
+}
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+.chart-tip {
+  position: fixed;
+  z-index: 95;
+  pointer-events: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: #03045e;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, calc(-100% - 10px));
+  transition: opacity 0.12s;
+}
+.chart-tip.is-visible {
+  opacity: 1;
+}
+.stat-tile {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: 0 10px 30px -5px rgba(3, 4, 94, 0.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .col-bar,
+  .hbar {
+    animation: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .drawer,
   .drawer-backdrop,
