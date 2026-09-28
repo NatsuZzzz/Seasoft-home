@@ -1,0 +1,83 @@
+/* Style chung cho cac trang tai khoan (quen/dat lai mat khau, ho so) - cung giao dien login.html */
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+.blob-float {
+  animation: blob-float 7s ease-in-out infinite alternate;
+}
+.blob-float-2 {
+  animation: blob-float 9s ease-in-out infinite alternate-reverse;
+}
+@keyframes blob-float {
+  from {
+    transform: scale(1) translateY(0) translateX(0);
+  }
+  to {
+    transform: scale(1.08) translateY(-20px) translateX(10px);
+  }
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fade-slide-up {
+  animation: fadeSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.fade-slide-up-d1 { animation-delay: 0.08s; }
+.fade-slide-up-d2 { animation-delay: 0.16s; }
+.fade-slide-up-d3 { animation-delay: 0.24s; }
+
+.form-input-sea {
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-input-sea:focus {
+  border-color: #48cae4;
+  box-shadow: 0 0 0 3px rgba(72, 202, 228, 0.18);
+  outline: none;
+}
+.form-input-sea:disabled {
+  background: #f1f5f9;
+  color: #6b7280;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.btn-submit {
+  transition: background 0.18s, box-shadow 0.18s, transform 0.12s;
+}
+.btn-submit:hover {
+  background: #34b6d0;
+  box-shadow: 0 0 32px rgba(72, 202, 228, 0.35);
+}
+.btn-submit:active {
+  transform: scale(0.97);
+}
+.btn-submit:disabled {
+  opacity: 0.8;
+  cursor: wait;
+}
+
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(72, 202, 228, 0.18) 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blob-float,
+  .blob-float-2,
+  .fade-slide-up {
+    animation: none;
+  }
+}

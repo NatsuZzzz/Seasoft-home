@@ -137,13 +137,30 @@
             href="#contact"
             >Nhận tư vấn miễn phí</a
           ><a
+            data-auth="guest"
             class="inline-flex items-center justify-center text-xs sm:text-sm font-medium text-dark-navy hover:text-primary transition-colors px-2 py-1.5 rounded-md"
             href="login.html"
             >Đăng nhập</a
           ><a
+            data-auth="guest"
             class="inline-flex items-center justify-center text-xs sm:text-sm font-semibold bg-primary text-white hover:bg-[#34b6d0] active:scale-95 transition-all duration-150 rounded-lg px-2.5 sm:px-3.5 py-1.5 sm:py-2 shadow-sm"
             href="register.html"
             >Tạo tài khoản</a
+          ><a
+            data-auth="user"
+            class="hidden inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-dark-navy hover:text-primary transition-colors px-2 py-1.5 rounded-md max-w-[160px]"
+            href="profile.html"
+            title="Hồ sơ của tôi"
+            ><span class="material-symbols-outlined text-xl">account_circle</span
+            ><span class="truncate" data-auth-name></span></a
+          ><button
+            data-auth="user"
+            data-auth-logout
+            class="hidden inline-flex items-center justify-center p-1.5 rounded-lg text-text-muted hover:text-primary hover:bg-surface-alt transition-colors"
+            aria-label="Đăng xuất"
+            title="Đăng xuất"
+          >
+            <span class="material-symbols-outlined text-xl">logout</span></button
           ><button
             aria-label="Mở menu di động"
             class="md:hidden inline-flex items-center justify-center p-1.5 sm:p-2 rounded-lg text-dark-navy hover:bg-surface-alt focus:outline-none transition-colors"
@@ -183,16 +200,32 @@
         >
         <div class="pt-2">
           <div
+            data-auth="guest"
             class="grid grid-cols-2 gap-2 pb-2 mb-2 border-b border-border/60"
           >
             <a
               class="text-center py-2 text-sm font-medium text-dark-navy hover:text-primary bg-surface-alt rounded-lg border border-border/80 transition-colors"
-              href="#login"
+              href="login.html"
               >Đăng nhập</a
             ><a
               class="text-center py-2 text-sm font-semibold text-white bg-primary hover:bg-[#34b6d0] rounded-lg transition-colors"
-              href="#register"
+              href="register.html"
               >Tạo tài khoản</a
+            >
+          </div>
+          <div
+            data-auth="user"
+            class="hidden grid grid-cols-2 gap-2 pb-2 mb-2 border-b border-border/60"
+          >
+            <a
+              class="text-center py-2 text-sm font-medium text-dark-navy hover:text-primary bg-surface-alt rounded-lg border border-border/80 transition-colors"
+              href="profile.html"
+              >Hồ sơ của tôi</a
+            ><a
+              data-auth-logout
+              class="text-center py-2 text-sm font-medium text-dark-navy hover:text-primary rounded-lg border border-border/80 transition-colors"
+              href="#"
+              >Đăng xuất</a
             >
           </div>
           <a
@@ -1209,6 +1242,7 @@
         </div>
       </div>
     </footer>
+    <script src="js/auth.js"></script>
     <!-- Micro Interaction Script for Mobile Navigation -->
     <script>
       const mobileMenuBtn = document.getElementById("mobileMenuBtn");

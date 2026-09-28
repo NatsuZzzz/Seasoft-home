@@ -760,6 +760,7 @@
       </p>
     </footer>
 
+    <script src="js/auth.js"></script>
     <script>
       // --- Password Toggle ---
       const regPwdInput = document.getElementById("reg-password");
@@ -807,8 +808,8 @@
         }
       }
 
-      // --- Cấu hình API backend ---
-      const API_BASE_URL = "http://localhost:8080";
+      // Đã đăng nhập rồi thì không cần đăng ký
+      if (Auth.isLoggedIn()) location.replace("Page.html");
 
       // --- Form Submission ---
       function handleRegister(e) {
@@ -874,31 +875,13 @@
         spinner.classList.remove("hidden");
 
         // Gọi API đăng ký thật
-        fetch(`${API_BASE_URL}/api/auth/register`, {
+        Auth.request("/api/auth/register", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ fullName: name, email, phone, password }),
+          body: { fullName: name, email, phone, password },
         })
-          .then(async (res) => {
-            const data = await res.json();
-            if (!res.ok) {
-              throw new Error(
-                data.message || "Đã xảy ra lỗi. Vui lòng thử lại.",
-              );
-            }
-            return data;
-          })
           .then((data) => {
             // Đăng ký xong backend trả token luôn -> lưu lại để tự đăng nhập
-            localStorage.setItem("seasoft_token", data.token);
-            localStorage.setItem(
-              "seasoft_user",
-              JSON.stringify({
-                email: data.email,
-                fullName: data.fullName,
-                role: data.role,
-              }),
-            );
+            Auth.save(data, true);
 
             document.getElementById("reg-success").classList.remove("hidden");
             document
@@ -911,10 +894,11 @@
             }, 1800);
           })
           .catch((err) => {
-            document.getElementById("reg-error-text").textContent = err.message;
+            // Lỗi từng trường từ server (vd: số điện thoại sai định dạng)
+            const details = Object.values(err.errors || {});
+            document.getElementById("reg-error-text").textContent =
+              details.length ? details.join(" · ") : err.message;
             document.getElementById("reg-error").classList.remove("hidden");
-          })
-          .finally(() => {
             btn.disabled = false;
             btn.classList.remove("opacity-80");
             btnText.textContent = "Tạo tài khoản miễn phí";

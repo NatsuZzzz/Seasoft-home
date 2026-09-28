@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hồ sơ của tôi — SeaSoft</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="css/auth-pages.css" />
+    <!-- Chua dang nhap -> chuyen sang login truoc khi render -->
+    <script src="js/auth.js"></script>
+    <script>Auth.requireAuth();</script>
+  </head>
+
+  <body class="min-h-screen bg-surface font-body antialiased overflow-x-hidden">
+    <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+      <div class="blob-float absolute -top-32 -left-32 w-[520px] h-[520px] rounded-full bg-secondary/20 blur-3xl"></div>
+      <div class="blob-float-2 absolute -bottom-40 -right-28 w-[440px] h-[440px] rounded-full bg-primary/15 blur-3xl"></div>
+      <div class="absolute inset-0 dot-grid opacity-60"></div>
+    </div>
+
+    <header class="w-full px-6 pt-6 pb-4">
+      <div class="max-w-screen-lg mx-auto flex items-center justify-between gap-4">
+        <a href="Page.html" class="flex items-center gap-2 font-headline text-2xl font-bold tracking-tight text-dark-navy" aria-label="SeaSoft - Trang chủ">
+          <span class="w-9 h-9 rounded-lg bg-surface-alt text-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-xl">waves</span>
+          </span>
+          <span>Sea<span class="text-primary">Soft</span></span>
+        </a>
+        <div class="flex items-center gap-3">
+          <span class="hidden sm:inline text-sm text-text-muted">Xin chào, <b class="text-dark-navy" data-auth-name></b></span>
+          <button data-auth-logout class="inline-flex items-center gap-1.5 text-sm font-semibold text-dark-navy border border-border rounded-lg px-3 py-2 hover:border-primary hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-base">logout</span> Đăng xuất
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="px-4 py-8">
+      <div class="max-w-screen-lg mx-auto grid gap-6 md:grid-cols-3">
+        <!-- Tom tat -->
+        <aside class="glass-card rounded-2xl shadow-card border border-border/70 p-6 fade-slide-up md:col-span-1 h-fit">
+          <div class="flex flex-col items-center text-center gap-3">
+            <div id="avatar" class="w-20 h-20 rounded-full bg-primary text-white flex items-center justify-center text-3xl font-bold">?</div>
+            <div>
+              <p id="sum-name" class="font-bold text-dark-navy text-lg">…</p>
+              <p id="sum-email" class="text-sm text-text-muted break-all"></p>
+            </div>
+            <span id="sum-role" class="px-3 py-1 rounded-full bg-surface-alt border border-secondary/40 text-xs font-semibold text-dark-navy"></span>
+          </div>
+          <dl class="mt-6 space-y-2 text-sm">
+            <div class="flex justify-between gap-2"><dt class="text-text-muted">Tham gia</dt><dd id="sum-created" class="text-dark-navy font-medium"></dd></div>
+            <div class="flex justify-between gap-2"><dt class="text-text-muted">Đăng nhập gần nhất</dt><dd id="sum-last" class="text-dark-navy font-medium"></dd></div>
+          </dl>
+        </aside>
+
+        <div class="md:col-span-2 space-y-6">
+          <!-- Thong tin ca nhan -->
+          <section class="glass-card rounded-2xl shadow-card border border-border/70 p-6 sm:p-8 fade-slide-up fade-slide-up-d1">
+            <h2 class="font-bold text-dark-navy text-lg mb-5 flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary">badge</span> Thông tin cá nhân
+            </h2>
+            <form id="profile-form" novalidate class="grid gap-4 sm:grid-cols-2">
+              <div class="space-y-1.5 sm:col-span-2">
+                <label for="p-email" class="block text-sm font-semibold text-dark-navy">Email</label>
+                <input id="p-email" type="email" disabled class="form-input-sea w-full border border-border rounded-xl py-3 px-4 text-sm" />
+              </div>
+              <div class="space-y-1.5">
+                <label for="p-name" class="block text-sm font-semibold text-dark-navy">Họ tên</label>
+                <input id="p-name" type="text" maxlength="150" class="form-input-sea w-full bg-white border border-border rounded-xl py-3 px-4 text-sm text-dark-navy focus:ring-0" />
+                <p data-error-for="fullName" class="hidden text-xs text-red-500"></p>
+              </div>
+              <div class="space-y-1.5">
+                <label for="p-phone" class="block text-sm font-semibold text-dark-navy">Số điện thoại</label>
+                <input id="p-phone" type="tel" maxlength="20" placeholder="0901 234 567" class="form-input-sea w-full bg-white border border-border rounded-xl py-3 px-4 text-sm text-dark-navy placeholder:text-gray-400 focus:ring-0" />
+                <p data-error-for="phone" class="hidden text-xs text-red-500"></p>
+              </div>
+              <div class="sm:col-span-2 flex items-center gap-3 flex-wrap">
+                <button id="profile-btn" type="submit" class="btn-submit inline-flex items-center gap-2 bg-primary text-white font-semibold text-sm rounded-xl px-6 py-3 shadow-md">
+                  <span class="material-symbols-outlined text-lg">save</span> Lưu thay đổi
+                </button>
+                <span id="profile-msg" class="text-sm"></span>
+              </div>
+            </form>
+          </section>
+
+          <!-- Doi mat khau -->
+          <section class="glass-card rounded-2xl shadow-card border border-border/70 p-6 sm:p-8 fade-slide-up fade-slide-up-d2">
+            <h2 class="font-bold text-dark-navy text-lg mb-5 flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary">key</span> Đổi mật khẩu
+            </h2>
+            <form id="pwd-form" novalidate class="grid gap-4 sm:grid-cols-2">
+              <div class="space-y-1.5 sm:col-span-2">
+                <label for="pw-current" class="block text-sm font-semibold text-dark-navy">Mật khẩu hiện tại</label>
+                <input id="pw-current" type="password" autocomplete="current-password" class="form-input-sea w-full bg-white border border-border rounded-xl py-3 px-4 text-sm focus:ring-0" />
+              </div>
+              <div class="space-y-1.5">
+                <label for="pw-new" class="block text-sm font-semibold text-dark-navy">Mật khẩu mới</label>
+                <input id="pw-new" type="password" autocomplete="new-password" placeholder="Tối thiểu 6 ký tự" class="form-input-sea w-full bg-white border border-border rounded-xl py-3 px-4 text-sm placeholder:text-gray-400 focus:ring-0" />
+              </div>
+              <div class="space-y-1.5">
+                <label for="pw-confirm" class="block text-sm font-semibold text-dark-navy">Nhập lại mật khẩu mới</label>
+                <input id="pw-confirm" type="password" autocomplete="new-password" class="form-input-sea w-full bg-white border border-border rounded-xl py-3 px-4 text-sm focus:ring-0" />
+              </div>
+              <div class="sm:col-span-2 flex items-center gap-3 flex-wrap">
+                <button id="pwd-btn" type="submit" class="btn-submit inline-flex items-center gap-2 bg-dark-navy text-white font-semibold text-sm rounded-xl px-6 py-3 shadow-md">
+                  <span class="material-symbols-outlined text-lg">lock</span> Đổi mật khẩu
+                </button>
+                <span id="pwd-msg" class="text-sm"></span>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const ROLE_LABELS = { CUSTOMER: "Khách hàng", STAFF: "Nhân viên", MANAGER: "Quản lý", ADMIN: "Quản trị viên" };
+      const fmtDate = (iso) => (iso ? new Date(iso).toLocaleString("vi-VN") : "—");
+
+      function setMsg(el, text, ok) {
+        el.textContent = text;
+        el.className = "text-sm " + (ok ? "text-green-600" : "text-red-600");
+      }
+
+      function render(me) {
+        document.getElementById("avatar").textContent = (me.fullName || me.email).trim().charAt(0).toUpperCase();
+        document.getElementById("sum-name").textContent = me.fullName;
+        document.getElementById("sum-email").textContent = me.email;
+        document.getElementById("sum-role").textContent = ROLE_LABELS[me.role] || me.role;
+        document.getElementById("sum-created").textContent = fmtDate(me.createdAt);
+        document.getElementById("sum-last").textContent = fmtDate(me.lastLoginAt);
+        document.getElementById("p-email").value = me.email;
+        document.getElementById("p-name").value = me.fullName;
+        document.getElementById("p-phone").value = me.phone || "";
+        Auth.updateUser({ fullName: me.fullName });
+        Auth.renderHeader();
+      }
+
+      Auth.api("/api/users/me").then(render).catch((err) => {
+        setMsg(document.getElementById("profile-msg"), err.message, false);
+      });
+
+      // Cap nhat thong tin
+      document.getElementById("profile-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const msg = document.getElementById("profile-msg");
+        const btn = document.getElementById("profile-btn");
+        document.querySelectorAll("[data-error-for]").forEach((p) => p.classList.add("hidden"));
+        msg.textContent = "";
+        btn.disabled = true;
+        try {
+          const me = await Auth.api("/api/users/me", {
+            method: "PUT",
+            body: {
+              fullName: document.getElementById("p-name").value.trim(),
+              phone: document.getElementById("p-phone").value.trim(),
+            },
+          });
+          render(me);
+          setMsg(msg, "Đã lưu ✓", true);
+        } catch (err) {
+          Object.entries(err.errors || {}).forEach(([field, text]) => {
+            const p = document.querySelector(`[data-error-for="${field}"]`);
+            if (p) {
+              p.textContent = text;
+              p.classList.remove("hidden");
+            }
+          });
+          setMsg(msg, err.message, false);
+        } finally {
+          btn.disabled = false;
+        }
+      });
+
+      // Doi mat khau
+      document.getElementById("pwd-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const msg = document.getElementById("pwd-msg");
+        const btn = document.getElementById("pwd-btn");
+        const currentPassword = document.getElementById("pw-current").value;
+        const newPassword = document.getElementById("pw-new").value;
+        const confirm = document.getElementById("pw-confirm").value;
+
+        if (!currentPassword) return setMsg(msg, "Nhập mật khẩu hiện tại", false);
+        if (newPassword.length < 6) return setMsg(msg, "Mật khẩu mới tối thiểu 6 ký tự", false);
+        if (newPassword !== confirm) return setMsg(msg, "Mật khẩu nhập lại không khớp", false);
+
+        btn.disabled = true;
+        try {
+          await Auth.api("/api/users/me/password", { method: "PUT", body: { currentPassword, newPassword } });
+          e.target.reset();
+          setMsg(msg, "Đổi mật khẩu thành công. Vui lòng đăng nhập lại…", true);
+          // Refresh token da bi thu hoi o server -> dang nhap lai voi mat khau moi
+          setTimeout(() => {
+            Auth.clear();
+            location.href = "login.html?next=profile.html";
+          }, 1500);
+        } catch (err) {
+          setMsg(msg, err.message, false);
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>

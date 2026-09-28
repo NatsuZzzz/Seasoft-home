@@ -76,7 +76,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**", "/error").permitAll()
                         .requestMatchers("/api/admin/**").hasAnyRole("ADMIN", "MANAGER")
-                        .anyRequest().authenticated())
+                        .requestMatchers("/api/**").authenticated()
+                        // Con lai la file tinh cua frontend (html/css/js/anh)
+                        .anyRequest().permitAll())
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint((req, res, e) ->
                                 writeError(res, 401, "Bạn cần đăng nhập"))

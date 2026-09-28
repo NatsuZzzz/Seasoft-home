@@ -381,7 +381,7 @@
                   >Mật khẩu</label
                 >
                 <a
-                  href="#"
+                  href="forgot-password.html"
                   id="forgot-password-link"
                   class="text-xs font-medium text-primary hover:text-dark-navy transition-colors"
                   >Quên mật khẩu?</a
@@ -435,7 +435,7 @@
               <label
                 for="remember-me"
                 class="text-sm text-text-muted cursor-pointer select-none"
-                >Ghi nhớ đăng nhập trong 30 ngày</label
+                >Ghi nhớ đăng nhập trên thiết bị này</label
               >
             </div>
 
@@ -539,6 +539,7 @@
       </p>
     </footer>
 
+    <script src="js/auth.js"></script>
     <script>
       // --- Password Toggle ---
       const pwdInput = document.getElementById("login-password");
@@ -551,8 +552,8 @@
         pwdIcon.textContent = isVisible ? "visibility_off" : "visibility";
       });
 
-      // --- Cấu hình API backend ---
-      const API_BASE_URL = "http://localhost:8080";
+      // Đã đăng nhập rồi thì không cần ở trang này
+      if (Auth.isLoggedIn()) location.replace(Auth.nextUrl());
 
       // --- Form Validation & Submission ---
       function handleLogin(e) {
@@ -595,32 +596,15 @@
         spinner.classList.remove("hidden");
 
         // Gọi API đăng nhập thật
-        fetch(`${API_BASE_URL}/api/auth/login`, {
+        const remember = document.getElementById("remember-me").checked;
+        Auth.request("/api/auth/login", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
+          body: { email, password },
         })
-          .then(async (res) => {
-            const data = await res.json();
-            if (!res.ok) {
-              throw new Error(
-                data.message || "Email hoặc mật khẩu không đúng.",
-              );
-            }
-            return data;
-          })
           .then((data) => {
-            // Lưu token để dùng cho các request cần đăng nhập sau này
-            localStorage.setItem("seasoft_token", data.token);
-            localStorage.setItem(
-              "seasoft_user",
-              JSON.stringify({
-                email: data.email,
-                fullName: data.fullName,
-                role: data.role,
-              }),
-            );
-            window.location.href = "Page.html";
+            // Ghi nhớ -> localStorage (giữ sau khi tắt trình duyệt), không -> sessionStorage
+            Auth.save(data, remember);
+            window.location.href = Auth.nextUrl();
           })
           .catch((err) => {
             formErrorText.textContent = err.message;
@@ -634,16 +618,6 @@
             spinner.classList.add("hidden");
           });
       }
-
-      // --- Forgot password link ---
-      document
-        .getElementById("forgot-password-link")
-        .addEventListener("click", (e) => {
-          e.preventDefault();
-          alert(
-            "Tính năng đặt lại mật khẩu sẽ được gửi về email đã đăng ký của bạn!",
-          );
-        });
 
       // --- Social login buttons ---
       document.getElementById("google-login").addEventListener("click", () => {

@@ -1,6 +1,7 @@
 package com.store.seasoft.Config;
 
 import com.store.seasoft.Dto.ApiError;
+import com.store.seasoft.Service.InvalidRefreshTokenException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ApiError> handleBadRequest(IllegalArgumentException ex) {
         return ResponseEntity.badRequest().body(ApiError.of(400, ex.getMessage()));
+    }
+
+    @ExceptionHandler(InvalidRefreshTokenException.class)
+    public ResponseEntity<ApiError> handleInvalidRefresh(InvalidRefreshTokenException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(ApiError.of(401, "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại"));
     }
 
     @ExceptionHandler(BadCredentialsException.class)

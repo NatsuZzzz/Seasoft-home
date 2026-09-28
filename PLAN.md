@@ -7,19 +7,20 @@
 
 ## 0. Hiện trạng
 
-| Hạng mục | Trạng thái |
-|---|---|
-| DB schema `Database/db.sql` | ✅ |
-| Entity/Repo: User, Role, CustomerProfile, StaffProfile | ✅ |
-| Auth: `POST /api/auth/register`, `POST /api/auth/login`, JWT, BCrypt | ✅ |
-| Trang HTML: `Page.html`, `login.html`, `register.html` | ✅ |
-| Test tự động | ❌ |
-| Refresh token / quên mật khẩu | ❌ |
-| Nghiệp vụ chính (tư vấn, dự án, admin) | ❌ |
-| Hiệu ứng giao diện động | ❌ |
-| Docker / CI / deploy | ❌ |
-git push -u origin main
+| Hạng mục                                                             | Trạng thái |
+| -------------------------------------------------------------------- | ---------- |
+| DB schema `Database/db.sql`                                          | ✅         |
+| Entity/Repo: User, Role, CustomerProfile, StaffProfile               | ✅         |
+| Auth: `POST /api/auth/register`, `POST /api/auth/login`, JWT, BCrypt | ✅         |
+| Trang HTML: `Page.html`, `login.html`, `register.html`               | ✅         |
+| Test tự động                                                         | ❌         |
+| Refresh token / quên mật khẩu                                        | ❌         |
+| Nghiệp vụ chính (tư vấn, dự án, admin)                               | ❌         |
+| Hiệu ứng giao diện động                                              | ❌         |
+| Docker / CI / deploy                                                 | ❌         |
+
 ### ⚠️ Cần xử lý sớm
+
 1. Secret (DB password, `jwt.secret`) nằm trong `application.properties` → chuyển sang env var, đổi secret mới.
 2. `ddl-auto=update` song song `db.sql` → chuyển sang Flyway, prod dùng `validate`.
 3. `users.status` trong `db.sql` là PG enum `user_status`, entity map `EnumType.STRING` (varchar) → insert sẽ lỗi nếu DB tạo từ `db.sql`. Fix bằng `@JdbcTypeCode(SqlTypes.NAMED_ENUM)` hoặc đổi cột sang VARCHAR + CHECK.
@@ -29,6 +30,7 @@ git push -u origin main
 ---
 
 ## Phase 1 — Dọn nền móng
+
 - [x] 1.1 Tách config theo profile (`dev`/`prod`), secret đọc từ env (`DB_URL`, `DB_USERNAME`, `DB_PASSWORD`, `JWT_SECRET`, `CORS_ORIGINS`)
 - [x] 1.2 Flyway: `db.sql` → `V1__init_users.sql` (fix cột status)
 - [x] 1.3 Chuẩn hoá response lỗi `{status, message, errors}` (+ lỗi validation)
@@ -37,17 +39,20 @@ git push -u origin main
 - **Mốc đánh giá #1**: chạy được bằng env var, `mvn test` xanh, không còn secret trong repo
 
 ## Phase 2 — Hoàn thiện Authentication
-- [ ] 2.1 Test + `TC_register.md`
-- [ ] 2.2 Test + `TC_login.md`
-- [ ] 2.3 Refresh token + logout (revoke)
-- [ ] 2.4 Quên / đặt lại mật khẩu (Spring Mail; dev log ra console)
-- [ ] 2.5 (Tuỳ chọn) Xác thực email
-- [ ] 2.6 `GET/PUT /api/users/me`, đổi mật khẩu
-- [ ] 2.7 Frontend: guard trang, auto refresh token, nút logout
+
+- [x] 2.1 Test + `TC_register.md`
+- [x] 2.2 Test + `TC_login.md`
+- [x] 2.3 Refresh token + logout (revoke, rotation, phát hiện dùng lại token) — `TC_refresh_token.md`
+- [x] 2.4 Quên / đặt lại mật khẩu (Spring Mail; dev log ra console) — `TC_password_reset.md`
+- [ ] 2.5 (Tuỳ chọn) Xác thực email — **hoãn**, làm khi có SMTP thật (Phase 9)
+- [x] 2.6 `GET/PUT /api/users/me`, đổi mật khẩu — `TC_user_profile.md`
+- [x] 2.7 Frontend: `js/auth.js`, guard trang, auto refresh token, nút logout, `profile.html`, `forgot-password.html`, `reset-password.html`
 - **Mốc đánh giá #2**
 
 ## Phase 3 — Giao diện động & hiệu ứng cuộn ✨
+
 Mục tiêu: kéo xuống tới đâu, nội dung "diễn" tới đó — mượt, không giật, không làm chậm trang.
+
 - [ ] 3.1 Thư viện: **GSAP + ScrollTrigger** (hiệu ứng theo cuộn) + **Lenis** (smooth scroll), load từ CDN jsDelivr
 - [ ] 3.2 File dùng chung `js/animations.js` + `css/animations.css`, gắn bằng data-attribute (`data-reveal="fade-up"`, `data-stagger`, `data-parallax`) để trang nào cũng tái sử dụng
 - [ ] 3.3 Hero: text xuất hiện từng dòng/từng chữ, mockup parallax nhẹ, nền wave chuyển động (theo logo sóng)
@@ -63,6 +68,7 @@ Mục tiêu: kéo xuống tới đâu, nội dung "diễn" tới đó — mượ
 - **Mốc đánh giá #3**
 
 ## Phase 4 — Đăng ký tư vấn (Lead)
+
 - [ ] 4.1 Migration `V2__consultations.sql` (status NEW/CONTACTED/QUOTED/WON/LOST, assigned_staff_id)
 - [ ] 4.2 `POST /api/consultations` public + chống spam
 - [ ] 4.3 API staff: list/filter/phân công/đổi trạng thái
@@ -71,6 +77,7 @@ Mục tiêu: kéo xuống tới đâu, nội dung "diễn" tới đó — mượ
 - **Mốc đánh giá #4**
 
 ## Phase 5 — Theo dõi dự án (Customer Portal)
+
 - [ ] 5.1 Migration `V3__projects.sql`: projects, project_milestones, project_updates
 - [ ] 5.2 API staff tạo/cập nhật, customer chỉ xem dự án của mình (test IDOR)
 - [ ] 5.3 `dashboard.html`: danh sách dự án, progress bar animate, timeline
@@ -78,6 +85,7 @@ Mục tiêu: kéo xuống tới đâu, nội dung "diễn" tới đó — mượ
 - **Mốc đánh giá #5**
 
 ## Phase 6 — Admin / Manager Panel
+
 - [ ] 6.1 Quản lý user: tạo STAFF, khoá/mở, đổi role
 - [ ] 6.2 Quản lý lead + dự án (filter, phân trang)
 - [ ] 6.3 Thống kê
@@ -86,10 +94,12 @@ Mục tiêu: kéo xuống tới đâu, nội dung "diễn" tới đó — mượ
 - **Mốc đánh giá #6**
 
 ## Phase 7 — (Tuỳ chọn) Marketing & SEO
+
 - [ ] Portfolio / case study, blog, testimonial
 - [ ] SEO: meta, sitemap.xml, robots.txt, OG image
 
 ## Phase 8 — Hardening
+
 - [ ] 8.1 Security review: CORS, rate-limit login, security headers, validate input
 - [ ] 8.2 Tailwind CDN → build CSS tĩnh
 - [ ] 8.3 Gom JS chung `api.js`
@@ -98,6 +108,7 @@ Mục tiêu: kéo xuống tới đâu, nội dung "diễn" tới đó — mượ
 - **Mốc đánh giá #8**: regression toàn bộ
 
 ## Phase 9 — Đóng gói & Deploy 🚀
+
 - [ ] 9.1 Dockerfile multi-stage
 - [ ] 9.2 Frontend vào `src/main/resources/static/` (1 service)
 - [ ] 9.3 `docker-compose.yml`: app + postgres
@@ -108,19 +119,21 @@ Mục tiêu: kéo xuống tới đâu, nội dung "diễn" tới đó — mượ
 - [ ] 9.8 Backup DB, uptime monitoring
 - **Mốc đánh giá cuối**
 
-| Hosting | Ưu | Nhược |
-|---|---|---|
-| Render/Railway + Neon | Free, deploy từ GitHub, HTTPS sẵn | Ngủ đông, cold start |
-| VPS + Docker Compose + Nginx + Certbot | Toàn quyền, rẻ lâu dài | Tự quản server |
+| Hosting                                | Ưu                                | Nhược                |
+| -------------------------------------- | --------------------------------- | -------------------- |
+| Render/Railway + Neon                  | Free, deploy từ GitHub, HTTPS sẵn | Ngủ đông, cold start |
+| VPS + Docker Compose + Nginx + Certbot | Toàn quyền, rẻ lâu dài            | Tự quản server       |
 
 ---
 
 ## Quy trình mỗi chức năng
+
 code → test tự động → test tay trên UI → `docs/testcases/TC_<tên>.md` (≥10 case) → đánh giá mốc → tick checklist → commit
 
 ## Nhật ký đánh giá
 
 ### Mốc #1 — Phase 1 (2026-09-28) ✅
+
 - **Kết quả**: 3 test tự động pass; smoke test 8 request trên DB thật đều đúng; `TC_foundation.md` 13 case pass.
 - **Làm thêm ngoài plan**:
   - Fix bug token rác/hết hạn → server trả 500 (filter ném exception). Giờ là 401.
@@ -130,3 +143,18 @@ code → test tự động → test tay trên UI → `docs/testcases/TC_<tên>.m
 - **Phát hiện**: DB dev thực tế khác `db.sql` (Hibernate `update` đã tự sửa) → V2 chuẩn hoá `status`. Backup DB trước khi migrate nằm ở scratchpad (`SeaSoft_before_flyway.dump`).
 - **Nợ kỹ thuật**: test chạy trên Postgres local, CI cần service Postgres (Phase 9.4). `Database/db.sql` giờ chỉ để tham khảo.
 - **Tiếp theo**: Phase 2 — Auth.
+
+### Mốc #2 — Phase 2 (2026-09-28) ✅
+- **Kết quả**: 63/63 test tự động pass (5 class × 12 + 3). Test UI trên browser thật: đăng ký → header → hồ sơ → auto refresh → đổi mật khẩu → login lại với `next` → logout → guard → quên/đặt lại mật khẩu: tất cả pass, không lỗi JS. 5 file testcase (14–16 case/file).
+- **Bug bắt được**:
+  - Email có khoảng trắng đầu/cuối bị `@Email` từ chối (400) → trim trong setter DTO.
+  - Bulk update (`@Modifying`) không đồng bộ cache Hibernate → thêm flush/clear tự động.
+  - Reset mật khẩu trên entity detached không được lưu → load lại user theo id.
+  - Menu mobile `Page.html` trỏ `#login`/`#register` (link chết) → sửa.
+  - `register.html` bật lại nút submit sau khi đăng ký thành công → sửa.
+- **Thay đổi đáng chú ý**:
+  - Access token 15 phút (trước 24h), refresh token 7 ngày.
+  - Spring Boot serve luôn `Html/` → mở http://localhost:8080 là có web, không cần Live Server.
+  - Checkbox "Ghi nhớ 30 ngày" đổi thành "Ghi nhớ trên thiết bị này" cho đúng thực tế.
+- **Nợ kỹ thuật**: `login.html`/`register.html`/`Page.html` vẫn nhúng Tailwind config + CSS inline (trang mới dùng file chung `js/tailwind-config.js`, `css/auth-pages.css`) → gom ở Phase 8.3. Frontend yêu cầu mật khẩu ≥ 8 khi đăng ký, backend ≥ 6 → thống nhất khi hardening.
+- **Tiếp theo**: Phase 3 — Giao diện động ✨.
