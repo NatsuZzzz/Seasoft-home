@@ -62,7 +62,13 @@ jobs:
             echo "ADMIN_NAME=Admin"
           } > .env
       - name: docker compose up
-        run: docker compose up -d --build
+        run: |
+          # Dua loi ra annotation de doc duoc ngay tren trang run
+          if ! docker compose up -d --build > build.log 2>&1; then
+            tail -n 40 build.log
+            echo "::error title=docker compose up::$(tail -n 25 build.log | sed 's/%/%25/g' | tr '\n' '|' | sed 's/|/%0A/g')"
+            exit 1
+          fi
       - name: Cho app healthy
         run: |
           for i in $(seq 1 60); do
