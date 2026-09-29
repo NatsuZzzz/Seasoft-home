@@ -109,11 +109,14 @@ Mục tiêu: kéo xuống tới đâu, nội dung "diễn" tới đó — mượ
 
 ## Phase 9 — Đóng gói & Deploy 🚀
 
+Chiến lược (chốt 2026-09-29): **lên sóng nhanh bằng Render + Neon** để khách xem trước, sau đó chuyển VPS. Image Docker và env var giữ nguyên, chỉ cần dump/restore DB + trỏ DNS (xem `docs/DEPLOY.md`).
+
+- [x] 9.0 Sửa trước khi lên sóng: tạm ẩn blog bằng cờ `FEATURE_BLOG` (mặc định tắt) — `TC_blog_feature_flag.md`
 - [ ] 9.1 Dockerfile multi-stage
-- [ ] 9.2 Frontend vào `src/main/resources/static/` (1 service)
-- [ ] 9.3 `docker-compose.yml`: app + postgres
-- [ ] 9.4 CI GitHub Actions: test + build image
-- [ ] 9.5 Hosting, env var, Flyway, seed ADMIN
+- [ ] 9.2 Frontend vào `static/` (Docker copy `Html/` vào classpath lúc build, không đổi cấu trúc repo)
+- [ ] 9.3 `docker-compose.yml`: app + postgres, `.env.example`
+- [ ] 9.4 CI GitHub Actions: test (Postgres service) + build image + smoke test
+- [ ] 9.5 Render + Neon: env var, Flyway, seed ADMIN (cần chủ dự án tạo tài khoản)
 - [ ] 9.6 Domain + HTTPS, CORS về domain thật
 - [ ] 9.7 Smoke test prod + `TC_deploy_smoke.md`
 - [ ] 9.8 Backup DB, uptime monitoring

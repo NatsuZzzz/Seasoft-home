@@ -1,0 +1,89 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test (Maven + Postgres)
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: seasoft_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 3s --health-retries 20
+    env:
+      TEST_DB_URL: jdbc:postgresql://localhost:5432/seasoft_test
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+      - name: mvn test
+        working-directory: seasoft
+        run: mvn -B -ntp test
+      - name: Upload test reports
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: seasoft/target/surefire-reports
+
+  docker:
+    name: Build image + smoke test
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tao .env tam (secret ngau nhien, chi dung trong CI)
+        run: |
+          {
+            echo "DB_PASSWORD=$(openssl rand -hex 16)"
+            echo "JWT_SECRET=$(openssl rand -base64 48)"
+            echo "CORS_ORIGINS=http://localhost:8080"
+            echo "FRONTEND_URL=http://localhost:8080"
+            echo "ADMIN_EMAIL=admin@ci.test"
+            echo "ADMIN_PASSWORD=$(openssl rand -hex 12)"
+            echo "ADMIN_NAME=Admin"
+          } > .env
+      - name: docker compose up
+        run: docker compose up -d --build
+      - name: Cho app healthy
+        run: |
+          for i in $(seq 1 60); do
+            if curl -fs http://localhost:8080/actuator/health | grep -q UP; then echo "UP sau $((i*3))s"; exit 0; fi
+            sleep 3
+          done
+          docker compose logs app; exit 1
+      - name: Smoke test
+        run: |
+          set -e
+          code() { curl -s -o /dev/null -w "%{http_code}" "$@"; }
+          test "$(code http://localhost:8080/Page.html)" = 200
+          test "$(code http://localhost:8080/login.html)" = 200
+          test "$(code http://localhost:8080/css/tailwind.css)" = 200
+          test "$(code http://localhost:8080/api/public/portfolio)" = 200
+          test "$(code http://localhost:8080/api/users/me)" = 401
+          test "$(code http://localhost:8080/actuator/env)" != 200
+          test "$(code http://localhost:8080/blog.html)" = 302
+          test "$(code http://localhost:8080/api/public/blog)" = 404
+          curl -fsI http://localhost:8080/Page.html | grep -qi "content-security-policy"
+          echo "Smoke test OK"
+      - name: Logs khi loi
+        if: failure()
+        run: docker compose logs

@@ -1,0 +1,33 @@
+# Chay ca he thong: docker compose up -d --build  (can file .env canh file nay, copy tu .env.example)
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: seasoft
+      POSTGRES_USER: seasoft
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Chua dat DB_PASSWORD trong .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U seasoft -d seasoft"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  app:
+    build: .
+    image: seasoft:latest
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/seasoft
+      DB_USERNAME: seasoft
+    ports:
+      - "${APP_PORT:-8080}:8080"
+
+volumes:
+  pgdata:

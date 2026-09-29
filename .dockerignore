@@ -1,0 +1,6 @@
+# Chi can seasoft/pom.xml, seasoft/src, Html/
+*
+!seasoft/pom.xml
+!seasoft/src/
+!Html/
+seasoft/src/test/

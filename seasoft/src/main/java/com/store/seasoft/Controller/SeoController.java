@@ -22,6 +22,9 @@ public class SeoController {
     @Value("${app.frontend-url}")
     private String baseUrl;
 
+    @Value("${app.features.blog:false}")
+    private boolean blogEnabled;
+
     @GetMapping(value = "/sitemap.xml", produces = MediaType.APPLICATION_XML_VALUE)
     public String sitemap() {
         StringBuilder xml = new StringBuilder("""
@@ -29,10 +32,12 @@ public class SeoController {
                 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
                 """);
         url(xml, "/Page.html", null, "weekly", "1.0");
-        url(xml, "/blog.html", null, "weekly", "0.8");
-        for (BlogPost p : contentService.postsForSitemap()) {
-            String lastmod = DateTimeFormatter.ISO_LOCAL_DATE.format(p.getUpdatedAt().atOffset(ZoneOffset.UTC));
-            url(xml, "/post.html?slug=" + p.getSlug(), lastmod, "monthly", "0.6");
+        if (blogEnabled) {
+            url(xml, "/blog.html", null, "weekly", "0.8");
+            for (BlogPost p : contentService.postsForSitemap()) {
+                String lastmod = DateTimeFormatter.ISO_LOCAL_DATE.format(p.getUpdatedAt().atOffset(ZoneOffset.UTC));
+                url(xml, "/post.html?slug=" + p.getSlug(), lastmod, "monthly", "0.6");
+            }
         }
         return xml.append("</urlset>\n").toString();
     }
