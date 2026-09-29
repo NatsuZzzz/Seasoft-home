@@ -117,9 +117,9 @@ Chiến lược (chốt 2026-09-29): **lên sóng nhanh bằng Render + Neon** �
 - [x] 9.3 `docker-compose.yml`: app + postgres, `.env.example`
 - [x] 9.4 CI GitHub Actions: test (Postgres service) + build image + smoke test — `TC_docker_ci.md`
 - **Mốc đánh giá #9a** (9.0–9.4) ✅ xem nhật ký
-- [ ] 9.5 Render + Neon: env var, Flyway, seed ADMIN (cần chủ dự án tạo tài khoản)
+- [x] 9.5 Render + Neon: env var, Flyway, seed ADMIN — live tại https://seasoft.onrender.com
 - [ ] 9.6 Domain + HTTPS, CORS về domain thật
-- [ ] 9.7 Smoke test prod + `TC_deploy_smoke.md`
+- [x] 9.7 Smoke test prod + `TC_deploy_smoke.md` (17 case pass)
 - [ ] 9.8 Backup DB, uptime monitoring
 - **Mốc đánh giá cuối**
 
@@ -224,3 +224,9 @@ code → test tự động → test tay trên UI → `docs/testcases/TC_<tên>.m
 - **Vướng**: Docker Desktop local báo "unable to start" nên chưa chạy compose trên máy; CI đã kiểm chứng thay. Run CI đầu fail 20s không có log công khai → thêm annotation lỗi.
 - **Bổ sung sau khi Docker local chạy lại**: 9 case chạy local pass (build, non-root, seed admin, Flyway, dữ liệu bền, form tư vấn). Bắt 2 bug: `auth.js` coi mọi cổng localhost ≠ 8080 là Live Server nên gọi API sang 8080 (sửa: chỉ cổng 55xx); `.env` gốc chưa được gitignore (suýt lộ secret).
 - **Tiếp theo**: 9.5 Render + Neon (cần chủ dự án tạo tài khoản).
+
+### Mốc #9b — Phase 9.5 + 9.7 (2026-09-29) ✅ LÊN SÓNG
+- **Kết quả**: https://seasoft.onrender.com chạy thật (Render Free, Singapore + Neon Singapore). Flyway V1–V5 chạy trên DB trống, ADMIN được seed. 17/17 smoke test pass (`TC_deploy_smoke.md`), UI không lỗi console.
+- **Bài học**: region Render không đổi được sau khi tạo → phải chọn Singapore từ đầu; nút Generate của Render chỉ sinh secret 24 byte (app cần ≥ 32); `ADMIN_PASSWORD` < 8 ký tự thì admin không được tạo mà chỉ có WARN; Flyway cần endpoint Neon trực tiếp (không `-pooler`).
+- **Việc chủ dự án cần làm**: xoá 2 service lỗi (`Seasoft-home` Oregon, `Seasoft-home-1`); đổi lại các secret từng hiện trên màn hình.
+- **Còn lại**: 9.6 domain riêng (chưa có domain), 9.8 backup + uptime monitoring.
