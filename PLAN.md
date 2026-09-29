@@ -112,10 +112,11 @@ Mục tiêu: kéo xuống tới đâu, nội dung "diễn" tới đó — mượ
 Chiến lược (chốt 2026-09-29): **lên sóng nhanh bằng Render + Neon** để khách xem trước, sau đó chuyển VPS. Image Docker và env var giữ nguyên, chỉ cần dump/restore DB + trỏ DNS (xem `docs/DEPLOY.md`).
 
 - [x] 9.0 Sửa trước khi lên sóng: tạm ẩn blog bằng cờ `FEATURE_BLOG` (mặc định tắt) — `TC_blog_feature_flag.md`
-- [ ] 9.1 Dockerfile multi-stage
-- [ ] 9.2 Frontend vào `static/` (Docker copy `Html/` vào classpath lúc build, không đổi cấu trúc repo)
-- [ ] 9.3 `docker-compose.yml`: app + postgres, `.env.example`
-- [ ] 9.4 CI GitHub Actions: test (Postgres service) + build image + smoke test
+- [x] 9.1 Dockerfile multi-stage
+- [x] 9.2 Frontend vào `static/` (Docker copy `Html/` vào classpath lúc build, không đổi cấu trúc repo)
+- [x] 9.3 `docker-compose.yml`: app + postgres, `.env.example`
+- [x] 9.4 CI GitHub Actions: test (Postgres service) + build image + smoke test — `TC_docker_ci.md`
+- **Mốc đánh giá #9a** (9.0–9.4) ✅ xem nhật ký
 - [ ] 9.5 Render + Neon: env var, Flyway, seed ADMIN (cần chủ dự án tạo tài khoản)
 - [ ] 9.6 Domain + HTTPS, CORS về domain thật
 - [ ] 9.7 Smoke test prod + `TC_deploy_smoke.md`
@@ -215,3 +216,10 @@ code → test tự động → test tay trên UI → `docs/testcases/TC_<tên>.m
 - **SEO**: `post.html` được server render sẵn nội dung + title/description/canonical/OG/JSON-LD BlogPosting (bot không cần chạy JS); bài không tồn tại trả 404 + noindex.
 - **Nợ kỹ thuật**: trang chủ mobile chưa tới 90 (4 file CSS chặn render, HTML 73 KB); chữ cyan nhỏ trên nền trắng cần chủ dự án quyết định tông màu; rate limit lưu RAM (1 instance).
 - **Tiếp theo**: Phase 9 — Đóng gói & Deploy.
+
+### Mốc #9a — Phase 9.0–9.4 (2026-09-29) ✅
+- **Kết quả**: 182/182 test tự động (thêm 8 test cờ blog), chạy xanh cả local lẫn CI. Image build và smoke test 11 điểm pass trên GitHub Actions. 2 file testcase (12 + 14 case).
+- **Đã làm**: cờ `FEATURE_BLOG` (tắt blog công khai nhưng admin vẫn soạn bài được), `Dockerfile` multi-stage (JRE Alpine, user thường, giới hạn heap cho gói 512 MB, HEALTHCHECK), `docker-compose.yml` + `.env.example`, `.github/workflows/ci.yml`, `docs/DEPLOY.md` (Render + Neon, đường chuyển VPS).
+- **Trả nợ**: CI có Postgres service (nợ từ Mốc #1).
+- **Vướng**: Docker Desktop local báo "unable to start" nên chưa chạy compose trên máy; CI đã kiểm chứng thay. Run CI đầu fail 20s không có log công khai → thêm annotation lỗi.
+- **Tiếp theo**: 9.5 Render + Neon (cần chủ dự án tạo tài khoản).
