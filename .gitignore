@@ -1,1 +1,6 @@
 node_modules/
+
+# Secret deploy (docker compose)
+.env
+.env.*
+!.env.example

@@ -10,12 +10,13 @@
 (function () {
   "use strict";
 
-  // Mo bang file:// hoac Live Server (cong khac 8080) -> goi API o localhost:8080.
-  // Khi Spring Boot serve frontend (dev :8080 hoac prod) -> cung origin.
+  // Mo bang file:// hoac Live Server (cong 55xx) -> goi API o localhost:8080.
+  // Con lai (Spring Boot serve frontend: dev :8080, Docker cong bat ky, prod) -> cung origin.
   const isLocal = ["localhost", "127.0.0.1", ""].includes(location.hostname);
+  const isLiveServer = isLocal && /^55\d\d$/.test(location.port);
   const API_BASE_URL =
     window.SEASOFT_API_BASE_URL ??
-    (location.protocol === "file:" || (isLocal && location.port !== "8080")
+    (location.protocol === "file:" || isLiveServer
       ? "http://localhost:8080"
       : "");
 

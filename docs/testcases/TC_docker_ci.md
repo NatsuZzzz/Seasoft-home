@@ -17,9 +17,23 @@
 | TC-DC10 | Blog tắt trong bản deploy | `GET /blog.html`, `GET /api/public/blog` | 302, 404 | 302, 404 | ✅ |
 | TC-DC11 | Security headers | `HEAD /Page.html` | Có `Content-Security-Policy` | Có | ✅ |
 | TC-DC12 | Secret không nằm trong repo | CI tạo `.env` ngẫu nhiên; kiểm tra file staged | Không có JWT secret/mật khẩu thật trong commit | Đúng | ✅ |
-| TC-DC13 | Thiếu biến bắt buộc | `.env` không có `DB_PASSWORD` | Compose báo lỗi "Chua dat DB_PASSWORD", không chạy | Theo cú pháp `${VAR:?}` | ✅ |
+| TC-DC13 | Thiếu biến bắt buộc | `.env` không có `DB_PASSWORD`, `docker compose config` | Báo lỗi "Chua dat DB_PASSWORD trong .env", không chạy | Đúng (local) | ✅ |
 | TC-DC14 | Lỗi build hiện ra ngoài | Build fail | Log lỗi hiện thành annotation trên trang run (xem không cần đăng nhập) | Đã thêm sau run #1 | ✅ |
+
+## Chạy local bằng Docker Desktop (2026-09-29, cổng 8081)
+
+| ID | Kịch bản | Bước | Kết quả mong đợi | Thực tế | Trạng thái |
+|---|---|---|---|---|---|
+| TC-DC15 | Build + khởi động | `docker compose up -d --build` | Build OK, app healthy | Build 117s, UP sau 12s, image 408 MB | ✅ |
+| TC-DC16 | Container không chạy bằng root | `docker compose exec app whoami` | `app` | `app` | ✅ |
+| TC-DC17 | Seed ADMIN từ env | Login `ADMIN_EMAIL`/`ADMIN_PASSWORD` qua API và UI | 200, vào được `admin.html` (tab Tổng quan) | Đúng | ✅ |
+| TC-DC18 | Sai mật khẩu | Login admin với mật khẩu sai | 401 | 401 | ✅ |
+| TC-DC19 | Flyway | Bảng `flyway_schema_history` | V1–V5 thành công | 1,2,3,4,5 | ✅ |
+| TC-DC20 | Dữ liệu bền qua restart | `docker compose down` (giữ volume) → `up`, login lại | Admin còn, không bị tạo trùng (1 user) | Đúng | ✅ |
+| TC-DC21 | Form tư vấn | `POST /api/consultations` thiếu dịch vụ, rồi đủ trường | 400 `errors.serviceType`, sau đó 201 + lưu DB trạng thái NEW | Đúng | ✅ |
+| TC-DC22 | Trang chủ chạy ở cổng khác 8080 | Mở `http://localhost:8081`, xem network/console | API gọi cùng origin (8081), không lỗi CSP | **Lần đầu fail**: `auth.js` gọi sang `localhost:8080`, CSP chặn → sửa, lần 2 pass | ✅ |
+| TC-DC23 | `.env` gốc không bị commit | `git check-ignore .env` | Bị ignore, `.env.example` vẫn track | **Lần đầu fail**: `.env` gốc chưa có trong `.gitignore` → thêm, pass | ✅ |
 
 ## Ghi chú
 - Run #1 (`b3e03c2`) fail ở bước `docker compose up` sau 20s mà không có log công khai. Run #2 dùng cùng Dockerfile và compose đã pass toàn bộ, nên nhiều khả năng là lỗi tạm thời lúc pull image. Đã bổ sung annotation để lần sau đọc được nguyên nhân.
-- Khi Docker Desktop local chạy lại, cần chạy thử thêm `docker compose up -d --build` trên máy (TC-DC13 thử thật).
+- Docker Desktop local trước đó hỏng (ổ C đầy + database engine bị hỏng từ 01/09). Chủ dự án đã chuyển ổ ảo sang `D:\Tool\Docker` và purge data, sau đó chạy được.

@@ -222,4 +222,5 @@ code → test tự động → test tay trên UI → `docs/testcases/TC_<tên>.m
 - **Đã làm**: cờ `FEATURE_BLOG` (tắt blog công khai nhưng admin vẫn soạn bài được), `Dockerfile` multi-stage (JRE Alpine, user thường, giới hạn heap cho gói 512 MB, HEALTHCHECK), `docker-compose.yml` + `.env.example`, `.github/workflows/ci.yml`, `docs/DEPLOY.md` (Render + Neon, đường chuyển VPS).
 - **Trả nợ**: CI có Postgres service (nợ từ Mốc #1).
 - **Vướng**: Docker Desktop local báo "unable to start" nên chưa chạy compose trên máy; CI đã kiểm chứng thay. Run CI đầu fail 20s không có log công khai → thêm annotation lỗi.
+- **Bổ sung sau khi Docker local chạy lại**: 9 case chạy local pass (build, non-root, seed admin, Flyway, dữ liệu bền, form tư vấn). Bắt 2 bug: `auth.js` coi mọi cổng localhost ≠ 8080 là Live Server nên gọi API sang 8080 (sửa: chỉ cổng 55xx); `.env` gốc chưa được gitignore (suýt lộ secret).
 - **Tiếp theo**: 9.5 Render + Neon (cần chủ dự án tạo tài khoản).
